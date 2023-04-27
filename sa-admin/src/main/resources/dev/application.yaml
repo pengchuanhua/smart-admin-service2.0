@@ -1,7 +1,7 @@
 server:
   servlet:
     context-path: '/'
-  port: 1024
+  port: 28087
 spring:
   profiles:
     active: '@profiles.active@'
