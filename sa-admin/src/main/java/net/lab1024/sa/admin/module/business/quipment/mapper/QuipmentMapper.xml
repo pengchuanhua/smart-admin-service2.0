@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.lab1024.sa.admin.module.business.quipment.dao.QuipmentDao">
+
+    <!-- 分页查询 -->
+    <select id="queryPage" resultType="net.lab1024.sa.admin.module.business.quipment.domain.vo.QuipmentVO">
+        SELECT
+        *
+        FROM t_quipment
+        <where>
+            <!--设备编码/名称-->
+            <if test="queryForm.code != null and queryForm.code != ''">
+                AND ( INSTR(t_quipment.quipment_sn,#{queryForm.code})
+                OR INSTR(t_quipment.quipment_name,#{queryForm.code})
+            )
+            </if>
+            <!--设备型号-->
+            <if test="queryForm.model != null and queryForm.model != ''">
+                        AND INSTR(t_quipment.quipment_model,#{queryForm.model})
+            </if>
+            <!--设备状态（0：停用，1：正常）-->
+            <if test="queryForm.isDisabled != null">
+                AND t_quipment.is_disabled = #{queryForm.isDisabled}
+            </if>
+        </where>
+    </select>
+
+
+</mapper>
