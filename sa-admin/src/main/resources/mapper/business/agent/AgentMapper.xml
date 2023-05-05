@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.lab1024.sa.admin.module.business.agent.dao.AgentDao">
+
+    <!-- 分页查询 -->
+    <select id="queryPage" resultType="net.lab1024.sa.admin.module.business.agent.domain.vo.AgentVO">
+        SELECT
+        *
+        FROM t_agent
+        <where>
+            <!--代理商-->
+            <if test="queryForm.code != null and queryForm.code != ''">
+                AND ( INSTR(t_agent.code,#{queryForm.code})
+                OR INSTR(t_agent.name,#{queryForm.code})
+            )
+            </if>
+            <!--联系人-->
+            <if test="queryForm.contacts != null and queryForm.contacts != ''">
+                        AND INSTR(t_agent.contacts,#{queryForm.contacts})
+            </if>
+            <!--有效标记-->
+            <if test="queryForm.isDisabled != null">
+                AND t_agent.is_disabled = #{queryForm.isDisabled}
+            </if>
+        </where>
+    </select>
+
+
+</mapper>
