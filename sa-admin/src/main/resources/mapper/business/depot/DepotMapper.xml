@@ -21,5 +21,17 @@
         </where>
     </select>
 
+    <update id="updateDepotById">
+        UPDATE t_depot
+        SET code        = #{code},
+            name        = #{name},
+            parent_id   = #{parentId},
+            is_disabled = #{isDisabled},
+            utime       = #{utime},
+            uemp_name   = #{uempName},
+            ts01        = #{new_ts01}
+        WHERE id = #{id} and ts01= #{ts01}
+    </update>
+
 
 </mapper>

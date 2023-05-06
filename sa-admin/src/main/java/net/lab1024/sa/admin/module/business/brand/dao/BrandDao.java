@@ -31,5 +31,7 @@ public interface BrandDao extends BaseMapper<BrandEntity> {
      */
     List<BrandVO> queryPage(Page page, @Param("queryForm") BrandQueryForm queryForm);
 
+    int updateBrandById(BrandEntity brandEntity);
+
 
 }

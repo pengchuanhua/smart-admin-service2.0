@@ -1,6 +1,9 @@
 package net.lab1024.sa.admin.module.business.depot.service;
 
+import java.util.Date;
 import java.util.List;
+
+import net.lab1024.sa.admin.config.AuthenticationInfo;
 import net.lab1024.sa.admin.module.business.depot.dao.DepotDao;
 import net.lab1024.sa.admin.module.business.depot.domain.entity.DepotEntity;
 import net.lab1024.sa.admin.module.business.depot.domain.form.DepotAddForm;
@@ -16,6 +19,8 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+
 /**
  * 仓库信息 Service
  *
@@ -29,6 +34,9 @@ public class DepotService {
 
     @Autowired
     private DepotDao depotDao;
+
+    @Resource
+    private AuthenticationInfo authenticationInfo;
 
     /**
      * 分页查询
@@ -48,6 +56,9 @@ public class DepotService {
      */
     public ResponseDTO<String> add(DepotAddForm addForm) {
         DepotEntity depotEntity = SmartBeanUtil.copy(addForm, DepotEntity.class);
+        depotEntity.setCempName(authenticationInfo.getAuthentication().getName());
+        depotEntity.setCtime(new Date());
+        depotEntity.setTs01(System.currentTimeMillis());
         depotDao.insert(depotEntity);
         return ResponseDTO.ok();
     }
@@ -60,7 +71,10 @@ public class DepotService {
      */
     public ResponseDTO<String> update(DepotUpdateForm updateForm) {
         DepotEntity depotEntity = SmartBeanUtil.copy(updateForm, DepotEntity.class);
-        depotDao.updateById(depotEntity);
+        depotEntity.setUempName(authenticationInfo.getAuthentication().getName());
+        depotEntity.setUtime(new Date());
+        depotEntity.setNew_ts01(System.currentTimeMillis());
+        depotDao.updateDepotById(depotEntity);
         return ResponseDTO.ok();
     }
 

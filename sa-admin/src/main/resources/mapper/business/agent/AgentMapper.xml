@@ -25,5 +25,22 @@
         </where>
     </select>
 
+    <update id="updatePathById">
+        UPDATE t_agent
+        SET code        = #{code},
+            name        = #{name},
+            type        = #{type},
+            contacts    = #{contacts},
+            phone       = #{phone},
+            bank        = #{bank},
+            account_num = #{account_num},
+            is_disabled = #{isDisabled},
+            utime       = #{utime},
+            uemp_name   = #{uempName},
+            description = #{description},
+            ts01        = #{new_ts01}
+        WHERE id = #{id} and ts01= #{ts01}
+    </update>
+
 
 </mapper>

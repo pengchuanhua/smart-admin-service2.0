@@ -31,5 +31,7 @@ public interface DepotDao extends BaseMapper<DepotEntity> {
      */
     List<DepotVO> queryPage(Page page, @Param("queryForm") DepotQueryForm queryForm);
 
+    int updateDepotById(DepotEntity depotEntity);
+
 
 }

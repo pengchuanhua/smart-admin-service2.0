@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Date;
+
 import lombok.Data;
 
 /**
@@ -19,10 +21,6 @@ import lombok.Data;
 @TableName("t_quipment")
 public class QuipmentEntity {
 
-    /**
-     * id
-     */
-    @TableId(type = IdType.AUTO)
     private Long id;
 
     /**
@@ -88,7 +86,7 @@ public class QuipmentEntity {
     /**
      * 投放时间
      */
-    private LocalDateTime placementtime;
+    private Date placementtime;
 
     /**
      * 经度
@@ -113,16 +111,18 @@ public class QuipmentEntity {
     /**
      * 更新时间
      */
-    private LocalDateTime updateTime;
+    private Date updateTime;
 
     /**
      * 创建时间
      */
-    private LocalDateTime createTime;
+    private Date createTime;
 
     /**
      * 时间戳
      */
     private Long ts01;
+
+    private long new_ts01;
 
 }

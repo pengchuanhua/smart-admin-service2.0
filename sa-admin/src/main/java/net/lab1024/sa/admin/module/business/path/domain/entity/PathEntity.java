@@ -3,6 +3,9 @@ package net.lab1024.sa.admin.module.business.path.domain.entity;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.time.LocalDateTime;
+import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 /**
@@ -17,11 +20,8 @@ import lombok.Data;
 @TableName("t_path")
 public class PathEntity {
 
-    /**
-     * 主键ID
-     */
-    @TableId
-    private Long id;
+    private long id;
+
 
     /**
      * 路线编码
@@ -41,7 +41,8 @@ public class PathEntity {
     /**
      * 创建时间
      */
-    private LocalDateTime ctime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date ctime;
 
     /**
      * 创建员工
@@ -51,7 +52,7 @@ public class PathEntity {
     /**
      * 更新时间
      */
-    private LocalDateTime utime;
+    private Date utime;
 
     /**
      * 更新员工
@@ -67,5 +68,7 @@ public class PathEntity {
      * 时间戳
      */
     private Long ts01;
+
+    private Long new_ts01;
 
 }

@@ -1,6 +1,9 @@
 package net.lab1024.sa.admin.module.business.quipment.service;
 
+import java.util.Date;
 import java.util.List;
+
+import net.lab1024.sa.admin.config.AuthenticationInfo;
 import net.lab1024.sa.admin.module.business.quipment.dao.QuipmentDao;
 import net.lab1024.sa.admin.module.business.quipment.domain.entity.QuipmentEntity;
 import net.lab1024.sa.admin.module.business.quipment.domain.form.QuipmentAddForm;
@@ -16,6 +19,8 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+
 /**
  * 设备信息 Service
  *
@@ -29,6 +34,9 @@ public class QuipmentService {
 
     @Autowired
     private QuipmentDao quipmentDao;
+
+    @Resource
+    private AuthenticationInfo authenticationInfo;
 
     /**
      * 分页查询
@@ -48,6 +56,9 @@ public class QuipmentService {
      */
     public ResponseDTO<String> add(QuipmentAddForm addForm) {
         QuipmentEntity quipmentEntity = SmartBeanUtil.copy(addForm, QuipmentEntity.class);
+        quipmentEntity.setCreateUser(authenticationInfo.getAuthentication().getName());
+        quipmentEntity.setCreateTime(new Date());
+        quipmentEntity.setTs01(System.currentTimeMillis());
         quipmentDao.insert(quipmentEntity);
         return ResponseDTO.ok();
     }
@@ -60,7 +71,10 @@ public class QuipmentService {
      */
     public ResponseDTO<String> update(QuipmentUpdateForm updateForm) {
         QuipmentEntity quipmentEntity = SmartBeanUtil.copy(updateForm, QuipmentEntity.class);
-        quipmentDao.updateById(quipmentEntity);
+        quipmentEntity.setUpdateUser(authenticationInfo.getAuthentication().getName());
+        quipmentEntity.setUpdateTime(new Date());
+        quipmentEntity.setTs01(System.currentTimeMillis());
+        quipmentDao.updateQuipmentById(quipmentEntity);
         return ResponseDTO.ok();
     }
 

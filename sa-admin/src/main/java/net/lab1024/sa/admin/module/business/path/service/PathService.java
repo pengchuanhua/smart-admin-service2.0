@@ -1,6 +1,9 @@
 package net.lab1024.sa.admin.module.business.path.service;
 
+import java.util.Date;
 import java.util.List;
+
+import net.lab1024.sa.admin.config.AuthenticationInfo;
 import net.lab1024.sa.admin.module.business.path.dao.PathDao;
 import net.lab1024.sa.admin.module.business.path.domain.entity.PathEntity;
 import net.lab1024.sa.admin.module.business.path.domain.form.PathAddForm;
@@ -16,6 +19,9 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+
+
 /**
  * 设备路线 Service
  *
@@ -29,6 +35,9 @@ public class PathService {
 
     @Autowired
     private PathDao pathDao;
+
+    @Resource
+    private AuthenticationInfo authenticationInfo;
 
     /**
      * 分页查询
@@ -48,6 +57,9 @@ public class PathService {
      */
     public ResponseDTO<String> add(PathAddForm addForm) {
         PathEntity pathEntity = SmartBeanUtil.copy(addForm, PathEntity.class);
+        pathEntity.setCempName(authenticationInfo.getAuthentication().getName());
+        pathEntity.setCtime(new Date());
+        pathEntity.setTs01(System.currentTimeMillis());
         pathDao.insert(pathEntity);
         return ResponseDTO.ok();
     }
@@ -60,7 +72,13 @@ public class PathService {
      */
     public ResponseDTO<String> update(PathUpdateForm updateForm) {
         PathEntity pathEntity = SmartBeanUtil.copy(updateForm, PathEntity.class);
-        pathDao.updateById(pathEntity);
+        pathEntity.setUempName(authenticationInfo.getAuthentication().getName());
+        pathEntity.setUtime(new Date());
+        pathEntity.setNew_ts01(System.currentTimeMillis());
+        int row=pathDao.updatePathById(pathEntity);
+        if (row==0){
+            throw new RuntimeException("数据以改变,请查询后再操作!");
+        }
         return ResponseDTO.ok();
     }
 
@@ -86,7 +104,6 @@ public class PathService {
         if (null == id){
             return ResponseDTO.ok();
         }
-
         pathDao.deleteById(id);
         return ResponseDTO.ok();
     }

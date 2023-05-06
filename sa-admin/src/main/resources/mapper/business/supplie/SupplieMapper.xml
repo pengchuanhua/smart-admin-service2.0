@@ -29,5 +29,20 @@
         </where>
     </select>
 
+    <update id="updateSupplieById">
+        UPDATE t_supplie
+        SET code        = #{code},
+            name        = #{name},
+            contacts    = #{contacts},
+            phone       = #{phone},
+            bank        = #{bank},
+            account_num = #{accountNum},
+            is_disabled = #{isDisabled},
+            utime       = #{utime},
+            uemp_name   = #{uempName},
+            description = #{description},
+            ts01        = #{new_ts01}
+        WHERE id = #{id} and ts01= #{ts01}
+    </update>
 
 </mapper>

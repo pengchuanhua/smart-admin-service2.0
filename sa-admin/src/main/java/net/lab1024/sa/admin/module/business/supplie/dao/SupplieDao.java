@@ -31,5 +31,8 @@ public interface SupplieDao extends BaseMapper<SupplieEntity> {
      */
     List<SupplieVO> queryPage(Page page, @Param("queryForm") SupplieQueryForm queryForm);
 
+    int updateSupplieById(SupplieEntity supplieEntity);
+
+
 
 }

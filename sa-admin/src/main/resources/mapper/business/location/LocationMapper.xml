@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.lab1024.sa.admin.module.business.location.dao.LocationDao">
+
+    <!-- 根据父级id 查询子类 -->
+    <select id="queryByParentId"
+            resultType="net.lab1024.sa.admin.module.business.category.domain.entity.CategoryEntity">
+        SELECT * FROM t_location
+        WHERE
+        parent_code IN
+        <foreach collection="parentIdList" open="(" separator="," close=")" item="id">#{id}</foreach>
+        ORDER BY code ASC
+    </select>
+
+
+    <update id="updateLocationById">
+        UPDATE t_location
+        SET code        = #{code},
+            parent_code = #{parentCode},
+            name        = #{name},
+            Level       = #{Level},
+            end_level_flag = #{endLevelFlag},
+            is_disabled = #{isDisabled},
+            utime       = #{utime},
+            uemp_name   = #{uempName},
+            description = #{description},
+            ts01        = #{new_ts01}
+        WHERE id = #{id} and ts01= #{ts01}
+    </update>
+
+
+</mapper>

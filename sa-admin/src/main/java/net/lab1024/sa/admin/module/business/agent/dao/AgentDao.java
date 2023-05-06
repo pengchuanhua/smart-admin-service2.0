@@ -31,5 +31,7 @@ public interface AgentDao extends BaseMapper<AgentEntity> {
      */
     List<AgentVO> queryPage(Page page, @Param("queryForm") AgentQueryForm queryForm);
 
+    int updateAgentById(AgentEntity agentEntity);
+
 
 }

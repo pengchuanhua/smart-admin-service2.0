@@ -2,6 +2,8 @@ package net.lab1024.sa.admin.module.business.agent.domain.vo;
 
 import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDateTime;
+import java.util.Date;
+
 import lombok.Data;
 
 /**
@@ -46,13 +48,13 @@ public class AgentVO {
     private Integer isDisabled;
 
     @ApiModelProperty(value = "创建时间")
-    private LocalDateTime ctime;
+    private Date ctime;
 
     @ApiModelProperty(value = "创建员工")
     private String cempName;
 
     @ApiModelProperty(value = "更新时间")
-    private LocalDateTime utime;
+    private Date utime;
 
     @ApiModelProperty(value = "更新员工")
     private String uempName;

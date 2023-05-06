@@ -2,6 +2,8 @@ package net.lab1024.sa.admin.module.business.path.domain.vo;
 
 import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDateTime;
+import java.util.Date;
+
 import lombok.Data;
 
 /**
@@ -15,8 +17,8 @@ import lombok.Data;
 @Data
 public class PathVO {
 
-    @ApiModelProperty(value = "主键ID")
-    private Long id;
+    @ApiModelProperty(value = "id")
+    private long id;
 
     @ApiModelProperty(value = "路线编码")
     private String code;
@@ -28,18 +30,21 @@ public class PathVO {
     private Integer isDisabled;
 
     @ApiModelProperty(value = "创建时间")
-    private LocalDateTime ctime;
+    private Date ctime;
 
     @ApiModelProperty(value = "创建员工")
     private String cempName;
 
     @ApiModelProperty(value = "更新时间")
-    private LocalDateTime utime;
+    private Date utime;
 
     @ApiModelProperty(value = "更新员工")
     private String uempName;
 
     @ApiModelProperty(value = "描述")
     private String description;
+
+    @ApiModelProperty(value = "时间戳")
+    private String ts01;
 
 }

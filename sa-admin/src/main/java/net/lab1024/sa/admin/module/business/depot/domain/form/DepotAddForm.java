@@ -24,14 +24,6 @@ public class DepotAddForm {
     @NotBlank(message = "仓库名称 不能为空")
     private String name;
 
-    @ApiModelProperty(value = "仓库级别", required = true)
-    @NotNull(message = "仓库级别 不能为空")
-    private Integer Level;
-
-    @ApiModelProperty(value = "末级标记", required = true)
-    @NotNull(message = "末级标记 不能为空")
-    private Integer endLevelFlag;
-
     @ApiModelProperty(value = "有效标记", required = true)
     @NotNull(message = "有效标记 不能为空")
     private Integer isDisabled;

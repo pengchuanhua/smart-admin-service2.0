@@ -1,4 +1,4 @@
-package net.lab1024.sa.admin.module.business.route.constant;
+package net.lab1024.sa.admin.module.business.path.constant;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

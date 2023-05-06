@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.time.LocalDateTime;
+import java.util.Date;
+
 import lombok.Data;
 
 /**
@@ -18,11 +20,7 @@ import lombok.Data;
 @TableName("t_agent")
 public class AgentEntity {
 
-    /**
-     * 主键ID
-     */
-    @TableId(type = IdType.AUTO)
-    private Long id;
+    private long id;
 
     /**
      * 组织ID
@@ -72,7 +70,7 @@ public class AgentEntity {
     /**
      * 创建时间
      */
-    private LocalDateTime ctime;
+    private Date ctime;
 
     /**
      * 创建员工
@@ -82,7 +80,7 @@ public class AgentEntity {
     /**
      * 更新时间
      */
-    private LocalDateTime utime;
+    private Date utime;
 
     /**
      * 更新员工
@@ -98,5 +96,7 @@ public class AgentEntity {
      * 时间戳
      */
     private Long ts01;
+
+    private long new_ts01;
 
 }

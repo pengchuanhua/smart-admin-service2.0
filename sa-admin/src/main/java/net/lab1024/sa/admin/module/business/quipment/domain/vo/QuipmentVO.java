@@ -3,6 +3,8 @@ package net.lab1024.sa.admin.module.business.quipment.domain.vo;
 import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Date;
+
 import lombok.Data;
 
 /**
@@ -56,7 +58,7 @@ public class QuipmentVO {
     private BigDecimal shareRatio;
 
     @ApiModelProperty(value = "投放时间")
-    private LocalDateTime placementtime;
+    private Date placementtime;
 
     @ApiModelProperty(value = "经度")
     private String longitude;
@@ -71,10 +73,10 @@ public class QuipmentVO {
     private String updateUser;
 
     @ApiModelProperty(value = "更新时间")
-    private LocalDateTime updateTime;
+    private Date updateTime;
 
     @ApiModelProperty(value = "创建时间")
-    private LocalDateTime createTime;
+    private Date createTime;
 
     @ApiModelProperty(value = "时间戳")
     private Long ts01;

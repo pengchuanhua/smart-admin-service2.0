@@ -59,7 +59,7 @@ public class PathController {
 
     @ApiOperation("单个删除 @author pengch")
     @GetMapping("/path/delete/{pathId}")
-    public ResponseDTO<String> batchDelete(@PathVariable Long pathId) {
+    public ResponseDTO<String> delete(@PathVariable Long pathId) {
         return pathService.delete(pathId);
     }
 }

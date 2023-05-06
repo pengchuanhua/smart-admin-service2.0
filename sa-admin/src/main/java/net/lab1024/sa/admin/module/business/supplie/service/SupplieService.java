@@ -1,6 +1,9 @@
 package net.lab1024.sa.admin.module.business.supplie.service;
 
+import java.util.Date;
 import java.util.List;
+
+import net.lab1024.sa.admin.config.AuthenticationInfo;
 import net.lab1024.sa.admin.module.business.supplie.dao.SupplieDao;
 import net.lab1024.sa.admin.module.business.supplie.domain.entity.SupplieEntity;
 import net.lab1024.sa.admin.module.business.supplie.domain.form.SupplieAddForm;
@@ -16,6 +19,8 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+
 /**
  * 供应商 Service
  *
@@ -29,6 +34,9 @@ public class SupplieService {
 
     @Autowired
     private SupplieDao supplieDao;
+
+    @Resource
+    private AuthenticationInfo authenticationInfo;
 
     /**
      * 分页查询
@@ -48,6 +56,9 @@ public class SupplieService {
      */
     public ResponseDTO<String> add(SupplieAddForm addForm) {
         SupplieEntity supplieEntity = SmartBeanUtil.copy(addForm, SupplieEntity.class);
+        supplieEntity.setCempName(authenticationInfo.getAuthentication().getName());
+        supplieEntity.setCtime(new Date());
+        supplieEntity.setTs01(System.currentTimeMillis());
         supplieDao.insert(supplieEntity);
         return ResponseDTO.ok();
     }
@@ -60,7 +71,10 @@ public class SupplieService {
      */
     public ResponseDTO<String> update(SupplieUpdateForm updateForm) {
         SupplieEntity supplieEntity = SmartBeanUtil.copy(updateForm, SupplieEntity.class);
-        supplieDao.updateById(supplieEntity);
+        supplieEntity.setUempName(authenticationInfo.getAuthentication().getName());
+        supplieEntity.setUtime(new Date());
+        supplieEntity.setTs01(System.currentTimeMillis());
+        supplieDao.updateSupplieById(supplieEntity);
         return ResponseDTO.ok();
     }
 

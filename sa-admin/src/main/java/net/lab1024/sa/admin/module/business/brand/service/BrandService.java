@@ -1,6 +1,9 @@
 package net.lab1024.sa.admin.module.business.brand.service;
 
+import java.util.Date;
 import java.util.List;
+
+import net.lab1024.sa.admin.config.AuthenticationInfo;
 import net.lab1024.sa.admin.module.business.brand.dao.BrandDao;
 import net.lab1024.sa.admin.module.business.brand.domain.entity.BrandEntity;
 import net.lab1024.sa.admin.module.business.brand.domain.form.BrandAddForm;
@@ -16,6 +19,8 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+
 /**
  * 品牌 Service
  *
@@ -29,6 +34,9 @@ public class BrandService {
 
     @Autowired
     private BrandDao brandDao;
+
+    @Resource
+    private AuthenticationInfo authenticationInfo;
 
     /**
      * 分页查询
@@ -48,6 +56,9 @@ public class BrandService {
      */
     public ResponseDTO<String> add(BrandAddForm addForm) {
         BrandEntity brandEntity = SmartBeanUtil.copy(addForm, BrandEntity.class);
+        brandEntity.setCempName(authenticationInfo.getAuthentication().getName());
+        brandEntity.setCtime(new Date());
+        brandEntity.setTs01(System.currentTimeMillis());
         brandDao.insert(brandEntity);
         return ResponseDTO.ok();
     }
@@ -60,7 +71,10 @@ public class BrandService {
      */
     public ResponseDTO<String> update(BrandUpdateForm updateForm) {
         BrandEntity brandEntity = SmartBeanUtil.copy(updateForm, BrandEntity.class);
-        brandDao.updateById(brandEntity);
+        brandEntity.setUempName(authenticationInfo.getAuthentication().getName());
+        brandEntity.setUtime(new Date());
+        brandEntity.setNew_ts01(System.currentTimeMillis());
+        brandDao.updateBrandById(brandEntity);
         return ResponseDTO.ok();
     }
 
