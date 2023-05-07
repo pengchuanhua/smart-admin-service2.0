@@ -18,7 +18,7 @@ public class RegionUpdateForm {
 
     @ApiModelProperty(value = "地区编码", required = true)
     @NotBlank(message = "地区编码 不能为空")
-    private String code;
+    private Long code;
 
     @ApiModelProperty(value = "上级地区编码")
     private String parentCode;

@@ -28,7 +28,7 @@ public class RegionEntity {
     /**
      * 上级地区编码
      */
-    private String parentCode;
+    private Long parentCode;
 
     /**
      * 地区名称

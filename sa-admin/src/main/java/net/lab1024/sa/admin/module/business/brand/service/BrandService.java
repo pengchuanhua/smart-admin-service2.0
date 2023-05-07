@@ -74,7 +74,10 @@ public class BrandService {
         brandEntity.setUempName(authenticationInfo.getAuthentication().getName());
         brandEntity.setUtime(new Date());
         brandEntity.setNew_ts01(System.currentTimeMillis());
-        brandDao.updateBrandById(brandEntity);
+        int row = brandDao.updateBrandById(brandEntity);
+        if (row==0){
+            throw new RuntimeException("数据已改变,请查询后再操作!");
+        }
         return ResponseDTO.ok();
     }
 

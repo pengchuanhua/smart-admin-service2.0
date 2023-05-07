@@ -1,17 +1,19 @@
 package net.lab1024.sa.admin.module.business.region.manager;
 
+import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
-import net.lab1024.sa.admin.module.business.category.domain.entity.CategoryEntity;
-import net.lab1024.sa.admin.module.business.category.domain.vo.CategoryTreeVO;
 import net.lab1024.sa.admin.module.business.region.domain.entity.RegionEntity;
 import net.lab1024.sa.admin.module.business.region.dao.RegionDao;
 
 import net.lab1024.sa.admin.module.business.region.domain.vo.RegionTreeVO;
+import net.lab1024.sa.common.common.constant.StringConst;
 import net.lab1024.sa.common.common.util.SmartBeanUtil;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -28,8 +30,8 @@ public class RegionManager{
     @Autowired
     private RegionDao regionDao;
 
-    public RegionEntity queryRegion(Long code) {
-        return regionDao.selectById(code);
+    public RegionEntity queryRegionById(Long code) {
+        return regionDao.queryRegionById(code);
     }
 
     public List<RegionTreeVO> queryRegionTree(Long parentId) {
@@ -42,8 +44,29 @@ public class RegionManager{
             e.setFullName(e.getFullName());
         });
         // 递归设置子类
-//        this.queryAndSetSubCategory(treeList, allRegionEntityList);
+        this.queryAndSetSubRegion(treeList, allRegionEntityList);
         return treeList;
+    }
+
+    private void queryAndSetSubRegion(List<RegionTreeVO> treeList, List<RegionEntity> allRegionEntityList) {
+        if (CollectionUtils.isEmpty(treeList)) {
+            return;
+        }
+        List<Long> parentIdList = treeList.stream().map(RegionTreeVO::getValue).collect(Collectors.toList());
+        List<RegionEntity> regionEntityList = allRegionEntityList.stream().filter(e -> parentIdList.contains(e.getParentCode())).collect(Collectors.toList());
+        Map<Long, List<RegionEntity>> RegionSubMap = regionEntityList.stream().collect(Collectors.groupingBy(RegionEntity::getParentCode));
+        treeList.forEach(e -> {
+            List<RegionEntity> childrenEntityList = RegionSubMap.getOrDefault(e.getValue(), Lists.newArrayList());
+            List<RegionTreeVO> childrenVOList = SmartBeanUtil.copyList(childrenEntityList, RegionTreeVO.class);
+            childrenVOList.forEach(item -> {
+                item.setLabel(item.getName());
+                item.setValue(item.getCode());
+                item.setFullName(e.getFullName() + StringConst.SEPARATOR_SLASH + item.getName());
+            });
+            // 递归查询
+            this.queryAndSetSubRegion(childrenVOList, allRegionEntityList);
+            e.setChildren(childrenVOList);
+        });
     }
 
 }

@@ -1,6 +1,5 @@
 package net.lab1024.sa.admin.module.business.region.controller;
 
-import net.lab1024.sa.admin.module.business.category.domain.form.CategoryTreeQueryForm;
 import net.lab1024.sa.admin.module.business.region.domain.form.RegionAddForm;
 import net.lab1024.sa.admin.module.business.region.domain.form.RegionTreeQueryForm;
 import net.lab1024.sa.admin.module.business.region.domain.form.RegionUpdateForm;

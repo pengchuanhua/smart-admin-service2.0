@@ -74,7 +74,10 @@ public class QuipmentService {
         quipmentEntity.setUpdateUser(authenticationInfo.getAuthentication().getName());
         quipmentEntity.setUpdateTime(new Date());
         quipmentEntity.setTs01(System.currentTimeMillis());
-        quipmentDao.updateQuipmentById(quipmentEntity);
+        int row = quipmentDao.updateQuipmentById(quipmentEntity);
+        if (row==0){
+            throw new RuntimeException("数据已改变,请查询后再操作!");
+        }
         return ResponseDTO.ok();
     }
 

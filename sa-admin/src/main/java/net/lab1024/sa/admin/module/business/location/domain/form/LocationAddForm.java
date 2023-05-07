@@ -21,7 +21,7 @@ public class LocationAddForm {
     private String code;
 
     @ApiModelProperty(value = "上级位置编码")
-    private String parentCode;
+    private Long parentCode;
 
     @ApiModelProperty(value = "位置名称", required = true)
     @NotBlank(message = "位置名称 不能为空")

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.lab1024.sa.admin.module.business.settlement.dao.SettlementDao">
+
+    <!-- 分页查询 -->
+    <select id="queryPage" resultType="net.lab1024.sa.admin.module.business.settlement.domain.vo.SettlementVO">
+        SELECT
+        *
+        FROM t_settlement
+        <where>
+            <!--代理商-->
+            <if test="queryForm.agentId != null and queryForm.agentId != ''">
+                        AND INSTR(t_settlement.agent_id,#{queryForm.agentId})
+            </if>
+            <!--开始日期-->
+            <if test="queryForm.startDateBegin != null">
+                AND DATE_FORMAT(t_settlement.start date, '%Y-%m-%d') &gt;= #{queryForm.startDateBegin}
+            </if>
+            <if test="queryForm.startDateEnd != null">
+                AND DATE_FORMAT(t_settlement.start date, '%Y-%m-%d') &lt;= #{queryForm.startDateEnd}
+            </if>
+            <!--结束日期-->
+            <if test="queryForm.endDateBegin != null">
+                AND DATE_FORMAT(t_settlement.end date, '%Y-%m-%d') &gt;= #{queryForm.endDateBegin}
+            </if>
+            <if test="queryForm.endDateEnd != null">
+                AND DATE_FORMAT(t_settlement.end date, '%Y-%m-%d') &lt;= #{queryForm.endDateEnd}
+            </if>
+        </where>
+    </select>
+
+
+</mapper>

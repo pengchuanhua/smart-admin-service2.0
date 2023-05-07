@@ -74,7 +74,10 @@ public class AgentService {
         agentEntity.setUempName(authenticationInfo.getAuthentication().getName());
         agentEntity.setUtime(new Date());
         agentEntity.setNew_ts01(System.currentTimeMillis());
-        agentDao.updateAgentById(agentEntity);
+        int row = agentDao.updateAgentById(agentEntity);
+        if (row==0){
+            throw new RuntimeException("数据已改变,请查询后再操作!");
+        }
         return ResponseDTO.ok();
     }
 

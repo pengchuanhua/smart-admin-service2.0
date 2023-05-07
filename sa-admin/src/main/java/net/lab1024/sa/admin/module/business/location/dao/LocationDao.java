@@ -26,6 +26,8 @@ public interface LocationDao extends BaseMapper<LocationEntity> {
     List<LocationEntity> queryByParentId(@Param("parentId") long parentId);
     int updateLocationById(LocationEntity locationEntity);
 
+    LocationEntity queryLocationById(@Param("code") long code);
+
 
 
 }

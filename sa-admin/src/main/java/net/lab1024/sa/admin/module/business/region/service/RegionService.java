@@ -2,6 +2,7 @@ package net.lab1024.sa.admin.module.business.region.service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -52,7 +53,7 @@ public class RegionService {
     private RegionManager regionManager;
 
     public ResponseDTO<RegionVO> queryDetail(Long code) {
-        Optional<RegionEntity> optional = queryCategory(code);
+        Optional<RegionEntity> optional = queryRegionById(code);
         if (!optional.isPresent()) {
             return ResponseDTO.error(UserErrorCode.DATA_NOT_EXIST);
         }
@@ -80,6 +81,12 @@ public class RegionService {
      */
     public ResponseDTO<String> add(RegionAddForm addForm) {
         RegionEntity regionEntity = SmartBeanUtil.copy(addForm, RegionEntity.class);
+        ResponseDTO<String> res = this.checkRegion(regionEntity, false);
+        if (!res.getOk()) {
+            return res;
+        }
+        long parentCode = null == addForm.getParentCode() ? NumberUtils.LONG_ZERO : addForm.getParentCode();
+        regionEntity.setParentCode(parentCode);
         regionEntity.setCempName(authenticationInfo.getAuthentication().getName());
         regionEntity.setCtime(new Date());
         regionEntity.setTs01(System.currentTimeMillis());
@@ -94,11 +101,30 @@ public class RegionService {
      * @return
      */
     public ResponseDTO<String> update(RegionUpdateForm updateForm) {
+
+        Long code = updateForm.getCode();
+        Optional<RegionEntity> optional = this.queryRegionById(code);
+        if (!optional.isPresent()) {
+            return ResponseDTO.error(UserErrorCode.DATA_NOT_EXIST);
+        }
+
+
         RegionEntity regionEntity = SmartBeanUtil.copy(updateForm, RegionEntity.class);
+
+        regionEntity.setParentCode(optional.get().getParentCode());
+
+        ResponseDTO<String> responseDTO = this.checkRegion(regionEntity, true);
+        if (!responseDTO.getOk()) {
+            return responseDTO;
+        }
+
         regionEntity.setUempName(authenticationInfo.getAuthentication().getName());
         regionEntity.setUtime(new Date());
         regionEntity.setNew_ts01(System.currentTimeMillis());
-        regionDao.updateRegionById(regionEntity);
+        int row = regionDao.updateRegionById(regionEntity);
+        if (row==0){
+            throw new RuntimeException("数据已改变,请查询后再操作!");
+        }
         return ResponseDTO.ok();
     }
 
@@ -129,15 +155,36 @@ public class RegionService {
         return ResponseDTO.ok();
     }
 
-    public Optional<RegionEntity> queryCategory(Long code) {
+    public Optional<RegionEntity> queryRegionById(Long code) {
         if (null == code) {
             return Optional.empty();
         }
-        RegionEntity entity = regionManager.queryRegion(code);
+        RegionEntity entity = regionManager.queryRegionById(code);
         if (null == entity) {
             return Optional.empty();
         }
         return Optional.of(entity);
+    }
+
+    private ResponseDTO<String> checkRegion(RegionEntity regionEntity, boolean isUpdate) {
+        // 校验父级是否存在
+        Long parentId = regionEntity.getParentCode();
+        if (null != parentId) {
+            if (Objects.equals(regionEntity.getCode(), parentId)) {
+                return ResponseDTO.userErrorParam("地区编码不能和上级编码相同");
+            }
+            if (!Objects.equals(parentId, NumberUtils.LONG_ZERO)) {
+                Optional<RegionEntity> optional = this.queryRegionById(parentId);
+                if (!optional.isPresent()) {
+                    return ResponseDTO.error(UserErrorCode.DATA_NOT_EXIST, "上级编码不存在");
+                }
+            }
+
+        } else {
+            // 如果没有父类 使用默认父类
+            parentId = NumberUtils.LONG_ZERO;
+        }
+        return ResponseDTO.ok();
     }
 
 }

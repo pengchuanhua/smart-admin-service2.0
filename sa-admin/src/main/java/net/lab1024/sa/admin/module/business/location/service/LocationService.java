@@ -2,6 +2,7 @@ package net.lab1024.sa.admin.module.business.location.service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import net.lab1024.sa.admin.config.AuthenticationInfo;
@@ -51,7 +52,7 @@ public class LocationService {
     private LocationManager locationManager;
 
     public ResponseDTO<LocationVO> queryDetail(Long code) {
-        Optional<LocationEntity> optional = queryLocation(code);
+        Optional<LocationEntity> optional = queryLocationById(code);
         if (!optional.isPresent()) {
             return ResponseDTO.error(UserErrorCode.DATA_NOT_EXIST);
         }
@@ -80,6 +81,12 @@ public class LocationService {
      */
     public ResponseDTO<String> add(LocationAddForm addForm) {
         LocationEntity locationEntity = SmartBeanUtil.copy(addForm, LocationEntity.class);
+        ResponseDTO<String> res = this.checkLocation(locationEntity, false);
+        if (!res.getOk()) {
+            return res;
+        }
+        long parentCode = null == addForm.getParentCode() ? NumberUtils.LONG_ZERO : addForm.getParentCode();
+        locationEntity.setParentCode(parentCode);
         locationEntity.setCempName(authenticationInfo.getAuthentication().getName());
         locationEntity.setCtime(new Date());
         locationEntity.setTs01(System.currentTimeMillis());
@@ -94,11 +101,27 @@ public class LocationService {
      * @return
      */
     public ResponseDTO<String> update(LocationUpdateForm updateForm) {
+
+        Long code = updateForm.getCode();
+        Optional<LocationEntity> optional = this.queryLocationById(code);
+        if (!optional.isPresent()) {
+            return ResponseDTO.error(UserErrorCode.DATA_NOT_EXIST);
+        }
         LocationEntity locationEntity = SmartBeanUtil.copy(updateForm, LocationEntity.class);
+        locationEntity.setParentCode (optional.get().getParentCode());
+
+        ResponseDTO<String> responseDTO = this.checkLocation(locationEntity, true);
+        if (!responseDTO.getOk()) {
+            return responseDTO;
+        }
+
         locationEntity.setUempName(authenticationInfo.getAuthentication().getName());
         locationEntity.setUtime(new Date());
         locationEntity.setNew_ts01(System.currentTimeMillis());
-        locationDao.updateLocationById(locationEntity);
+        int row = locationDao.updateLocationById(locationEntity);
+        if (row==0){
+            throw new RuntimeException("数据已改变,请查询后再操作!");
+        }
         return ResponseDTO.ok();
     }
 
@@ -129,14 +152,35 @@ public class LocationService {
         return ResponseDTO.ok();
     }
 
-    public Optional<LocationEntity> queryLocation(Long code) {
+    public Optional<LocationEntity> queryLocationById(Long code) {
         if (null == code) {
             return Optional.empty();
         }
-        LocationEntity entity = locationManager.queryLocation(code);
+        LocationEntity entity = locationManager.queryLocationById(code);
         if (null == entity) {
             return Optional.empty();
         }
         return Optional.of(entity);
+    }
+
+    private ResponseDTO<String> checkLocation(LocationEntity locationEntity, boolean isUpdate) {
+        // 校验父级是否存在
+        Long parentId = locationEntity.getParentCode();
+        if (null != parentId) {
+            if (Objects.equals(locationEntity.getCode(), parentId)) {
+                return ResponseDTO.userErrorParam("编码不能和上级编码相同");
+            }
+            if (!Objects.equals(parentId, NumberUtils.LONG_ZERO)) {
+                Optional<LocationEntity> optional = this.queryLocationById(parentId);
+                if (!optional.isPresent()) {
+                    return ResponseDTO.error(UserErrorCode.DATA_NOT_EXIST, "上级编码不存在");
+                }
+            }
+
+        } else {
+            // 如果没有父类 使用默认父类
+            parentId = NumberUtils.LONG_ZERO;
+        }
+        return ResponseDTO.ok();
     }
 }

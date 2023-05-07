@@ -77,7 +77,7 @@ public class PathService {
         pathEntity.setNew_ts01(System.currentTimeMillis());
         int row=pathDao.updatePathById(pathEntity);
         if (row==0){
-            throw new RuntimeException("数据以改变,请查询后再操作!");
+            throw new RuntimeException("数据已改变,请查询后再操作!");
         }
         return ResponseDTO.ok();
     }

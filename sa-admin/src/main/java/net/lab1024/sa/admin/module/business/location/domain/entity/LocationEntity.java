@@ -33,7 +33,7 @@ public class LocationEntity {
     /**
      * 上级位置编码
      */
-    private String parentCode;
+    private Long parentCode;
 
     /**
      * 位置名称

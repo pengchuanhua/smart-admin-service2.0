@@ -4,12 +4,20 @@
 
     <!-- 根据父级id 查询子类 -->
     <select id="queryByParentId"
-            resultType="net.lab1024.sa.admin.module.business.category.domain.entity.CategoryEntity">
+            resultType="net.lab1024.sa.admin.module.business.region.domain.entity.RegionEntity">
         SELECT * FROM t_region
         WHERE
         parent_code IN
         <foreach collection="parentIdList" open="(" separator="," close=")" item="id">#{id}</foreach>
         ORDER BY code ASC
+    </select>
+
+    <!-- 根据id 查询 -->
+    <select id="queryRegionById"
+            resultType="net.lab1024.sa.admin.module.business.region.domain.entity.RegionEntity">
+        SELECT * FROM t_region
+        WHERE
+        code = #{code}
     </select>
 
     <update id="updateRegionById">

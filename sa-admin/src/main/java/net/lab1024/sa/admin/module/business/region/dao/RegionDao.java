@@ -28,6 +28,8 @@ public interface RegionDao extends BaseMapper<RegionEntity> {
     List<RegionEntity> queryByParentId(@Param("parentId") long parentId);
 
     int updateRegionById(RegionEntity regionEntity);
+    RegionEntity queryRegionById(@Param ("code") long code);
+
 
 
 

@@ -74,7 +74,10 @@ public class DepotService {
         depotEntity.setUempName(authenticationInfo.getAuthentication().getName());
         depotEntity.setUtime(new Date());
         depotEntity.setNew_ts01(System.currentTimeMillis());
-        depotDao.updateDepotById(depotEntity);
+        int row = depotDao.updateDepotById(depotEntity);
+        if (row==0){
+            throw new RuntimeException("数据已改变,请查询后再操作!");
+        }
         return ResponseDTO.ok();
     }
 

@@ -74,7 +74,10 @@ public class SupplieService {
         supplieEntity.setUempName(authenticationInfo.getAuthentication().getName());
         supplieEntity.setUtime(new Date());
         supplieEntity.setTs01(System.currentTimeMillis());
-        supplieDao.updateSupplieById(supplieEntity);
+        int row = supplieDao.updateSupplieById(supplieEntity);
+        if (row==0){
+            throw new RuntimeException("数据已改变,请查询后再操作!");
+        }
         return ResponseDTO.ok();
     }
 
