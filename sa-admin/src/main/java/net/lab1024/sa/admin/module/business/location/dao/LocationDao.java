@@ -23,10 +23,16 @@ import org.springframework.stereotype.Component;
 @Component
 public interface LocationDao extends BaseMapper<LocationEntity> {
 
-    List<LocationEntity> queryByParentId(@Param("parentId") long parentId);
+    List<LocationEntity> queryByParentId(@Param("parentIdList") List<Long> parentIdList);
     int updateLocationById(LocationEntity locationEntity);
 
-    LocationEntity queryLocationById(@Param("code") long code);
+
+    int insertLocation(LocationEntity locationEntity);
+
+    LocationEntity queryLocationById(@Param("id") long id);
+
+    List<LocationEntity> queryLocation();
+
 
 
 

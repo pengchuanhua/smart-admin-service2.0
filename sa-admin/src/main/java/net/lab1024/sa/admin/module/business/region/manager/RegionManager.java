@@ -2,6 +2,7 @@ package net.lab1024.sa.admin.module.business.region.manager;
 
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
+import net.lab1024.sa.admin.constant.AdminCacheConst;
 import net.lab1024.sa.admin.module.business.region.domain.entity.RegionEntity;
 import net.lab1024.sa.admin.module.business.region.dao.RegionDao;
 
@@ -10,6 +11,8 @@ import net.lab1024.sa.common.common.constant.StringConst;
 import net.lab1024.sa.common.common.util.SmartBeanUtil;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,12 +33,24 @@ public class RegionManager{
     @Autowired
     private RegionDao regionDao;
 
-    public RegionEntity queryRegionById(Long code) {
+    @CacheEvict(value = {AdminCacheConst.REGION.REGION_ENTITY, AdminCacheConst.REGION.REGION_SUB, AdminCacheConst.REGION.REGION_TREE}, allEntries = true)
+    public void removeCache() {
+        log.info("clear REGION ,REGION_SUB ,REGION_TREE");
+    }
+
+
+    @Cacheable(AdminCacheConst.REGION.REGION_ENTITY)
+    public RegionEntity queryRegionByCode(Long code) {
         return regionDao.queryRegionById(code);
     }
 
+    @Cacheable(AdminCacheConst.REGION.REGION_ENTITY)
+    public List<RegionEntity> querySubRegion(Long ParentId) {
+        return regionDao.queryByParentId(Lists.newArrayList(ParentId));
+    }
+//    @Cacheable(AdminCacheConst.REGION.REGION_ENTITY)
     public List<RegionTreeVO> queryRegionTree(Long parentId) {
-        List<RegionEntity> allRegionEntityList = regionDao.queryByParentId(parentId);
+        List<RegionEntity> allRegionEntityList = regionDao.queryRegion();
         List<RegionEntity> regionEntityList = allRegionEntityList.stream().filter(e -> e.getParentCode().equals(parentId)).collect(Collectors.toList());
         List<RegionTreeVO> treeList = SmartBeanUtil.copyList(regionEntityList, RegionTreeVO.class);
         treeList.forEach(e -> {
@@ -52,7 +67,7 @@ public class RegionManager{
         if (CollectionUtils.isEmpty(treeList)) {
             return;
         }
-        List<Long> parentIdList = treeList.stream().map(RegionTreeVO::getValue).collect(Collectors.toList());
+        List<Long> parentIdList =treeList.stream().map(RegionTreeVO::getValue).collect(Collectors.toList());
         List<RegionEntity> regionEntityList = allRegionEntityList.stream().filter(e -> parentIdList.contains(e.getParentCode())).collect(Collectors.toList());
         Map<Long, List<RegionEntity>> RegionSubMap = regionEntityList.stream().collect(Collectors.groupingBy(RegionEntity::getParentCode));
         treeList.forEach(e -> {

@@ -43,7 +43,7 @@ public class LocationEntity {
     /**
      * 位置级别
      */
-    private Integer Level;
+    private int Level;
 
     /**
      * 末级标记

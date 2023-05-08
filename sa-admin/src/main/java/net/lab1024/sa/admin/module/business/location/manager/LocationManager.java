@@ -33,17 +33,17 @@ public class LocationManager{
     @Autowired
     private LocationDao locationDao;
 
-    public LocationEntity queryLocationById(Long code) {
-        return locationDao.queryLocationById(code);
+    public LocationEntity queryLocationById(Long id) {
+        return locationDao.queryLocationById(id);
     }
 
     public List<LocationTreeVO> queryLocationTree(Long parentId) {
-        List<LocationEntity> allLocationEntityList = locationDao.queryByParentId(parentId);
+        List<LocationEntity> allLocationEntityList = locationDao.queryLocation();
         List<LocationEntity> locationEntityList = allLocationEntityList.stream().filter(e -> e.getParentCode().equals(parentId)).collect(Collectors.toList());
         List<LocationTreeVO> treeList = SmartBeanUtil.copyList(locationEntityList, LocationTreeVO.class);
         treeList.forEach(e -> {
             e.setLabel(e.getName());
-            e.setValue(e.getCode());
+            e.setValue(e.getId());
         });
         // 递归设置子类
         this.queryAndSetSubLocation(treeList, allLocationEntityList);
@@ -62,7 +62,7 @@ public class LocationManager{
             List<LocationTreeVO> childrenVOList = SmartBeanUtil.copyList(childrenEntityList, LocationTreeVO.class);
             childrenVOList.forEach(item -> {
                 item.setLabel(item.getName());
-                item.setValue(item.getCode());
+                item.setValue(item.getId());
             });
             // 递归查询
             this.queryAndSetSubLocation(childrenVOList, allLocationEntityList);

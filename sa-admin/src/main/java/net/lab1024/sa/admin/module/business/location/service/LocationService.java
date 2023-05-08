@@ -51,8 +51,8 @@ public class LocationService {
     @Autowired
     private LocationManager locationManager;
 
-    public ResponseDTO<LocationVO> queryDetail(Long code) {
-        Optional<LocationEntity> optional = queryLocationById(code);
+    public ResponseDTO<LocationVO> queryDetail(Long id) {
+        Optional<LocationEntity> optional = queryLocationById(id);
         if (!optional.isPresent()) {
             return ResponseDTO.error(UserErrorCode.DATA_NOT_EXIST);
         }
@@ -90,7 +90,7 @@ public class LocationService {
         locationEntity.setCempName(authenticationInfo.getAuthentication().getName());
         locationEntity.setCtime(new Date());
         locationEntity.setTs01(System.currentTimeMillis());
-        locationDao.insert(locationEntity);
+        locationDao.insertLocation(locationEntity);
         return ResponseDTO.ok();
     }
 
@@ -102,8 +102,8 @@ public class LocationService {
      */
     public ResponseDTO<String> update(LocationUpdateForm updateForm) {
 
-        Long code = updateForm.getCode();
-        Optional<LocationEntity> optional = this.queryLocationById(code);
+        Long id = updateForm.getId();
+        Optional<LocationEntity> optional = this.queryLocationById(id);
         if (!optional.isPresent()) {
             return ResponseDTO.error(UserErrorCode.DATA_NOT_EXIST);
         }
@@ -152,11 +152,11 @@ public class LocationService {
         return ResponseDTO.ok();
     }
 
-    public Optional<LocationEntity> queryLocationById(Long code) {
-        if (null == code) {
+    public Optional<LocationEntity> queryLocationById(Long id) {
+        if (null == id) {
             return Optional.empty();
         }
-        LocationEntity entity = locationManager.queryLocationById(code);
+        LocationEntity entity = locationManager.queryLocationById(id);
         if (null == entity) {
             return Optional.empty();
         }
@@ -177,9 +177,6 @@ public class LocationService {
                 }
             }
 
-        } else {
-            // 如果没有父类 使用默认父类
-            parentId = NumberUtils.LONG_ZERO;
         }
         return ResponseDTO.ok();
     }

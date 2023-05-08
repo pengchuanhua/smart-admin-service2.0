@@ -1,7 +1,6 @@
 package net.lab1024.sa.admin.module.business.region.domain.vo;
 
 import io.swagger.annotations.ApiModelProperty;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 import lombok.Data;
@@ -19,16 +18,16 @@ public class RegionVO {
 
 
     @ApiModelProperty(value = "地区编码")
-    private String code;
+    private Long code;
 
     @ApiModelProperty(value = "上级地区编码")
-    private String parentCode;
+    private Long parentCode;
 
     @ApiModelProperty(value = "地区名称")
     private String name;
 
     @ApiModelProperty(value = "地区级别")
-    private Integer Level;
+    private int Level;
 
     @ApiModelProperty(value = "末级标记")
     private Integer endLevelFlag;

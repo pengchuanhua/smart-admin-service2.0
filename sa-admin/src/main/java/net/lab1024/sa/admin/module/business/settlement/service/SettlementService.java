@@ -8,6 +8,7 @@ import net.lab1024.sa.admin.config.AuthenticationInfo;
 import net.lab1024.sa.admin.module.business.region.domain.entity.RegionEntity;
 import net.lab1024.sa.admin.module.business.sales.service.SalesService;
 import net.lab1024.sa.admin.module.business.settlement.dao.SettlementDao;
+import net.lab1024.sa.admin.module.business.settlement.dao.SettlementitemDao;
 import net.lab1024.sa.admin.module.business.settlement.domain.entity.SettlementEntity;
 import net.lab1024.sa.admin.module.business.settlement.domain.entity.SettlementitemEntity;
 import net.lab1024.sa.admin.module.business.settlement.domain.form.SettlementAddForm;
@@ -41,6 +42,9 @@ public class SettlementService {
     @Autowired
     private SettlementDao settlementDao;
 
+    @Autowired
+    private SettlementitemDao settlementitemDao;
+
     @Resource
     private AuthenticationInfo authenticationInfo;
 
@@ -70,6 +74,11 @@ public class SettlementService {
         if (!res.getOk()) {
             return res;
         }
+        List<SettlementitemEntity>settlementitemEntities=settlementEntity.getSettlementitemEntities();
+        for(int i=0;i<settlementitemEntities.size();i++){
+            settlementitemDao.insert(settlementitemEntities.get(i));
+        }
+
         settlementEntity.setCempName(authenticationInfo.getAuthentication().getName());
         settlementEntity.setCtime(new Date());
         settlementEntity.setTs01(System.currentTimeMillis());

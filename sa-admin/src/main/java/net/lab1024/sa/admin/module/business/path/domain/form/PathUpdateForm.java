@@ -35,4 +35,8 @@ public class PathUpdateForm {
     @ApiModelProperty(value = "描述")
     private String description;
 
+    @ApiModelProperty(value = "时间戳", required = true)
+    @NotNull(message = "时间戳 不能为空")
+    private Long ts01;
+
 }

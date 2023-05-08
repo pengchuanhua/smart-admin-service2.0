@@ -16,23 +16,32 @@ import java.util.List;
  @Data
 public class RegionTreeVO {
 
-    @ApiModelProperty("类目id")
+    @ApiModelProperty("地区code")
     private Long code;
 
-    @ApiModelProperty("类目名称")
+    @ApiModelProperty("地区名称")
     private String name;
 
-    @ApiModelProperty("类目层级全称")
+    @ApiModelProperty("地区全称")
     private String FullName;
 
     @ApiModelProperty("父级id")
     private Long parentCode;
 
-    @ApiModelProperty("类目id")
+    @ApiModelProperty("地区code")
     private Long value;
 
-    @ApiModelProperty("类目名称")
+    @ApiModelProperty("地区名称")
     private String label;
+
+     @ApiModelProperty("地区级别")
+     private int Level;
+
+     @ApiModelProperty("末级标记")
+     private Integer endLevelFlag;
+
+     @ApiModelProperty("有效标记")
+     private Integer isDisabled;
 
     @ApiModelProperty("子类")
     private List<RegionTreeVO> children;

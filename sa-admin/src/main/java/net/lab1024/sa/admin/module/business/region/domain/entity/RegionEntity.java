@@ -1,8 +1,6 @@
 package net.lab1024.sa.admin.module.business.region.domain.entity;
 
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 import lombok.Data;
@@ -22,8 +20,7 @@ public class RegionEntity {
     /**
      * 地区编码
      */
-    @TableId
-    private String code;
+    private Long code;
 
     /**
      * 上级地区编码
@@ -38,7 +35,7 @@ public class RegionEntity {
     /**
      * 地区级别
      */
-    private Integer Level;
+    private int Level;
 
     /**
      * 末级标记
@@ -78,8 +75,8 @@ public class RegionEntity {
     /**
      * 时间戳
      */
-    private long ts01;
+    private Long ts01;
 
-    private long new_ts01;
+    private Long new_ts01;
 
 }

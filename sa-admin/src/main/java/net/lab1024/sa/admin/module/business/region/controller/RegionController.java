@@ -66,7 +66,7 @@ public class RegionController {
 
     @ApiOperation("单个删除 @author pengch")
     @GetMapping("/region/delete/{regionId}")
-    public ResponseDTO<String> batchDelete(@PathVariable String regionId) {
+    public ResponseDTO<String> batchDelete(@PathVariable Long regionId) {
         return regionService.delete(regionId);
     }
 }

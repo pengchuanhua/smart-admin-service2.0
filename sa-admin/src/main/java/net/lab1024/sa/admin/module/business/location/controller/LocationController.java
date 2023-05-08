@@ -37,8 +37,8 @@ public class LocationController {
 
     @ApiOperation("查询详情 @author pengch")
     @GetMapping("/location/{code}")
-    public ResponseDTO<LocationVO> queryDetail(@PathVariable Long code) {
-        return locationService.queryDetail(code);
+    public ResponseDTO<LocationVO> queryDetail(@PathVariable Long id) {
+        return locationService.queryDetail(id);
     }
 
     @ApiOperation("查询层级树 @author pengch")

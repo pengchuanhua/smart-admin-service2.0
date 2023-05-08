@@ -2,12 +2,8 @@ package net.lab1024.sa.admin.module.business.region.dao;
 
 import java.util.List;
 
-import net.lab1024.sa.admin.module.business.category.domain.entity.CategoryEntity;
 import net.lab1024.sa.admin.module.business.region.domain.entity.RegionEntity;
-import net.lab1024.sa.admin.module.business.region.domain.form.RegionTreeQueryForm;
-import net.lab1024.sa.admin.module.business.region.domain.vo.RegionVO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
@@ -25,10 +21,19 @@ import org.springframework.stereotype.Component;
 public interface RegionDao extends BaseMapper<RegionEntity> {
 
 
-    List<RegionEntity> queryByParentId(@Param("parentId") long parentId);
+    List<RegionEntity> queryByParentId(@Param("parentIdList") List<Long> parentIdList);
 
     int updateRegionById(RegionEntity regionEntity);
-    RegionEntity queryRegionById(@Param ("code") long code);
+
+    int insertRegion(RegionEntity regionEntity);
+
+    RegionEntity queryRegionById(@Param ("code") Long code);
+
+    RegionEntity queryRegionByParenId(@Param ("parentCode") Long parentCode);
+
+    List<RegionEntity> queryRegion();
+
+    int deleteRegion(@Param ("code")Long code);
 
 
 

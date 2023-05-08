@@ -18,7 +18,7 @@ public class RegionAddForm {
 
     @ApiModelProperty(value = "地区编码", required = true)
     @NotBlank(message = "地区编码 不能为空")
-    private String code;
+    private Long code;
 
     @ApiModelProperty(value = "上级地区编码")
     private Long parentCode;
@@ -29,7 +29,7 @@ public class RegionAddForm {
 
     @ApiModelProperty(value = "地区级别", required = true)
     @NotNull(message = "地区级别 不能为空")
-    private Integer Level;
+    private int Level;
 
     @ApiModelProperty(value = "末级标记", required = true)
     @NotNull(message = "末级标记 不能为空")

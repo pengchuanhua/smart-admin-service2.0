@@ -54,4 +54,16 @@ public class AdminCacheConst extends CacheKeyConst {
         public static final String CATEGORY_TREE = "category_tree_cache";
     }
 
+    /**
+     * 地区信息 缓存
+     */
+
+    public static class REGION {
+
+        public static final String REGION_ENTITY = "region_cache";
+
+        public static final String REGION_SUB = "region_sub_cache";
+
+        public static final String REGION_TREE = "region_tree_cache";
+    }
 }

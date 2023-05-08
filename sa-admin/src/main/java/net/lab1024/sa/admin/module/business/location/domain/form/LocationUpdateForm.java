@@ -22,10 +22,10 @@ public class LocationUpdateForm {
 
     @ApiModelProperty(value = "编码", required = true)
     @NotBlank(message = "编码 不能为空")
-    private Long code;
+    private String code;
 
     @ApiModelProperty(value = "上级位置编码")
-    private String parentCode;
+    private Long parentCode;
 
     @ApiModelProperty(value = "位置名称", required = true)
     @NotBlank(message = "位置名称 不能为空")
@@ -33,7 +33,7 @@ public class LocationUpdateForm {
 
     @ApiModelProperty(value = "位置级别", required = true)
     @NotNull(message = "位置级别 不能为空")
-    private Integer Level;
+    private int Level;
 
     @ApiModelProperty(value = "末级标记", required = true)
     @NotNull(message = "末级标记 不能为空")

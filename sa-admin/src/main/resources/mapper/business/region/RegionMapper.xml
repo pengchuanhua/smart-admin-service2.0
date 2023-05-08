@@ -20,6 +20,25 @@
         code = #{code}
     </select>
 
+    <!-- 根据id 查询 -->
+    <select id="queryRegionByParenId"
+            resultType="net.lab1024.sa.admin.module.business.region.domain.entity.RegionEntity">
+        SELECT * FROM t_region
+        WHERE
+            parent_code = #{parentCode}
+    </select>
+
+    <!-- 初始化界面查询 -->
+    <select id="queryRegion"
+            resultType="net.lab1024.sa.admin.module.business.region.domain.entity.RegionEntity">
+        SELECT * FROM t_region
+    </select>
+
+    <insert id="insertRegion">
+        INSERT INTO t_region(code, parent_code, name, Level, end_level_flag, full_name, is_disabled, ctime, cemp_name, ts01)
+        VALUES (#{code}, #{parentCode}, #{name}, #{Level}, #{endLevelFlag}, #{fullName}, #{isDisabled}, #{ctime}, #{cempName}, #{ts01})
+    </insert>
+
     <update id="updateRegionById">
         UPDATE t_region
         SET parent_code        = #{parentCode},
@@ -34,6 +53,10 @@
             ts01        = #{new_ts01}
         WHERE code = #{code} and ts01= #{ts01}
     </update>
+
+    <delete id="deleteRegion">
+        DELETE FROM t_region WHERE code= #{code}
+    </delete>
 
 
 </mapper>

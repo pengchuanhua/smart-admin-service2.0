@@ -17,8 +17,19 @@
             resultType="net.lab1024.sa.admin.module.business.location.domain.entity.LocationEntity">
         SELECT * FROM t_location
         WHERE
-            code = #{code}
+            id = #{id}
     </select>
+
+    <select id="queryLocation"
+            resultType="net.lab1024.sa.admin.module.business.location.domain.entity.LocationEntity">
+        SELECT * FROM t_location
+        WHERE 1=1
+    </select>
+
+    <insert id="insertLocation">
+        INSERT INTO t_location(code, parent_code, name, Level, end_level_flag, full_name, is_disabled, ctime, cemp_name, ts01)
+        VALUES (#{code}, #{parentCode}, #{name}, #{Level}, #{endLevelFlag}, #{fullName}, #{isDisabled}, #{ctime}, #{cempName}, #{ts01})
+    </insert>
 
 
     <update id="updateLocationById">

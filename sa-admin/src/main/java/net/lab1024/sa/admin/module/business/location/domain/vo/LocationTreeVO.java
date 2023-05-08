@@ -17,7 +17,10 @@ import java.util.List;
 public class LocationTreeVO {
 
    @ApiModelProperty("类目id")
-   private Long code;
+   private Long id;
+
+   @ApiModelProperty("类目code")
+   private String code;
 
    @ApiModelProperty("类目名称")
    private String name;
@@ -33,6 +36,18 @@ public class LocationTreeVO {
 
    @ApiModelProperty("类目名称")
    private String label;
+
+   @ApiModelProperty("地区级别")
+   private int Level;
+
+   @ApiModelProperty("末级标记")
+   private Integer endLevelFlag;
+
+   @ApiModelProperty("有效标记")
+   private Integer isDisabled;
+
+   @ApiModelProperty("时间戳")
+   private Long ts01;
 
    @ApiModelProperty("子类")
    private List<LocationTreeVO> children;
