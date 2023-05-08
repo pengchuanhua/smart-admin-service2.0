@@ -15,15 +15,9 @@ import net.lab1024.sa.admin.module.business.location.domain.vo.LocationTreeVO;
 import net.lab1024.sa.admin.module.business.location.domain.vo.LocationVO;
 import net.lab1024.sa.admin.module.business.location.manager.LocationManager;
 import net.lab1024.sa.admin.module.business.region.domain.entity.RegionEntity;
-import net.lab1024.sa.admin.module.business.region.domain.form.RegionTreeQueryForm;
-import net.lab1024.sa.admin.module.business.region.domain.vo.RegionTreeVO;
-import net.lab1024.sa.admin.module.business.region.domain.vo.RegionVO;
 import net.lab1024.sa.common.common.code.UserErrorCode;
 import net.lab1024.sa.common.common.util.SmartBeanUtil;
-import net.lab1024.sa.common.common.util.SmartPageUtil;
 import net.lab1024.sa.common.common.domain.ResponseDTO;
-import net.lab1024.sa.common.common.domain.PageResult;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -146,6 +140,16 @@ public class LocationService {
     public ResponseDTO<String> delete(Long id) {
         if (null == id){
             return ResponseDTO.ok();
+        }
+
+        Optional<LocationEntity> optional = this.queryLocationById(id);
+        if (!optional.isPresent()) {
+            return ResponseDTO.error(UserErrorCode.DATA_NOT_EXIST);
+        }
+
+        LocationEntity locationEntity = locationDao.queryLocationByParenId(id);
+        if (locationEntity!=null) {
+            return ResponseDTO.userErrorParam("请先删除子级类目");
         }
 
         locationDao.deleteById(id);

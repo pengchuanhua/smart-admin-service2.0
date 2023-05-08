@@ -20,6 +20,13 @@
             id = #{id}
     </select>
 
+    <select id="queryLocationByParenId">
+        resultType="net.lab1024.sa.admin.module.business.location.domain.entity.LocationEntity">
+        SELECT * FROM t_location
+        WHERE
+            parent_code = #{parentId}
+    </select>
+
     <select id="queryLocation"
             resultType="net.lab1024.sa.admin.module.business.location.domain.entity.LocationEntity">
         SELECT * FROM t_location
@@ -27,8 +34,8 @@
     </select>
 
     <insert id="insertLocation">
-        INSERT INTO t_location(code, parent_code, name, Level, end_level_flag, full_name, is_disabled, ctime, cemp_name, ts01)
-        VALUES (#{code}, #{parentCode}, #{name}, #{Level}, #{endLevelFlag}, #{fullName}, #{isDisabled}, #{ctime}, #{cempName}, #{ts01})
+        INSERT INTO t_location(code, parent_code, name, Level, end_level_flag, is_disabled, ctime, cemp_name, ts01)
+        VALUES (#{code}, #{parentCode}, #{name}, #{Level}, #{endLevelFlag}, #{isDisabled}, #{ctime}, #{cempName}, #{ts01})
     </insert>
 
 
@@ -42,7 +49,6 @@
             is_disabled = #{isDisabled},
             utime       = #{utime},
             uemp_name   = #{uempName},
-            description = #{description},
             ts01        = #{new_ts01}
         WHERE id = #{id} and ts01= #{ts01}
     </update>

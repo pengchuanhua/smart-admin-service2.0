@@ -4,12 +4,15 @@ import java.util.Date;
 import java.util.List;
 
 import net.lab1024.sa.admin.config.AuthenticationInfo;
+import net.lab1024.sa.admin.module.business.agent.domain.form.AgentQueryForm;
+import net.lab1024.sa.admin.module.business.agent.domain.vo.AgentVO;
 import net.lab1024.sa.admin.module.business.brand.dao.BrandDao;
 import net.lab1024.sa.admin.module.business.brand.domain.entity.BrandEntity;
 import net.lab1024.sa.admin.module.business.brand.domain.form.BrandAddForm;
 import net.lab1024.sa.admin.module.business.brand.domain.form.BrandQueryForm;
 import net.lab1024.sa.admin.module.business.brand.domain.form.BrandUpdateForm;
 import net.lab1024.sa.admin.module.business.brand.domain.vo.BrandVO;
+import net.lab1024.sa.common.common.code.UserErrorCode;
 import net.lab1024.sa.common.common.util.SmartBeanUtil;
 import net.lab1024.sa.common.common.util.SmartPageUtil;
 import net.lab1024.sa.common.common.domain.ResponseDTO;
@@ -51,6 +54,15 @@ public class BrandService {
         return pageResult;
     }
 
+    public ResponseDTO<List<BrandVO>> queryBrand(BrandQueryForm queryForm) {
+        List<BrandVO> adminVO = brandDao.queryBrand(queryForm);
+        if (adminVO==null) {
+            return ResponseDTO.error(UserErrorCode.DATA_NOT_EXIST);
+        }
+        return ResponseDTO.ok(adminVO);
+    }
+
+
     /**
      * 添加
      */
@@ -59,7 +71,7 @@ public class BrandService {
         brandEntity.setCempName(authenticationInfo.getAuthentication().getName());
         brandEntity.setCtime(new Date());
         brandEntity.setTs01(System.currentTimeMillis());
-        brandDao.insert(brandEntity);
+        brandDao.insertBrand(brandEntity);
         return ResponseDTO.ok();
     }
 
@@ -74,7 +86,7 @@ public class BrandService {
         brandEntity.setUempName(authenticationInfo.getAuthentication().getName());
         brandEntity.setUtime(new Date());
         brandEntity.setNew_ts01(System.currentTimeMillis());
-        int row = brandDao.updateBrandById(brandEntity);
+        int row = brandDao.updateBrand(brandEntity);
         if (row==0){
             throw new RuntimeException("数据已改变,请查询后再操作!");
         }

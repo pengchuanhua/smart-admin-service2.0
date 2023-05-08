@@ -3,6 +3,7 @@ package net.lab1024.sa.admin.module.business.settlement.controller;
 import net.lab1024.sa.admin.module.business.settlement.domain.form.SettlementAddForm;
 import net.lab1024.sa.admin.module.business.settlement.domain.form.SettlementQueryForm;
 import net.lab1024.sa.admin.module.business.settlement.domain.form.SettlementUpdateForm;
+import net.lab1024.sa.admin.module.business.settlement.domain.vo.QuerySalesVO;
 import net.lab1024.sa.admin.module.business.settlement.domain.vo.SettlementVO;
 import net.lab1024.sa.admin.module.business.settlement.service.SettlementService;
 import net.lab1024.sa.common.common.domain.ValidateList;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * 结算主表 Controller
@@ -37,6 +39,12 @@ public class SettlementController {
     @PostMapping("/settlement/queryPage")
     public ResponseDTO<PageResult<SettlementVO>> queryPage(@RequestBody @Valid SettlementQueryForm queryForm) {
         return ResponseDTO.ok(settlementService.queryPage(queryForm));
+    }
+
+    @ApiOperation("查询待结算明细")
+    @PostMapping("/settlement/querySales")
+    public ResponseDTO<List<QuerySalesVO>>querySales(@RequestBody @Valid SettlementQueryForm queryForm){
+        return settlementService.querySales(queryForm);
     }
 
     @ApiOperation("添加 @author pengch")

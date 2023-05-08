@@ -4,12 +4,15 @@ import java.util.Date;
 import java.util.List;
 
 import net.lab1024.sa.admin.config.AuthenticationInfo;
+import net.lab1024.sa.admin.module.business.brand.domain.form.BrandQueryForm;
+import net.lab1024.sa.admin.module.business.brand.domain.vo.BrandVO;
 import net.lab1024.sa.admin.module.business.path.dao.PathDao;
 import net.lab1024.sa.admin.module.business.path.domain.entity.PathEntity;
 import net.lab1024.sa.admin.module.business.path.domain.form.PathAddForm;
 import net.lab1024.sa.admin.module.business.path.domain.form.PathQueryForm;
 import net.lab1024.sa.admin.module.business.path.domain.form.PathUpdateForm;
 import net.lab1024.sa.admin.module.business.path.domain.vo.PathVO;
+import net.lab1024.sa.common.common.code.UserErrorCode;
 import net.lab1024.sa.common.common.util.SmartBeanUtil;
 import net.lab1024.sa.common.common.util.SmartPageUtil;
 import net.lab1024.sa.common.common.domain.ResponseDTO;
@@ -52,6 +55,14 @@ public class PathService {
         return pageResult;
     }
 
+    public ResponseDTO<List<PathVO>> queryPath(PathQueryForm queryForm) {
+        List<PathVO> adminVO = pathDao.queryPath(queryForm);
+        if (adminVO==null) {
+            return ResponseDTO.error(UserErrorCode.DATA_NOT_EXIST);
+        }
+        return ResponseDTO.ok(adminVO);
+    }
+
     /**
      * 添加
      */
@@ -60,7 +71,7 @@ public class PathService {
         pathEntity.setCempName(authenticationInfo.getAuthentication().getName());
         pathEntity.setCtime(new Date());
         pathEntity.setTs01(System.currentTimeMillis());
-        pathDao.insert(pathEntity);
+        pathDao.insertPath(pathEntity);
         return ResponseDTO.ok();
     }
 
@@ -75,7 +86,7 @@ public class PathService {
         pathEntity.setUempName(authenticationInfo.getAuthentication().getName());
         pathEntity.setUtime(new Date());
         pathEntity.setNew_ts01(System.currentTimeMillis());
-        int row=pathDao.updatePathById(pathEntity);
+        int row=pathDao.updatePath(pathEntity);
         if (row==0){
             throw new RuntimeException("数据已改变,请查询后再操作!");
         }

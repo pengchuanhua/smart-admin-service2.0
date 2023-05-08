@@ -25,7 +25,23 @@
         </where>
     </select>
 
-    <update id="updatePathById">
+    <select id="queryAgent">
+        SELECT * FROM t_agent
+        WHERE 1=1 and is_disabled=0
+        <if test="code != null and code != ''">
+           AND code = #{code}
+        </if>
+        <if test="name != null and code != ''">
+           AND name = #{name}
+        </if>
+    </select>
+
+    <insert id="insertAgent">
+        INSERT INTO t_agent(code, name, type, contacts, phone, bank, account_num, is_disabled, ctime, cemp_name, description, ts01)
+        VALUES ( #{code}, #{name}, #{type}, #{contacts}, #{phone}, #{bank}, #{accountNum}, #{isDisabled}, #{ctime}, #{cempName}, #{description}, #{ts01})
+    </insert>
+
+    <update id="updateAgent">
         UPDATE t_agent
         SET code        = #{code},
             name        = #{name},
@@ -33,7 +49,7 @@
             contacts    = #{contacts},
             phone       = #{phone},
             bank        = #{bank},
-            account_num = #{account_num},
+            account_num = #{accountNum},
             is_disabled = #{isDisabled},
             utime       = #{utime},
             uemp_name   = #{uempName},

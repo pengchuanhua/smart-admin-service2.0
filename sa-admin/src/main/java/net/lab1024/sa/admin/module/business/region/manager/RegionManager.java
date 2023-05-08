@@ -48,7 +48,7 @@ public class RegionManager{
     public List<RegionEntity> querySubRegion(Long ParentId) {
         return regionDao.queryByParentId(Lists.newArrayList(ParentId));
     }
-//    @Cacheable(AdminCacheConst.REGION.REGION_ENTITY)
+    @Cacheable(AdminCacheConst.REGION.REGION_ENTITY)
     public List<RegionTreeVO> queryRegionTree(Long parentId) {
         List<RegionEntity> allRegionEntityList = regionDao.queryRegion();
         List<RegionEntity> regionEntityList = allRegionEntityList.stream().filter(e -> e.getParentCode().equals(parentId)).collect(Collectors.toList());

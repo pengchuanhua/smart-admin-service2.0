@@ -29,7 +29,23 @@
         </where>
     </select>
 
-    <update id="updateSupplieById">
+    <select id="querySupplie">
+        SELECT * FROM t_supplie
+        WHERE 1=1 and is_disabled=0
+        <if test="code != null and code != ''">
+            AND code = #{code}
+        </if>
+        <if test="name != null and code != ''">
+            AND name = #{name}
+        </if>
+    </select>
+
+    <insert id="insertSupplie">
+        INSERT INTO t_supplie(code, name, contacts, phone, bank, account_num, ctime, cemp_name, is_disabled, description, ts01)
+        VALUES ( #{code}, #{name},#{ contacts}, #{phone}, #{bank}, #{accountNum}, #{ctime}, #{cempName}, #{isDisabled}, #{description}, #{ts01})
+    </insert>
+
+    <update id="updateSupplie">
         UPDATE t_supplie
         SET code        = #{code},
             name        = #{name},

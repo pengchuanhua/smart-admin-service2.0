@@ -1,5 +1,7 @@
 package net.lab1024.sa.admin.module.business.path.controller;
 
+import net.lab1024.sa.admin.module.business.brand.domain.form.BrandQueryForm;
+import net.lab1024.sa.admin.module.business.brand.domain.vo.BrandVO;
 import net.lab1024.sa.admin.module.business.path.domain.form.PathAddForm;
 import net.lab1024.sa.admin.module.business.path.domain.form.PathQueryForm;
 import net.lab1024.sa.admin.module.business.path.domain.form.PathUpdateForm;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * 设备路线 Controller
@@ -37,6 +40,12 @@ public class PathController {
     @PostMapping("/path/queryPage")
     public ResponseDTO<PageResult<PathVO>> queryPage(@RequestBody @Valid PathQueryForm queryForm) {
         return ResponseDTO.ok(pathService.queryPage(queryForm));
+    }
+
+    @ApiOperation("查询路线信息")
+    @PostMapping("/path/queryPath")
+    public ResponseDTO<List<PathVO>>queryPath(@RequestBody @Valid PathQueryForm queryForm){
+        return pathService.queryPath(queryForm);
     }
 
     @ApiOperation("添加 @author pengch")

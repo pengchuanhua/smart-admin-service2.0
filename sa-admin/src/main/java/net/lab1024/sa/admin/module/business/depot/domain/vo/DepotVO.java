@@ -30,7 +30,7 @@ public class DepotVO {
     private String name;
 
     @ApiModelProperty(value = "三级地址id")
-    private Long parentId;
+    private Long regionCode;
 
     @ApiModelProperty(value = "有效标记")
     private Integer isDisabled;

@@ -4,12 +4,15 @@ import java.util.Date;
 import java.util.List;
 
 import net.lab1024.sa.admin.config.AuthenticationInfo;
+import net.lab1024.sa.admin.module.business.brand.domain.form.BrandQueryForm;
+import net.lab1024.sa.admin.module.business.brand.domain.vo.BrandVO;
 import net.lab1024.sa.admin.module.business.depot.dao.DepotDao;
 import net.lab1024.sa.admin.module.business.depot.domain.entity.DepotEntity;
 import net.lab1024.sa.admin.module.business.depot.domain.form.DepotAddForm;
 import net.lab1024.sa.admin.module.business.depot.domain.form.DepotQueryForm;
 import net.lab1024.sa.admin.module.business.depot.domain.form.DepotUpdateForm;
 import net.lab1024.sa.admin.module.business.depot.domain.vo.DepotVO;
+import net.lab1024.sa.common.common.code.UserErrorCode;
 import net.lab1024.sa.common.common.util.SmartBeanUtil;
 import net.lab1024.sa.common.common.util.SmartPageUtil;
 import net.lab1024.sa.common.common.domain.ResponseDTO;
@@ -51,6 +54,14 @@ public class DepotService {
         return pageResult;
     }
 
+    public ResponseDTO<List<DepotVO>> queryDepot(DepotQueryForm queryForm) {
+        List<DepotVO> adminVO = depotDao.queryDepot(queryForm);
+        if (adminVO==null) {
+            return ResponseDTO.error(UserErrorCode.DATA_NOT_EXIST);
+        }
+        return ResponseDTO.ok(adminVO);
+    }
+
     /**
      * 添加
      */
@@ -59,7 +70,7 @@ public class DepotService {
         depotEntity.setCempName(authenticationInfo.getAuthentication().getName());
         depotEntity.setCtime(new Date());
         depotEntity.setTs01(System.currentTimeMillis());
-        depotDao.insert(depotEntity);
+        depotDao.insertDepot(depotEntity);
         return ResponseDTO.ok();
     }
 
@@ -74,7 +85,7 @@ public class DepotService {
         depotEntity.setUempName(authenticationInfo.getAuthentication().getName());
         depotEntity.setUtime(new Date());
         depotEntity.setNew_ts01(System.currentTimeMillis());
-        int row = depotDao.updateDepotById(depotEntity);
+        int row = depotDao.updateDepot(depotEntity);
         if (row==0){
             throw new RuntimeException("数据已改变,请查询后再操作!");
         }

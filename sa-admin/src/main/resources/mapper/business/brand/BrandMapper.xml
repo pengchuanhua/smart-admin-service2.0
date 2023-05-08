@@ -17,5 +17,33 @@
         </where>
     </select>
 
+    <select id="queryBrand">
+        SELECT * FROM t_brand
+        WHERE 1=1 and is_disabled=0
+        <if test="code != null and code != ''">
+            AND code = #{code}
+        </if>
+        <if test="name != null and code != ''">
+            AND name = #{name}
+        </if>
+    </select>
+
+    <insert id="insertBrand">
+        INSERT INTO t_brand(code, name, is_disabled, ctime, cemp_name, description, ts01)
+        VALUES ( #{code}, #{name}, #{isDisabled}, #{ctime}, #{cempName}, #{description}, #{ts01})
+    </insert>
+
+    <update id="updateBrand">
+        UPDATE t_brand
+        SET code        = #{code},
+            name        = #{name},
+            is_disabled = #{isDisabled},
+            utime       = #{utime},
+            uemp_name   = #{uempName},
+            description = #{description},
+            ts01        = #{new_ts01}
+        WHERE id = #{id} and ts01= #{ts01}
+    </update>
+
 
 </mapper>

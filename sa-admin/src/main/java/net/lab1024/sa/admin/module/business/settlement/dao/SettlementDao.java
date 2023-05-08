@@ -5,6 +5,7 @@ import net.lab1024.sa.admin.module.business.settlement.domain.entity.SettlementE
 import net.lab1024.sa.admin.module.business.settlement.domain.entity.SettlementitemEntity;
 import net.lab1024.sa.admin.module.business.settlement.domain.form.SettlementQueryForm;
 import net.lab1024.sa.admin.module.business.settlement.domain.form.SettlementitemQueryForm;
+import net.lab1024.sa.admin.module.business.settlement.domain.vo.QuerySalesVO;
 import net.lab1024.sa.admin.module.business.settlement.domain.vo.SettlementVO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -35,5 +36,7 @@ public interface SettlementDao extends BaseMapper<SettlementEntity> {
 
     SettlementitemEntity querySettlementitem(@Param("queryForm") SettlementitemQueryForm queryForm);
 
+
+    List<QuerySalesVO> querySales(@Param("queryForm") SettlementQueryForm queryForm);
 
 }

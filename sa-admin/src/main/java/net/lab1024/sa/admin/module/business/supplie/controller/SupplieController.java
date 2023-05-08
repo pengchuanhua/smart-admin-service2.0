@@ -1,5 +1,7 @@
 package net.lab1024.sa.admin.module.business.supplie.controller;
 
+import net.lab1024.sa.admin.module.business.brand.domain.form.BrandQueryForm;
+import net.lab1024.sa.admin.module.business.brand.domain.vo.BrandVO;
 import net.lab1024.sa.admin.module.business.supplie.domain.form.SupplieAddForm;
 import net.lab1024.sa.admin.module.business.supplie.domain.form.SupplieQueryForm;
 import net.lab1024.sa.admin.module.business.supplie.domain.form.SupplieUpdateForm;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * 供应商 Controller
@@ -37,6 +40,12 @@ public class SupplieController {
     @PostMapping("/supplie/queryPage")
     public ResponseDTO<PageResult<SupplieVO>> queryPage(@RequestBody @Valid SupplieQueryForm queryForm) {
         return ResponseDTO.ok(supplieService.queryPage(queryForm));
+    }
+
+    @ApiOperation("查询供应商信息")
+    @PostMapping("/supplie/querySupplie")
+    public ResponseDTO<List<SupplieVO>>querySupplie(@RequestBody @Valid SupplieQueryForm queryForm){
+        return supplieService.querySupplie(queryForm);
     }
 
     @ApiOperation("添加 @author pengch")

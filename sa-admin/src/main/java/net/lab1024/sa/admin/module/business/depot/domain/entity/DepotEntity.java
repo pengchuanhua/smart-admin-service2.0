@@ -40,7 +40,7 @@ public class DepotEntity {
     /**
      * 上级地区id
      */
-    private Long parentId;
+    private Long regionCode;
 
 
     /**

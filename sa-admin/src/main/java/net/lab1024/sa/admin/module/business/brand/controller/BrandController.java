@@ -1,5 +1,7 @@
 package net.lab1024.sa.admin.module.business.brand.controller;
 
+import net.lab1024.sa.admin.module.business.agent.domain.form.AgentQueryForm;
+import net.lab1024.sa.admin.module.business.agent.domain.vo.AgentVO;
 import net.lab1024.sa.admin.module.business.brand.domain.form.BrandAddForm;
 import net.lab1024.sa.admin.module.business.brand.domain.form.BrandQueryForm;
 import net.lab1024.sa.admin.module.business.brand.domain.form.BrandUpdateForm;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * 品牌 Controller
@@ -37,6 +40,12 @@ public class BrandController {
     @PostMapping("/brand/queryPage")
     public ResponseDTO<PageResult<BrandVO>> queryPage(@RequestBody @Valid BrandQueryForm queryForm) {
         return ResponseDTO.ok(brandService.queryPage(queryForm));
+    }
+
+    @ApiOperation("查询品牌信息")
+    @PostMapping("/brand/queryBrand")
+    public ResponseDTO<List<BrandVO>>queryBrand(@RequestBody @Valid BrandQueryForm queryForm){
+        return brandService.queryBrand(queryForm);
     }
 
     @ApiOperation("添加 @author pengch")

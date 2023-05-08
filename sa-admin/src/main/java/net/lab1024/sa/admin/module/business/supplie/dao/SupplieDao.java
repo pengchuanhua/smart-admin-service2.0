@@ -1,6 +1,9 @@
 package net.lab1024.sa.admin.module.business.supplie.dao;
 
 import java.util.List;
+
+import net.lab1024.sa.admin.module.business.brand.domain.form.BrandQueryForm;
+import net.lab1024.sa.admin.module.business.brand.domain.vo.BrandVO;
 import net.lab1024.sa.admin.module.business.supplie.domain.entity.SupplieEntity;
 import net.lab1024.sa.admin.module.business.supplie.domain.form.SupplieQueryForm;
 import net.lab1024.sa.admin.module.business.supplie.domain.vo.SupplieVO;
@@ -31,7 +34,11 @@ public interface SupplieDao extends BaseMapper<SupplieEntity> {
      */
     List<SupplieVO> queryPage(Page page, @Param("queryForm") SupplieQueryForm queryForm);
 
-    int updateSupplieById(SupplieEntity supplieEntity);
+    int updateSupplie(SupplieEntity supplieEntity);
+
+    int insertSupplie(SupplieEntity supplieEntity);
+
+    List<SupplieVO> querySupplie(@Param("queryForm") SupplieQueryForm queryForm);
 
 
 

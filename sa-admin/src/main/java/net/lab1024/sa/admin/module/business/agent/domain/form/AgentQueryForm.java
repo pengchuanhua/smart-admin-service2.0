@@ -21,6 +21,9 @@ public class AgentQueryForm extends PageParam{
     @ApiModelProperty(value = "代理商")
     private String code;
 
+    @ApiModelProperty(value = "代理商名称")
+    private String name;
+
     @ApiModelProperty(value = "联系人")
     private String contacts;
 

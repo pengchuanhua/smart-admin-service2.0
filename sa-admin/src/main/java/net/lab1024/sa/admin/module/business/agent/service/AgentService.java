@@ -10,6 +10,9 @@ import net.lab1024.sa.admin.module.business.agent.domain.form.AgentAddForm;
 import net.lab1024.sa.admin.module.business.agent.domain.form.AgentQueryForm;
 import net.lab1024.sa.admin.module.business.agent.domain.form.AgentUpdateForm;
 import net.lab1024.sa.admin.module.business.agent.domain.vo.AgentVO;
+import net.lab1024.sa.admin.module.business.settlement.domain.form.SettlementQueryForm;
+import net.lab1024.sa.admin.module.business.settlement.domain.vo.QuerySalesVO;
+import net.lab1024.sa.common.common.code.UserErrorCode;
 import net.lab1024.sa.common.common.util.SmartBeanUtil;
 import net.lab1024.sa.common.common.util.SmartPageUtil;
 import net.lab1024.sa.common.common.domain.ResponseDTO;
@@ -51,6 +54,14 @@ public class AgentService {
         return pageResult;
     }
 
+    public ResponseDTO<List<AgentVO>> queryAgent(AgentQueryForm queryForm) {
+        List<AgentVO> adminVO = agentDao.queryAgent(queryForm);
+        if (adminVO==null) {
+            return ResponseDTO.error(UserErrorCode.DATA_NOT_EXIST);
+        }
+        return ResponseDTO.ok(adminVO);
+    }
+
     /**
      * 添加
      */
@@ -59,7 +70,7 @@ public class AgentService {
         agentEntity.setCempName(authenticationInfo.getAuthentication().getName());
         agentEntity.setCtime(new Date());
         agentEntity.setTs01(System.currentTimeMillis());
-        agentDao.insert(agentEntity);
+        agentDao.insertAgent(agentEntity);
         return ResponseDTO.ok();
     }
 
@@ -74,7 +85,7 @@ public class AgentService {
         agentEntity.setUempName(authenticationInfo.getAuthentication().getName());
         agentEntity.setUtime(new Date());
         agentEntity.setNew_ts01(System.currentTimeMillis());
-        int row = agentDao.updateAgentById(agentEntity);
+        int row = agentDao.updateAgent(agentEntity);
         if (row==0){
             throw new RuntimeException("数据已改变,请查询后再操作!");
         }

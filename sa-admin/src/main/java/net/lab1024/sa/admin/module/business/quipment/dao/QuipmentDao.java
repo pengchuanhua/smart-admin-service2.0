@@ -31,6 +31,8 @@ public interface QuipmentDao extends BaseMapper<QuipmentEntity> {
      */
     List<QuipmentVO> queryPage(Page page, @Param("queryForm") QuipmentQueryForm queryForm);
 
+    int insertQuipment(QuipmentEntity quipmentEntity);
+
     int updateQuipmentById(QuipmentEntity quipmentEntity);
 
 

@@ -21,7 +21,23 @@
         </where>
     </select>
 
-    <update id="updateDepotById">
+    <select id="queryDepot">
+        SELECT * FROM t_depot
+        WHERE 1=1 and is_disabled=0
+        <if test="code != null and code != ''">
+            AND code = #{code}
+        </if>
+        <if test="name != null and code != ''">
+            AND name = #{name}
+        </if>
+    </select>
+
+    <insert id="insertDepot">
+        INSERT INTO t_depot(code, name, is_disabled, ctime, cemp_name, region_code, ts01)
+        VALUES ( #{code}, #{name}, #{isDisabled}, #{ctime}, #{cempName}, #{regionCode}, #{ts01})
+    </insert>
+
+    <update id="updateDepot">
         UPDATE t_depot
         SET code        = #{code},
             name        = #{name},

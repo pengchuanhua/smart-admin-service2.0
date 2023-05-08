@@ -22,12 +22,6 @@ public class SettlementQueryForm extends PageParam{
     @ApiModelProperty(value = "开始日期")
     private LocalDate startDateBegin;
 
-    @ApiModelProperty(value = "开始日期")
-    private LocalDate startDateEnd;
-
-    @ApiModelProperty(value = "结束日期")
-    private LocalDate endDateBegin;
-
     @ApiModelProperty(value = "结束日期")
     private LocalDate endDateEnd;
 

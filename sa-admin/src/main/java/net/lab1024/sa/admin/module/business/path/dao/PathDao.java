@@ -1,6 +1,9 @@
 package net.lab1024.sa.admin.module.business.path.dao;
 
 import java.util.List;
+
+import net.lab1024.sa.admin.module.business.brand.domain.form.BrandQueryForm;
+import net.lab1024.sa.admin.module.business.brand.domain.vo.BrandVO;
 import net.lab1024.sa.admin.module.business.path.domain.entity.PathEntity;
 import net.lab1024.sa.admin.module.business.path.domain.form.PathQueryForm;
 import net.lab1024.sa.admin.module.business.path.domain.form.PathUpdateForm;
@@ -32,7 +35,11 @@ public interface PathDao extends BaseMapper<PathEntity> {
      */
     List<PathVO> queryPage(Page page, @Param("queryForm") PathQueryForm queryForm);
 
-    int updatePathById(PathEntity pathEntity);
+    int updatePath(PathEntity pathEntity);
+
+    int insertPath(PathEntity pathEntity);
+
+    List<PathVO> queryPath(@Param("queryForm") PathQueryForm queryForm);
 
 
 }

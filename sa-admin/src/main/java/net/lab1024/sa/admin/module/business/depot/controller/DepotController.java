@@ -1,5 +1,7 @@
 package net.lab1024.sa.admin.module.business.depot.controller;
 
+import net.lab1024.sa.admin.module.business.brand.domain.form.BrandQueryForm;
+import net.lab1024.sa.admin.module.business.brand.domain.vo.BrandVO;
 import net.lab1024.sa.admin.module.business.depot.domain.form.DepotAddForm;
 import net.lab1024.sa.admin.module.business.depot.domain.form.DepotQueryForm;
 import net.lab1024.sa.admin.module.business.depot.domain.form.DepotUpdateForm;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * 仓库信息 Controller
@@ -37,6 +40,12 @@ public class DepotController {
     @PostMapping("/depot/queryPage")
     public ResponseDTO<PageResult<DepotVO>> queryPage(@RequestBody @Valid DepotQueryForm queryForm) {
         return ResponseDTO.ok(depotService.queryPage(queryForm));
+    }
+
+    @ApiOperation("查询仓库信息")
+    @PostMapping("/depot/queryDepot")
+    public ResponseDTO<List<DepotVO>>queryDepot(@RequestBody @Valid DepotQueryForm queryForm){
+        return depotService.queryDepot(queryForm);
     }
 
     @ApiOperation("添加 @author pengch")

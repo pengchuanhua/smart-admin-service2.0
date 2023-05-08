@@ -6,6 +6,8 @@ import net.lab1024.sa.admin.module.business.agent.domain.form.AgentQueryForm;
 import net.lab1024.sa.admin.module.business.agent.domain.vo.AgentVO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import net.lab1024.sa.admin.module.business.settlement.domain.form.SettlementQueryForm;
+import net.lab1024.sa.admin.module.business.settlement.domain.vo.QuerySalesVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
@@ -31,7 +33,11 @@ public interface AgentDao extends BaseMapper<AgentEntity> {
      */
     List<AgentVO> queryPage(Page page, @Param("queryForm") AgentQueryForm queryForm);
 
-    int updateAgentById(AgentEntity agentEntity);
+    int insertAgent(AgentEntity agentEntity);
+
+    int updateAgent(AgentEntity agentEntity);
+
+    List<AgentVO> queryAgent(@Param("queryForm") AgentQueryForm queryForm);
 
 
 }

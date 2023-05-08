@@ -4,12 +4,15 @@ import java.util.Date;
 import java.util.List;
 
 import net.lab1024.sa.admin.config.AuthenticationInfo;
+import net.lab1024.sa.admin.module.business.brand.domain.form.BrandQueryForm;
+import net.lab1024.sa.admin.module.business.brand.domain.vo.BrandVO;
 import net.lab1024.sa.admin.module.business.supplie.dao.SupplieDao;
 import net.lab1024.sa.admin.module.business.supplie.domain.entity.SupplieEntity;
 import net.lab1024.sa.admin.module.business.supplie.domain.form.SupplieAddForm;
 import net.lab1024.sa.admin.module.business.supplie.domain.form.SupplieQueryForm;
 import net.lab1024.sa.admin.module.business.supplie.domain.form.SupplieUpdateForm;
 import net.lab1024.sa.admin.module.business.supplie.domain.vo.SupplieVO;
+import net.lab1024.sa.common.common.code.UserErrorCode;
 import net.lab1024.sa.common.common.util.SmartBeanUtil;
 import net.lab1024.sa.common.common.util.SmartPageUtil;
 import net.lab1024.sa.common.common.domain.ResponseDTO;
@@ -51,6 +54,14 @@ public class SupplieService {
         return pageResult;
     }
 
+    public ResponseDTO<List<SupplieVO>> querySupplie(SupplieQueryForm queryForm) {
+        List<SupplieVO> adminVO = supplieDao.querySupplie(queryForm);
+        if (adminVO==null) {
+            return ResponseDTO.error(UserErrorCode.DATA_NOT_EXIST);
+        }
+        return ResponseDTO.ok(adminVO);
+    }
+
     /**
      * 添加
      */
@@ -59,7 +70,7 @@ public class SupplieService {
         supplieEntity.setCempName(authenticationInfo.getAuthentication().getName());
         supplieEntity.setCtime(new Date());
         supplieEntity.setTs01(System.currentTimeMillis());
-        supplieDao.insert(supplieEntity);
+        supplieDao.insertSupplie(supplieEntity);
         return ResponseDTO.ok();
     }
 
@@ -73,8 +84,8 @@ public class SupplieService {
         SupplieEntity supplieEntity = SmartBeanUtil.copy(updateForm, SupplieEntity.class);
         supplieEntity.setUempName(authenticationInfo.getAuthentication().getName());
         supplieEntity.setUtime(new Date());
-        supplieEntity.setTs01(System.currentTimeMillis());
-        int row = supplieDao.updateSupplieById(supplieEntity);
+        supplieEntity.setNew_ts01(System.currentTimeMillis());
+        int row = supplieDao.updateSupplie(supplieEntity);
         if (row==0){
             throw new RuntimeException("数据已改变,请查询后再操作!");
         }

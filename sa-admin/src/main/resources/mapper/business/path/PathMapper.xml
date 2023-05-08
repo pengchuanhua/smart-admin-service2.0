@@ -17,7 +17,24 @@
         </where>
     </select>
 
-    <update id="updatePathById">
+    <select id="queryPath">
+        SELECT * FROM t_path
+        WHERE 1=1 and is_disabled=0
+        <if test="code != null and code != ''">
+            AND code = #{code}
+        </if>
+        <if test="name != null and code != ''">
+            AND name = #{name}
+        </if>
+    </select>
+
+    <insert id="updatePath">
+        INSERT INTO t_path(code, name, is_disabled, ctime, cemp_name, description, ts01)
+        VALUES ( #{code}, #{name}, #{isDisabled}, #{ctime}, #{cempName}, #{description}, #{ts01})
+    </insert>
+
+
+    <update id="updatePath">
         UPDATE t_path
         SET code        = #{code},
             name        = #{name},

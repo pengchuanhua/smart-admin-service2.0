@@ -59,7 +59,7 @@ public class QuipmentService {
         quipmentEntity.setCreateUser(authenticationInfo.getAuthentication().getName());
         quipmentEntity.setCreateTime(new Date());
         quipmentEntity.setTs01(System.currentTimeMillis());
-        quipmentDao.insert(quipmentEntity);
+        quipmentDao.insertQuipment(quipmentEntity);
         return ResponseDTO.ok();
     }
 
@@ -73,7 +73,7 @@ public class QuipmentService {
         QuipmentEntity quipmentEntity = SmartBeanUtil.copy(updateForm, QuipmentEntity.class);
         quipmentEntity.setUpdateUser(authenticationInfo.getAuthentication().getName());
         quipmentEntity.setUpdateTime(new Date());
-        quipmentEntity.setTs01(System.currentTimeMillis());
+        quipmentEntity.setNew_ts01(System.currentTimeMillis());
         int row = quipmentDao.updateQuipmentById(quipmentEntity);
         if (row==0){
             throw new RuntimeException("数据已改变,请查询后再操作!");

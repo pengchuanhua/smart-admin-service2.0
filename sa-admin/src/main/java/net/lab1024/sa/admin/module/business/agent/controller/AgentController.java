@@ -5,6 +5,8 @@ import net.lab1024.sa.admin.module.business.agent.domain.form.AgentQueryForm;
 import net.lab1024.sa.admin.module.business.agent.domain.form.AgentUpdateForm;
 import net.lab1024.sa.admin.module.business.agent.domain.vo.AgentVO;
 import net.lab1024.sa.admin.module.business.agent.service.AgentService;
+import net.lab1024.sa.admin.module.business.settlement.domain.form.SettlementQueryForm;
+import net.lab1024.sa.admin.module.business.settlement.domain.vo.QuerySalesVO;
 import net.lab1024.sa.common.common.domain.ValidateList;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * 代理商 Controller
@@ -37,6 +40,12 @@ public class AgentController {
     @PostMapping("/agent/queryPage")
     public ResponseDTO<PageResult<AgentVO>> queryPage(@RequestBody @Valid AgentQueryForm queryForm) {
         return ResponseDTO.ok(agentService.queryPage(queryForm));
+    }
+
+    @ApiOperation("查询代理商")
+    @PostMapping("/settlement/queryAgent")
+    public ResponseDTO<List<AgentVO>>queryAgent(@RequestBody @Valid AgentQueryForm queryForm){
+        return agentService.queryAgent(queryForm);
     }
 
     @ApiOperation("添加 @author pengch")

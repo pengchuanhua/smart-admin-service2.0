@@ -25,6 +25,13 @@
         </where>
     </select>
 
+    <insert id="insertQuipment">
+        INSERT INTO t_quipment(quipment_sn, quipment_name, quipment_model, address, region_code, location_id, department_id, depot_id, agent_id,
+                               path_id, is_disabled, max_inventory, share_ratio, placementtime, longitude, latitude, create_user, create_time, ts01)
+        VALUES ( #{quipmentSn}, #{quipmentName}, #{quipmentModel}, #{address}, #{regionCode}, #{locationId}, #{departmentId}, #{depotId}, #{agentId},
+                 #{pathId}, #{isDisabled}, #{maxInventory}, #{shareRatio}, #{placementtime}, #{longitude}, #{latitude}, #{createUser}, #{createTime}, #{ts01})
+    </insert>
+
     <update id="updateQuipmentById">
         UPDATE t_quipment
         SET quipment_sn    = #{code},

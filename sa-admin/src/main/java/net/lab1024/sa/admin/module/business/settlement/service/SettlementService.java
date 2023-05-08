@@ -3,18 +3,22 @@ package net.lab1024.sa.admin.module.business.settlement.service;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import net.lab1024.sa.admin.config.AuthenticationInfo;
 import net.lab1024.sa.admin.module.business.region.domain.entity.RegionEntity;
+import net.lab1024.sa.admin.module.business.region.domain.vo.RegionVO;
 import net.lab1024.sa.admin.module.business.sales.service.SalesService;
 import net.lab1024.sa.admin.module.business.settlement.dao.SettlementDao;
 import net.lab1024.sa.admin.module.business.settlement.dao.SettlementitemDao;
+import net.lab1024.sa.admin.module.business.settlement.domain.entity.QuerySalesEntity;
 import net.lab1024.sa.admin.module.business.settlement.domain.entity.SettlementEntity;
 import net.lab1024.sa.admin.module.business.settlement.domain.entity.SettlementitemEntity;
 import net.lab1024.sa.admin.module.business.settlement.domain.form.SettlementAddForm;
 import net.lab1024.sa.admin.module.business.settlement.domain.form.SettlementQueryForm;
 import net.lab1024.sa.admin.module.business.settlement.domain.form.SettlementUpdateForm;
 import net.lab1024.sa.admin.module.business.settlement.domain.form.SettlementitemQueryForm;
+import net.lab1024.sa.admin.module.business.settlement.domain.vo.QuerySalesVO;
 import net.lab1024.sa.admin.module.business.settlement.domain.vo.SettlementVO;
 import net.lab1024.sa.common.common.code.UserErrorCode;
 import net.lab1024.sa.common.common.util.SmartBeanUtil;
@@ -62,6 +66,14 @@ public class SettlementService {
         List<SettlementVO> list = settlementDao.queryPage(page, queryForm);
         PageResult<SettlementVO> pageResult = SmartPageUtil.convert2PageResult(page, list);
         return pageResult;
+    }
+
+    public ResponseDTO<List<QuerySalesVO>> querySales(SettlementQueryForm queryForm) {
+        List<QuerySalesVO> adminVO = settlementDao.querySales(queryForm);
+        if (adminVO==null) {
+            return ResponseDTO.error(UserErrorCode.DATA_NOT_EXIST);
+        }
+        return ResponseDTO.ok(adminVO);
     }
 
     /**
