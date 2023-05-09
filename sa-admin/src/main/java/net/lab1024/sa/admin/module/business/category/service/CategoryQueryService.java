@@ -49,7 +49,7 @@ public class CategoryQueryService {
             return Optional.empty();
         }
         CategoryEntity entity = categoryCacheManager.queryCategory(categoryId);
-        if (null == entity || entity.getDeletedFlag()) {
+        if (null == entity ) {
             return Optional.empty();
         }
         return Optional.of(entity);
@@ -133,7 +133,7 @@ public class CategoryQueryService {
      */
     public String queryCategoryName(Long categoryId) {
         CategoryEntity categoryEntity = categoryCacheManager.queryCategory(categoryId);
-        if (null == categoryEntity || categoryEntity.getDeletedFlag()) {
+        if (null == categoryEntity ) {
             return null;
         }
         return categoryEntity.getCategoryName();
@@ -147,7 +147,7 @@ public class CategoryQueryService {
      */
     public CategorySimpleDTO queryCategoryInfo(Long categoryId) {
         CategoryEntity categoryEntity = categoryCacheManager.queryCategory(categoryId);
-        if (null == categoryEntity || categoryEntity.getDeletedFlag()) {
+        if (null == categoryEntity ) {
             return null;
         }
         String fullName = this.queryFullName(categoryId);
@@ -170,7 +170,7 @@ public class CategoryQueryService {
     public List<CategoryEntity> queryCategoryAndParent(Long categoryId) {
         List<CategoryEntity> parentCategoryList = Lists.newArrayList();
         CategoryEntity categoryEntity = categoryCacheManager.queryCategory(categoryId);
-        if (null == categoryEntity || categoryEntity.getDeletedFlag()) {
+        if (null == categoryEntity ) {
             return parentCategoryList;
         }
 

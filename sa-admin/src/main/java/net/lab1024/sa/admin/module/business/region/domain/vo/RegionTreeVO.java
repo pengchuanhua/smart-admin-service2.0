@@ -43,6 +43,9 @@ public class RegionTreeVO {
      @ApiModelProperty("有效标记")
      private Integer isDisabled;
 
+     @ApiModelProperty("时间戳")
+     private Long ts01;
+
     @ApiModelProperty("子类")
     private List<RegionTreeVO> children;
 }

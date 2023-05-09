@@ -38,4 +38,11 @@
         </if>
     </select>
 
+    <insert id="insertGoods">
+        INSERT INTO t_goods(goods_status, category_id, brand_id, goods_code, bar_code, goods_name, place, price, supply_Price,
+                            shelves_flag, is_disabled, deleted_flag, remark, image, create_time, cemp_name, ts01)
+        VALUES ( #{goodsStatus}, #{categoryId}, #{brandId}, #{goodsCode}, #{barCode}, #{goodsName}, #{place}, #{price}, #{supplyPrice},
+                #{shelvesFlag}, #{isDisabled}, #{deletedFlag}, #{remark}, #{image}, #{create_time}, #{cemp_name}, #{ts01})
+    </insert>
+
 </mapper>

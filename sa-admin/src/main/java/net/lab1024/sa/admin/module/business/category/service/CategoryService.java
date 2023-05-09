@@ -1,6 +1,7 @@
 package net.lab1024.sa.admin.module.business.category.service;
 
 import com.google.common.collect.Lists;
+import net.lab1024.sa.admin.config.AuthenticationInfo;
 import net.lab1024.sa.admin.module.business.category.dao.CategoryDao;
 import net.lab1024.sa.admin.module.business.category.domain.entity.CategoryEntity;
 import net.lab1024.sa.admin.module.business.category.domain.form.CategoryAddForm;
@@ -17,6 +18,8 @@ import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -42,6 +45,9 @@ public class CategoryService {
     @Autowired
     private CategoryCacheManager categoryCacheManager;
 
+    @Resource
+    private AuthenticationInfo authenticationInfo;
+
     /**
      * 添加类目
      *
@@ -58,11 +64,15 @@ public class CategoryService {
         // 没有父类则使用默认父类
         Long parentId = null == addForm.getParentId() ? NumberUtils.LONG_ZERO : addForm.getParentId();
         categoryEntity.setParentId(parentId);
-        categoryEntity.setSort(null == addForm.getSort() ? 0 : addForm.getSort());
-        categoryEntity.setDeletedFlag(false);
+//        categoryEntity.setSort(null == addForm.getSort() ? 0 : addForm.getSort());
+
+        categoryEntity.setCempName(authenticationInfo.getAuthentication().getName());
+        categoryEntity.setCreateTime(new Date());
+        categoryEntity.setTs01(System.currentTimeMillis());
+//        categoryEntity.setDeletedFlag(false);
 
         // 保存数据
-        categoryDao.insert(categoryEntity);
+        categoryDao.insertCategory(categoryEntity);
 
         // 更新缓存
         categoryCacheManager.removeCache();
@@ -89,15 +99,18 @@ public class CategoryService {
          * 不更新类目类型
          * 不更新父类id
          */
-        Integer categoryType = optional.get().getCategoryType();
-        categoryEntity.setCategoryType(categoryType);
+//        Integer categoryType = optional.get().getCategoryType();
+//        categoryEntity.setCategoryType(categoryType);
         categoryEntity.setParentId(optional.get().getParentId());
+        categoryEntity.setUempName(authenticationInfo.getAuthentication().getName());
+        categoryEntity.setUpdateTime(new Date());
+        categoryEntity.setTs01(System.currentTimeMillis());
 
         ResponseDTO<String> responseDTO = this.checkCategory(categoryEntity, true);
         if (!responseDTO.getOk()) {
             return responseDTO;
         }
-        categoryDao.updateById(categoryEntity);
+        categoryDao.updateCategory(categoryEntity);
 
         // 更新缓存
         categoryCacheManager.removeCache();
@@ -114,7 +127,7 @@ public class CategoryService {
     private ResponseDTO<String> checkCategory(CategoryEntity categoryEntity, boolean isUpdate) {
         // 校验父级是否存在
         Long parentId = categoryEntity.getParentId();
-        Integer categoryType = categoryEntity.getCategoryType();
+//        Integer categoryType = categoryEntity.getCategoryType();
         if (null != parentId) {
             if (Objects.equals(categoryEntity.getCategoryId(), parentId)) {
                 return ResponseDTO.userErrorParam("父级类目怎么和自己相同了");
@@ -126,9 +139,9 @@ public class CategoryService {
                 }
 
                 CategoryEntity parent = optional.get();
-                if (!Objects.equals(categoryType, parent.getCategoryType())) {
-                    return ResponseDTO.userErrorParam("与父级类目类型不一致");
-                }
+//                if (!Objects.equals(categoryType, parent.getCategoryType())) {
+//                    return ResponseDTO.userErrorParam("与父级类目类型不一致");
+//                }
             }
 
         } else {
@@ -139,9 +152,9 @@ public class CategoryService {
         // 校验同父类下 名称是否重复
         CategoryEntity queryEntity = new CategoryEntity();
         queryEntity.setParentId(parentId);
-        queryEntity.setCategoryType(categoryType);
+//        queryEntity.setCategoryType(categoryType);
         queryEntity.setCategoryName(categoryEntity.getCategoryName());
-        queryEntity.setDeletedFlag(false);
+//        queryEntity.setDeletedFlag(false);
         queryEntity = categoryDao.selectOne(queryEntity);
         if (null != queryEntity) {
             if (isUpdate) {
@@ -209,7 +222,7 @@ public class CategoryService {
         // 更新数据
         CategoryEntity categoryEntity = new CategoryEntity();
         categoryEntity.setCategoryId(categoryId);
-        categoryEntity.setDeletedFlag(true);
+//        categoryEntity.setDeletedFlag(true);
         categoryDao.updateById(categoryEntity);
 
         // 更新缓存

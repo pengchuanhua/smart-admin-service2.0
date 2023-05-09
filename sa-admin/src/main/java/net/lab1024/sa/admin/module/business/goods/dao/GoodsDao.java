@@ -38,4 +38,6 @@ public interface GoodsDao extends BaseMapper<GoodsEntity> {
      */
 
     void batchUpdateDeleted(@Param("goodsIdList")List<Long> goodsIdList,@Param("deletedFlag")Boolean deletedFlag);
+
+    int insertGoods(GoodsEntity goodsEntity);
 }

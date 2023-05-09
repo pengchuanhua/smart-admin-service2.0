@@ -1,8 +1,11 @@
 package net.lab1024.sa.admin.module.business.quipment.controller;
 
+import net.lab1024.sa.admin.module.business.brand.domain.form.BrandQueryForm;
+import net.lab1024.sa.admin.module.business.brand.domain.vo.BrandVO;
 import net.lab1024.sa.admin.module.business.quipment.domain.form.QuipmentAddForm;
 import net.lab1024.sa.admin.module.business.quipment.domain.form.QuipmentQueryForm;
 import net.lab1024.sa.admin.module.business.quipment.domain.form.QuipmentUpdateForm;
+import net.lab1024.sa.admin.module.business.quipment.domain.vo.QuipmentLogVO;
 import net.lab1024.sa.admin.module.business.quipment.domain.vo.QuipmentVO;
 import net.lab1024.sa.admin.module.business.quipment.service.QuipmentService;
 import net.lab1024.sa.common.common.domain.ValidateList;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * 设备信息 Controller
@@ -37,6 +41,12 @@ public class QuipmentController {
     @PostMapping("/quipment/queryPage")
     public ResponseDTO<PageResult<QuipmentVO>> queryPage(@RequestBody @Valid QuipmentQueryForm queryForm) {
         return ResponseDTO.ok(quipmentService.queryPage(queryForm));
+    }
+
+    @ApiOperation("查询设备修改记录")
+    @GetMapping("/quipment/queryQuipmentLog/{quipmentId}")
+    public ResponseDTO<List<QuipmentLogVO>>queryQuipmentLog(@PathVariable Long quipmentId){
+        return quipmentService.queryQuipmentLog(quipmentId);
     }
 
     @ApiOperation("添加 @author pengch")

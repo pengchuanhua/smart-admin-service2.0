@@ -9,8 +9,6 @@
         WHERE
         parent_id IN
         <foreach collection="parentIdList" open="(" separator="," close=")" item="id">#{id}</foreach>
-        AND deleted_flag = #{deletedFlag}
-        ORDER BY sort ASC
     </select>
 
 
@@ -21,34 +19,24 @@
         WHERE
         parent_id IN
         <foreach collection="parentIdList" open="(" separator="," close=")" item="id">#{id}</foreach>
-        AND category_type = #{categoryType}
-        AND deleted_flag = #{deletedFlag}
-        ORDER BY sort ASC
     </select>
 
     <select id="queryByType"
             resultType="net.lab1024.sa.admin.module.business.category.domain.entity.CategoryEntity">
         SELECT * FROM t_category
-        WHERE category_type = #{categoryType}
-        AND deleted_flag = #{deletedFlag}
-        ORDER BY sort ASC
+        WHERE 1=1
     </select>
 
     <!-- 查看类目 -->
     <select id="selectOne" resultType="net.lab1024.sa.admin.module.business.category.domain.entity.CategoryEntity">
         SELECT * FROM t_category
         <where>
-            <if test="categoryType != null">
-                AND category_type = #{categoryType}
-            </if>
+
             <if test="parentId != null">
                 AND parent_id = #{parentId}
             </if>
             <if test="categoryName != null">
                 AND category_name = #{categoryName}
-            </if>
-            <if test="deletedFlag != null">
-                AND deleted_flag = #{deletedFlag}
             </if>
         </where>
         LIMIT 1
@@ -56,6 +44,27 @@
 
     <select id="selectByTypeAndId"
             resultType="net.lab1024.sa.admin.module.business.category.domain.entity.CategoryEntity">
-        select * from  t_category where category_type = #{categoryType} and category_id = #{categoryId}
+        select * from  t_category where 1=1 and category_id = #{categoryId}
     </select>
+
+    <insert id="insertCategory">
+        INSERT INTO t_category(category_name,  parent_id,  disabled_flag,
+                               remark,  create_time, cemp_name,  ts01, end_level_flag, Level)
+        VALUES ( #{categoryName},  #{parentId},  #{disabledFlag},
+                 #{remark},  #{createTime}, #{cempName},  #{ts01}, #{endLevelFlag}, #{Level})
+    </insert>
+
+    <update id="updateCategory">
+        UPDATE t_category
+        SET
+            parent_id = #{parentId},
+            category_name        = #{categoryName},
+            Level       = #{Level},
+            end_level_flag = #{endLevelFlag},
+            disabled_flag = #{disabledFlag},
+            update_time       = #{updateTime},
+            uemp_name   = #{uempName},
+            ts01        = #{ts01}
+        WHERE category_id = #{categoryId}
+    </update>
 </mapper>

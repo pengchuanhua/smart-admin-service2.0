@@ -1,6 +1,7 @@
 package net.lab1024.sa.admin.module.business.goods.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import net.lab1024.sa.admin.config.AuthenticationInfo;
 import net.lab1024.sa.admin.module.business.category.constant.CategoryTypeEnum;
 import net.lab1024.sa.admin.module.business.category.domain.entity.CategoryEntity;
 import net.lab1024.sa.admin.module.business.category.service.CategoryQueryService;
@@ -24,10 +25,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import javax.annotation.Resource;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -50,6 +49,9 @@ public class GoodsService {
     @Autowired
     private DataTracerService dataTracerService;
 
+    @Resource
+    private AuthenticationInfo authenticationInfo;
+
     /**
      * 添加商品
      *
@@ -65,7 +67,12 @@ public class GoodsService {
         }
         GoodsEntity goodsEntity = SmartBeanUtil.copy(addForm, GoodsEntity.class);
         goodsEntity.setDeletedFlag(Boolean.FALSE);
-        goodsDao.insert(goodsEntity);
+
+
+        goodsEntity.setCempName(authenticationInfo.getAuthentication().getName());
+        goodsEntity.setCreateTime(new Date());
+        goodsEntity.setTs01(System.currentTimeMillis());
+        goodsDao.insertGoods(goodsEntity);
         dataTracerService.insert(goodsEntity.getGoodsId(), DataTracerTypeEnum.GOODS);
         return ResponseDTO.ok();
     }
@@ -101,7 +108,7 @@ public class GoodsService {
         // 校验类目id
         Long categoryId = addForm.getCategoryId();
         Optional<CategoryEntity> optional = categoryQueryService.queryCategory(categoryId);
-        if (!optional.isPresent() || !CategoryTypeEnum.GOODS.equalsValue(optional.get().getCategoryType())) {
+        if (!optional.isPresent() ) {
             return ResponseDTO.error(UserErrorCode.DATA_NOT_EXIST, "商品类目不存在~");
         }
 

@@ -4,13 +4,9 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
-import net.lab1024.sa.admin.module.business.category.dao.CategoryDao;
-import net.lab1024.sa.common.module.support.datatracer.annoation.DataTracerFieldBigDecimal;
-import net.lab1024.sa.common.module.support.datatracer.annoation.DataTracerFieldLabel;
-import net.lab1024.sa.common.module.support.datatracer.annoation.DataTracerFieldSql;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * 商品 实体类
@@ -39,6 +35,16 @@ public class GoodsEntity {
     private Long categoryId;
 
     /**
+     * 商品品牌
+     */
+    private Long brandId;
+
+    /**
+     * 商品编码
+     */
+    private String goodsCode;
+
+    /**
      * 商品名称
      */
     private String goodsName;
@@ -53,6 +59,16 @@ public class GoodsEntity {
      */
     private BigDecimal price;
 
+    /**
+     * 商品供价
+     */
+    private BigDecimal supplyPrice;
+
+    /**
+     * 商品条件
+     */
+    private String barCode;
+
 
     /**
      * 上架状态
@@ -65,11 +81,23 @@ public class GoodsEntity {
     private Boolean deletedFlag;
 
     /**
+     * 有效标记(0:有效,1:无效)
+     */
+    private Integer isDisabled;
+
+    /**
      * 备注
      */
     private String remark;
 
-    private LocalDateTime updateTime;
+    private Date updateTime;
 
-    private LocalDateTime createTime;
+    private Date createTime;
+
+    private String cempName;
+
+    private String uempName;
+
+    private Long ts01;
+
 }

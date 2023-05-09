@@ -7,6 +7,7 @@ import lombok.Data;
 import net.lab1024.sa.admin.module.business.category.constant.CategoryTypeEnum;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * 类目 实体类
@@ -34,7 +35,7 @@ public class CategoryEntity {
      *
      * @see CategoryTypeEnum
      */
-    private Integer categoryType;
+//    private Integer categoryType;
 
     /**
      * 父级类目id
@@ -49,19 +50,47 @@ public class CategoryEntity {
     /**
      * 排序
      */
-    private Integer sort;
+//    private Integer sort;
 
     /**
      * 删除状态
      */
-    private Boolean deletedFlag;
+//    private Boolean deletedFlag;
 
     /**
      * 备注
      */
     private String remark;
 
-    private LocalDateTime updateTime;
+    /**
+     * 更新时间
+     */
+    private Date updateTime;
 
-    private LocalDateTime createTime;
+    /**
+     * 更新员工
+     */
+    private String uempName;
+
+    /**
+     * 末级标记
+     */
+    private Integer endLevelFlag;
+
+    /**
+     * 创建时间
+     */
+    private Date createTime;
+
+    /**
+     * 创建员工
+     */
+    private String cempName;
+
+    /**
+     * 级别
+     */
+    private int Level;
+
+    private Long ts01;
 }

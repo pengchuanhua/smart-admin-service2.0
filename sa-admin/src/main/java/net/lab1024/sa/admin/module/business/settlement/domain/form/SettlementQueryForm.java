@@ -19,10 +19,16 @@ public class SettlementQueryForm extends PageParam{
     @ApiModelProperty(value = "代理商")
     private String agentId;
 
-    @ApiModelProperty(value = "开始日期")
-    private LocalDate startDateBegin;
+    @ApiModelProperty(value = "制单-开始日期")
+    private LocalDate startDate;
 
-    @ApiModelProperty(value = "结束日期")
-    private LocalDate endDateEnd;
+    @ApiModelProperty(value = "制单-结束日期")
+    private LocalDate endDate;
+
+    @ApiModelProperty(value = "审核-开始日期")
+    private LocalDate check_startDate;
+
+    @ApiModelProperty(value = "审核-结束日期")
+    private LocalDate check_endDate;
 
 }

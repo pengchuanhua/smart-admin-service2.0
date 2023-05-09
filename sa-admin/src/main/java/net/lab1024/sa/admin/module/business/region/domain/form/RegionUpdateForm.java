@@ -41,4 +41,7 @@ public class RegionUpdateForm {
     @ApiModelProperty(value = "有效标记(0:有效,1:无效)")
     private Integer isDisabled;
 
+    @ApiModelProperty(value = "时间戳")
+    private Long ts01;
+
 }

@@ -69,4 +69,8 @@ public interface CategoryDao extends BaseMapper<CategoryEntity> {
      */
     CategoryEntity selectOne(CategoryEntity entity);
 
+    int insertCategory(CategoryEntity categoryEntity);
+
+    int updateCategory(CategoryEntity categoryEntity);
+
 }

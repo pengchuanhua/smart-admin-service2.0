@@ -12,19 +12,44 @@
             <if test="queryForm.agentId != null and queryForm.agentId != ''">
                         AND INSTR(t_settlement.agent_id,#{queryForm.agentId})
             </if>
-            <!--开始日期-->
-            <if test="queryForm.startDateBegin != null">
-                AND DATE_FORMAT(t_settlement.start date, '%Y-%m-%d') &gt;= #{queryForm.startDateBegin}
+            <!--制单-开始日期-->
+            <if test="queryForm.startDate != null">
+                AND DATE_FORMAT(t_settlement.startdate, '%Y-%m-%d') &gt;= #{startDate}
             </if>
-            <if test="queryForm.startDateEnd != null">
-                AND DATE_FORMAT(t_settlement.start date, '%Y-%m-%d') &lt;= #{queryForm.startDateEnd}
+
+            <!--制单-结束日期-->
+            <if test="queryForm.endDate != null">
+                AND DATE_FORMAT(t_settlement.enddate, '%Y-%m-%d') &gt;= #{endDate}
             </if>
-            <!--结束日期-->
-            <if test="queryForm.endDateBegin != null">
-                AND DATE_FORMAT(t_settlement.end date, '%Y-%m-%d') &gt;= #{queryForm.endDateBegin}
+
+            <!--审核-开始日期-->
+            <if test="queryForm.check_startDate != null">
+                AND DATE_FORMAT(t_settlement.cktime, '%Y-%m-%d') &gt;= #{check_startDate}
             </if>
-            <if test="queryForm.endDateEnd != null">
-                AND DATE_FORMAT(t_settlement.end date, '%Y-%m-%d') &lt;= #{queryForm.endDateEnd}
+
+            <!--审核-结束日期-->
+            <if test="queryForm.check_endDate != null">
+                AND DATE_FORMAT(t_settlement.cktime, '%Y-%m-%d') &gt;= #{check_endDate}
+            </if>
+
+        </where>
+    </select>
+
+    <select id="querySales" resultType="net.lab1024.sa.admin.module.business.settlement.domain.vo.QuerySalesVO">
+        SELECT
+        *
+        FROM t_sales
+        <where>
+            <!--代理商编码/名称-->
+            <if test="queryForm.agentId != null and queryForm.agentId != ''">
+                AND INSTR(t_sales.agent_id,#{queryForm.agentId})
+            </if>
+            <!--收款时间-->
+            <if test="queryForm.rptimeBegin != null">
+                AND DATE_FORMAT(t_sales.rptime, '%Y-%m-%d') &gt;= #{queryForm.rptimeBegin}
+            </if>
+            <if test="queryForm.rptimeEnd != null">
+                AND DATE_FORMAT(t_sales.rptime, '%Y-%m-%d') &lt;= #{queryForm.rptimeEnd}
             </if>
         </where>
     </select>
