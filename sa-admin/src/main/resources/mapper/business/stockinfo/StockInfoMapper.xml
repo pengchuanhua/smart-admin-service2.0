@@ -19,5 +19,19 @@
         </where>
     </select>
 
+    <insert id="insertStock">
+        INSERT INTO t_stock_info(org_id, goods_id, depot_id, stock_num, ctime, cemp_name, description, ts01)
+        VALUES( #{orgId}, #{goodsId}, #{depotId}, #{stockNum}, #{ctime}, #{cempName}, #{description}, #{ts01})
+    </insert>
+
+    <update id="updateStock">
+    UPDATE t_stock_info SET
+        stock_num =stock_num+ #{stockNum},
+        uemp_name = #{uempName},
+        utime     = #{utime}
+    WHERE org_id = #{orgId} AND goods_id = #{goodsId} AND depot_id = #{depotId}
+
+    </update>
+
 
 </mapper>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.lab1024.sa.admin.module.business.stockio.dao.StockIoDao">
+
+    <!-- 分页查询 -->
+    <select id="queryPage" resultType="net.lab1024.sa.admin.module.business.stockio.domain.vo.StockIoVO">
+        SELECT
+        *
+        FROM t_stock_io
+        <where>
+            <!--商品信息-->
+            <if test="queryForm.goods != null and queryForm.goods != ''">
+                        AND INSTR(t_stock_io.goods_id,#{queryForm.goods})
+            </if>
+            <!--供应商-->
+            <if test="queryForm.supplie != null and queryForm.supplie != ''">
+                        AND INSTR(t_stock_io.supplie_id,#{queryForm.supplie})
+            </if>
+            <!--仓库信息-->
+            <if test="queryForm.depot != null and queryForm.depot != ''">
+                        AND INSTR(t_stock_io.depot_id,#{queryForm.depot})
+            </if>
+            <!--类型-->
+            <if test="queryForm.type != null">
+                AND t_stock_io.type = #{queryForm.type}
+            </if>
+            <!--创建时间-->
+            <if test="queryForm.ctimeBegin != null">
+                AND DATE_FORMAT(t_stock_io.ctime, '%Y-%m-%d') &gt;= #{queryForm.ctimeBegin}
+            </if>
+            <if test="queryForm.ctimeEnd != null">
+                AND DATE_FORMAT(t_stock_io.ctime, '%Y-%m-%d') &lt;= #{queryForm.ctimeEnd}
+            </if>
+        </where>
+    </select>
+
+
+</mapper>

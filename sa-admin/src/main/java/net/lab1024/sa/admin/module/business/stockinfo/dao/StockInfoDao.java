@@ -31,5 +31,8 @@ public interface StockInfoDao extends BaseMapper<StockInfoEntity> {
      */
     List<StockInfoVO> queryPage(Page page, @Param("queryForm") StockInfoQueryForm queryForm);
 
+    int insertStock(StockInfoEntity stockInfoEntity);
+
+    int updateStock(StockInfoEntity stockInfoEntity);
 
 }

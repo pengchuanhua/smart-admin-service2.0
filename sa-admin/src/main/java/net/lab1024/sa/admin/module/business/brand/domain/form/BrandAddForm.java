@@ -28,4 +28,7 @@ public class BrandAddForm {
     @NotNull(message = "有效标记 不能为空")
     private Integer isDisabled;
 
+    @ApiModelProperty(value = "描述", required = true)
+    private String description;
+
 }
