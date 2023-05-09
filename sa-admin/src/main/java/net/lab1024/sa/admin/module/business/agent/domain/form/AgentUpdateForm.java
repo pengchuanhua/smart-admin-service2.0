@@ -52,4 +52,7 @@ public class AgentUpdateForm {
     @NotNull(message = "有效标记(0:有效,1:无效) 不能为空")
     private Integer isDisabled;
 
+    @ApiModelProperty(value = "时间戳", required = true)
+    private Long ts01;
+
 }

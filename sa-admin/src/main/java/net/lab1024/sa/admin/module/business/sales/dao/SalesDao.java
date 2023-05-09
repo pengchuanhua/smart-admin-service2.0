@@ -6,7 +6,6 @@ import net.lab1024.sa.admin.module.business.sales.domain.form.SalesQueryForm;
 import net.lab1024.sa.admin.module.business.sales.domain.vo.SalesVO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import net.lab1024.sa.admin.module.business.settlement.domain.vo.SettlementVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;

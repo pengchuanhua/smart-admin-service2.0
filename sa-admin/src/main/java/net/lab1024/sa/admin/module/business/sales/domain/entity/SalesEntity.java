@@ -1,6 +1,5 @@
 package net.lab1024.sa.admin.module.business.sales.domain.entity;
 
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

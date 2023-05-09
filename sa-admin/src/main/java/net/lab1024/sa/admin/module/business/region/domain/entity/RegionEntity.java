@@ -35,7 +35,7 @@ public class RegionEntity {
     /**
      * 地区级别
      */
-    private int Level;
+    private int regionLevel;
 
     /**
      * 末级标记

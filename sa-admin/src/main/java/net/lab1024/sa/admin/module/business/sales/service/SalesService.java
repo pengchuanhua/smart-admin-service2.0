@@ -3,7 +3,6 @@ package net.lab1024.sa.admin.module.business.sales.service;
 import java.util.List;
 import java.util.Optional;
 
-import net.lab1024.sa.admin.module.business.region.domain.entity.RegionEntity;
 import net.lab1024.sa.admin.module.business.sales.dao.SalesDao;
 import net.lab1024.sa.admin.module.business.sales.domain.entity.SalesEntity;
 import net.lab1024.sa.admin.module.business.sales.domain.form.SalesQueryForm;

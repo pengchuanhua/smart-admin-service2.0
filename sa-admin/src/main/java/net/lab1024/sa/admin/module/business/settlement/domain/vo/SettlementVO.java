@@ -7,9 +7,6 @@ import java.util.Date;
 import java.util.List;
 
 import lombok.Data;
-import net.lab1024.sa.admin.module.business.settlement.domain.form.SettlementitemAddForm;
-
-import javax.validation.constraints.NotNull;
 
 /**
  * 结算主表 列表VO

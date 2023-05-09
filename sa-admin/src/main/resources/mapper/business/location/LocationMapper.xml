@@ -34,8 +34,8 @@
     </select>
 
     <insert id="insertLocation">
-        INSERT INTO t_location(code, parent_code, name, Level, end_level_flag, is_disabled, ctime, cemp_name, ts01)
-        VALUES (#{code}, #{parentCode}, #{name}, #{Level}, #{endLevelFlag}, #{isDisabled}, #{ctime}, #{cempName}, #{ts01})
+        INSERT INTO t_location(code, parent_code, name, location_level, end_level_flag, is_disabled, ctime, cemp_name, ts01)
+        VALUES (#{code}, #{parentCode}, #{name}, #{locationLevel}, #{endLevelFlag}, #{isDisabled}, #{ctime}, #{cempName}, #{ts01})
     </insert>
 
 
@@ -44,7 +44,7 @@
         SET code        = #{code},
             parent_code = #{parentCode},
             name        = #{name},
-            Level       = #{Level},
+            location_level       = #{locationLevel},
             end_level_flag = #{endLevelFlag},
             is_disabled = #{isDisabled},
             utime       = #{utime},

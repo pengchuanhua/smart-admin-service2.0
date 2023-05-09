@@ -1,7 +1,5 @@
 package net.lab1024.sa.admin.module.business.path.controller;
 
-import net.lab1024.sa.admin.module.business.brand.domain.form.BrandQueryForm;
-import net.lab1024.sa.admin.module.business.brand.domain.vo.BrandVO;
 import net.lab1024.sa.admin.module.business.path.domain.form.PathAddForm;
 import net.lab1024.sa.admin.module.business.path.domain.form.PathQueryForm;
 import net.lab1024.sa.admin.module.business.path.domain.form.PathUpdateForm;

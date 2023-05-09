@@ -27,7 +27,7 @@ public class RegionVO {
     private String name;
 
     @ApiModelProperty(value = "地区级别")
-    private int Level;
+    private int regionLevel;
 
     @ApiModelProperty(value = "末级标记")
     private Integer endLevelFlag;

@@ -4,8 +4,6 @@ import java.util.Date;
 import java.util.List;
 
 import net.lab1024.sa.admin.config.AuthenticationInfo;
-import net.lab1024.sa.admin.module.business.brand.domain.form.BrandQueryForm;
-import net.lab1024.sa.admin.module.business.brand.domain.vo.BrandVO;
 import net.lab1024.sa.admin.module.business.supplie.dao.SupplieDao;
 import net.lab1024.sa.admin.module.business.supplie.domain.entity.SupplieEntity;
 import net.lab1024.sa.admin.module.business.supplie.domain.form.SupplieAddForm;

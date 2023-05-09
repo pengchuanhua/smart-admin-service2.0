@@ -5,11 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.lab1024.sa.admin.module.business.location.domain.entity.LocationEntity;
 import net.lab1024.sa.admin.module.business.location.dao.LocationDao;
 
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import net.lab1024.sa.admin.module.business.location.domain.vo.LocationTreeVO;
-import net.lab1024.sa.admin.module.business.region.domain.entity.RegionEntity;
-import net.lab1024.sa.admin.module.business.region.domain.vo.RegionTreeVO;
-import net.lab1024.sa.common.common.constant.StringConst;
 import net.lab1024.sa.common.common.util.SmartBeanUtil;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;

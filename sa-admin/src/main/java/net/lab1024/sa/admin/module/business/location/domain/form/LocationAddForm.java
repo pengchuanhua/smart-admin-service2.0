@@ -29,7 +29,7 @@ public class LocationAddForm {
 
     @ApiModelProperty(value = "位置级别", required = true)
     @NotNull(message = "位置级别 不能为空")
-    private int Level;
+    private int locationLevel;
 
     @ApiModelProperty(value = "末级标记", required = true)
     @NotNull(message = "末级标记 不能为空")

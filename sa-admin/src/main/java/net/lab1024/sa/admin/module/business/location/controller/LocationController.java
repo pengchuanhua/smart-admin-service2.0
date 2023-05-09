@@ -6,7 +6,6 @@ import net.lab1024.sa.admin.module.business.location.domain.form.LocationUpdateF
 import net.lab1024.sa.admin.module.business.location.domain.vo.LocationTreeVO;
 import net.lab1024.sa.admin.module.business.location.domain.vo.LocationVO;
 import net.lab1024.sa.admin.module.business.location.service.LocationService;
-import net.lab1024.sa.admin.module.business.region.domain.form.RegionTreeQueryForm;
 import net.lab1024.sa.common.common.domain.ValidateList;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

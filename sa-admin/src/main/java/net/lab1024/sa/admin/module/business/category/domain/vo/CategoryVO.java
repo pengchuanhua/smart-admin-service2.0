@@ -3,13 +3,7 @@ package net.lab1024.sa.admin.module.business.category.domain.vo;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import net.lab1024.sa.admin.module.business.category.constant.CategoryTypeEnum;
-import net.lab1024.sa.admin.module.business.category.domain.dto.CategoryBaseDTO;
 import net.lab1024.sa.common.common.swagger.ApiModelPropertyEnum;
-import net.lab1024.sa.common.common.validator.enumeration.CheckEnum;
-import org.hibernate.validator.constraints.Length;
-
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 /**

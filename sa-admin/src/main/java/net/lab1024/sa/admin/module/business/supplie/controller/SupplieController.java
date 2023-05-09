@@ -1,7 +1,5 @@
 package net.lab1024.sa.admin.module.business.supplie.controller;
 
-import net.lab1024.sa.admin.module.business.brand.domain.form.BrandQueryForm;
-import net.lab1024.sa.admin.module.business.brand.domain.vo.BrandVO;
 import net.lab1024.sa.admin.module.business.supplie.domain.form.SupplieAddForm;
 import net.lab1024.sa.admin.module.business.supplie.domain.form.SupplieQueryForm;
 import net.lab1024.sa.admin.module.business.supplie.domain.form.SupplieUpdateForm;

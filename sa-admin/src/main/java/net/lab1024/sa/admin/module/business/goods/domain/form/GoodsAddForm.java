@@ -7,7 +7,6 @@ import net.lab1024.sa.admin.module.business.goods.constant.GoodsStatusEnum;
 import net.lab1024.sa.common.common.json.deserializer.DictValueVoDeserializer;
 import net.lab1024.sa.common.common.swagger.ApiModelPropertyEnum;
 import net.lab1024.sa.common.common.validator.enumeration.CheckEnum;
-import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;

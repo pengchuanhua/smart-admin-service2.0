@@ -2,7 +2,6 @@ package net.lab1024.sa.admin.module.business.goods.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import net.lab1024.sa.admin.config.AuthenticationInfo;
-import net.lab1024.sa.admin.module.business.category.constant.CategoryTypeEnum;
 import net.lab1024.sa.admin.module.business.category.domain.entity.CategoryEntity;
 import net.lab1024.sa.admin.module.business.category.service.CategoryQueryService;
 import net.lab1024.sa.admin.module.business.goods.constant.GoodsStatusEnum;
@@ -12,7 +11,6 @@ import net.lab1024.sa.admin.module.business.goods.domain.form.GoodsAddForm;
 import net.lab1024.sa.admin.module.business.goods.domain.form.GoodsQueryForm;
 import net.lab1024.sa.admin.module.business.goods.domain.form.GoodsUpdateForm;
 import net.lab1024.sa.admin.module.business.goods.domain.vo.GoodsVO;
-import net.lab1024.sa.admin.module.business.goods.manager.GoodsManager;
 import net.lab1024.sa.common.common.code.UserErrorCode;
 import net.lab1024.sa.common.common.domain.PageResult;
 import net.lab1024.sa.common.common.domain.ResponseDTO;

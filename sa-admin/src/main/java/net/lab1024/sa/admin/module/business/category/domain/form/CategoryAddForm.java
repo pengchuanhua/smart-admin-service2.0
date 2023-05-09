@@ -3,7 +3,6 @@ package net.lab1024.sa.admin.module.business.category.domain.form;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import net.lab1024.sa.admin.module.business.category.constant.CategoryTypeEnum;
-import net.lab1024.sa.admin.module.business.category.domain.dto.CategoryBaseDTO;
 import net.lab1024.sa.common.common.swagger.ApiModelPropertyEnum;
 import net.lab1024.sa.common.common.validator.enumeration.CheckEnum;
 import org.hibernate.validator.constraints.Length;

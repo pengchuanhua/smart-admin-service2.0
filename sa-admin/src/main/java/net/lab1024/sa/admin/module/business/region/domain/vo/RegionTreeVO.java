@@ -35,7 +35,7 @@ public class RegionTreeVO {
     private String label;
 
      @ApiModelProperty("地区级别")
-     private int Level;
+     private int regionLevel;
 
      @ApiModelProperty("末级标记")
      private Integer endLevelFlag;

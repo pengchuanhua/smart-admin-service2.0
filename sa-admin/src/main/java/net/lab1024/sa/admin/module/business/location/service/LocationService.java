@@ -14,7 +14,6 @@ import net.lab1024.sa.admin.module.business.location.domain.form.LocationUpdateF
 import net.lab1024.sa.admin.module.business.location.domain.vo.LocationTreeVO;
 import net.lab1024.sa.admin.module.business.location.domain.vo.LocationVO;
 import net.lab1024.sa.admin.module.business.location.manager.LocationManager;
-import net.lab1024.sa.admin.module.business.region.domain.entity.RegionEntity;
 import net.lab1024.sa.common.common.code.UserErrorCode;
 import net.lab1024.sa.common.common.util.SmartBeanUtil;
 import net.lab1024.sa.common.common.domain.ResponseDTO;

@@ -3,15 +3,11 @@ package net.lab1024.sa.admin.module.business.settlement.service;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import net.lab1024.sa.admin.config.AuthenticationInfo;
-import net.lab1024.sa.admin.module.business.region.domain.entity.RegionEntity;
-import net.lab1024.sa.admin.module.business.region.domain.vo.RegionVO;
 import net.lab1024.sa.admin.module.business.sales.service.SalesService;
 import net.lab1024.sa.admin.module.business.settlement.dao.SettlementDao;
 import net.lab1024.sa.admin.module.business.settlement.dao.SettlementitemDao;
-import net.lab1024.sa.admin.module.business.settlement.domain.entity.QuerySalesEntity;
 import net.lab1024.sa.admin.module.business.settlement.domain.entity.SettlementEntity;
 import net.lab1024.sa.admin.module.business.settlement.domain.entity.SettlementitemEntity;
 import net.lab1024.sa.admin.module.business.settlement.domain.form.SettlementAddForm;

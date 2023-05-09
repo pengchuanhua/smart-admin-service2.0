@@ -1,10 +1,7 @@
 package net.lab1024.sa.admin.module.business.quipment.domain.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 import lombok.Data;

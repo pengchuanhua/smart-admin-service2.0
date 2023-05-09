@@ -1,6 +1,5 @@
 package net.lab1024.sa.admin.module.business.settlement.domain.entity;
 
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.math.BigDecimal;
 import lombok.Data;

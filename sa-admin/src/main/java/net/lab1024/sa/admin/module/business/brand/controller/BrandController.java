@@ -1,7 +1,5 @@
 package net.lab1024.sa.admin.module.business.brand.controller;
 
-import net.lab1024.sa.admin.module.business.agent.domain.form.AgentQueryForm;
-import net.lab1024.sa.admin.module.business.agent.domain.vo.AgentVO;
 import net.lab1024.sa.admin.module.business.brand.domain.form.BrandAddForm;
 import net.lab1024.sa.admin.module.business.brand.domain.form.BrandQueryForm;
 import net.lab1024.sa.admin.module.business.brand.domain.form.BrandUpdateForm;

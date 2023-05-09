@@ -6,8 +6,6 @@ import java.util.List;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
-import net.lab1024.sa.admin.module.business.settlement.domain.entity.SettlementitemEntity;
-
 /**
  * 结算主表 新建表单
  *

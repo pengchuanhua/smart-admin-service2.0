@@ -32,4 +32,7 @@ public class BrandUpdateForm {
     @NotNull(message = "有效标记 不能为空")
     private Integer isDisabled;
 
+    @ApiModelProperty(value = "时间戳", required = true)
+    private Long ts01;
+
 }

@@ -51,4 +51,7 @@ public class SupplieUpdateForm {
     @ApiModelProperty(value = "描述")
     private String description;
 
+    @ApiModelProperty(value = "时间戳", required = true)
+    private Long ts01;
+
 }

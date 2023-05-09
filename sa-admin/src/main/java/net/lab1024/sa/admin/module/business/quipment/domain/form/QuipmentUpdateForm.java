@@ -76,4 +76,7 @@ public class QuipmentUpdateForm {
     @NotBlank(message = "纬度 不能为空")
     private String latitude;
 
+    @ApiModelProperty(value = "时间戳", required = true)
+    private Long ts01;
+
 }

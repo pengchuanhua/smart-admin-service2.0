@@ -29,7 +29,7 @@ public class RegionUpdateForm {
 
     @ApiModelProperty(value = "地区级别", required = true)
     @NotNull(message = "地区级别 不能为空")
-    private int Level;
+    private int regionLevel;
 
     @ApiModelProperty(value = "末级标记", required = true)
     @NotNull(message = "末级标记 不能为空")

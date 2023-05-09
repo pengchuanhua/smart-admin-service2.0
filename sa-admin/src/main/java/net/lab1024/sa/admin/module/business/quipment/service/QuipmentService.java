@@ -4,8 +4,6 @@ import java.util.Date;
 import java.util.List;
 
 import net.lab1024.sa.admin.config.AuthenticationInfo;
-import net.lab1024.sa.admin.module.business.agent.domain.form.AgentQueryForm;
-import net.lab1024.sa.admin.module.business.agent.domain.vo.AgentVO;
 import net.lab1024.sa.admin.module.business.quipment.dao.QuipmentDao;
 import net.lab1024.sa.admin.module.business.quipment.domain.entity.QuipmentEntity;
 import net.lab1024.sa.admin.module.business.quipment.domain.entity.UpdateQuipmentEntity;

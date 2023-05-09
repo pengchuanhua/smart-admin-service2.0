@@ -10,8 +10,6 @@ import net.lab1024.sa.admin.module.business.agent.domain.form.AgentAddForm;
 import net.lab1024.sa.admin.module.business.agent.domain.form.AgentQueryForm;
 import net.lab1024.sa.admin.module.business.agent.domain.form.AgentUpdateForm;
 import net.lab1024.sa.admin.module.business.agent.domain.vo.AgentVO;
-import net.lab1024.sa.admin.module.business.settlement.domain.form.SettlementQueryForm;
-import net.lab1024.sa.admin.module.business.settlement.domain.vo.QuerySalesVO;
 import net.lab1024.sa.common.common.code.UserErrorCode;
 import net.lab1024.sa.common.common.util.SmartBeanUtil;
 import net.lab1024.sa.common.common.util.SmartPageUtil;

@@ -1,7 +1,6 @@
 package net.lab1024.sa.admin.module.business.agent.domain.vo;
 
 import io.swagger.annotations.ApiModelProperty;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 import lombok.Data;

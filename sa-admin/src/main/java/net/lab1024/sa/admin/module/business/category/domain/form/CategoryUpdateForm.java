@@ -2,7 +2,6 @@ package net.lab1024.sa.admin.module.business.category.domain.form;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import net.lab1024.sa.admin.module.business.category.domain.dto.CategoryBaseDTO;
 
 import javax.validation.constraints.NotNull;
 

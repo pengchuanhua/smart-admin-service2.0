@@ -2,7 +2,6 @@ package net.lab1024.sa.admin.module.business.quipment.domain.vo;
 
 import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 import lombok.Data;

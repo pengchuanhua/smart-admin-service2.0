@@ -1,7 +1,6 @@
 package net.lab1024.sa.admin.module.business.location.domain.vo;
 
 import io.swagger.annotations.ApiModelProperty;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 import lombok.Data;
@@ -30,7 +29,7 @@ public class LocationVO {
     private String name;
 
     @ApiModelProperty(value = "位置级别")
-    private int Level;
+    private int locationLevel;
 
     @ApiModelProperty(value = "末级标记")
     private Integer endLevelFlag;

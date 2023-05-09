@@ -1,7 +1,5 @@
 package net.lab1024.sa.admin.module.business.depot.controller;
 
-import net.lab1024.sa.admin.module.business.brand.domain.form.BrandQueryForm;
-import net.lab1024.sa.admin.module.business.brand.domain.vo.BrandVO;
 import net.lab1024.sa.admin.module.business.depot.domain.form.DepotAddForm;
 import net.lab1024.sa.admin.module.business.depot.domain.form.DepotQueryForm;
 import net.lab1024.sa.admin.module.business.depot.domain.form.DepotUpdateForm;

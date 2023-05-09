@@ -1,9 +1,6 @@
 package net.lab1024.sa.admin.module.business.location.domain.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 import lombok.Data;
@@ -43,7 +40,7 @@ public class LocationEntity {
     /**
      * 位置级别
      */
-    private int Level;
+    private int locationLevel;
 
     /**
      * 末级标记

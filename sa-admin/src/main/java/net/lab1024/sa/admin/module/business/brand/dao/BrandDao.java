@@ -2,8 +2,6 @@ package net.lab1024.sa.admin.module.business.brand.dao;
 
 import java.util.List;
 
-import net.lab1024.sa.admin.module.business.agent.domain.form.AgentQueryForm;
-import net.lab1024.sa.admin.module.business.agent.domain.vo.AgentVO;
 import net.lab1024.sa.admin.module.business.brand.domain.entity.BrandEntity;
 import net.lab1024.sa.admin.module.business.brand.domain.form.BrandQueryForm;
 import net.lab1024.sa.admin.module.business.brand.domain.vo.BrandVO;
