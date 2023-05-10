@@ -19,6 +19,9 @@ public class DepotVO {
     @ApiModelProperty(value = "id")
     private Long id;
 
+    @ApiModelProperty(value = "depotId")
+    private Long depotId;
+
     @ApiModelProperty(value = "组织ID(部门前两位)")
     private String orgId;
 

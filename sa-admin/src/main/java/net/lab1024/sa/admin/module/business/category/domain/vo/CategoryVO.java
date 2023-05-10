@@ -21,23 +21,31 @@ public class CategoryVO {
     @ApiModelProperty(value = "类目名称", required = true)
     private String categoryName;
 
-    @ApiModelPropertyEnum(desc = "分类类型", value = CategoryTypeEnum.class)
-    private Integer categoryType;
+//    @ApiModelPropertyEnum(desc = "分类类型", value = CategoryTypeEnum.class)
+//    private Integer categoryType;
 
     @ApiModelProperty("父级类目id|可选")
     private Long parentId;
 
-    @ApiModelProperty("排序|可选")
-    private Integer sort;
+//    @ApiModelProperty("排序|可选")
+//    private Integer sort;
 
     @ApiModelProperty("备注|可选")
     private String remark;
 
     @ApiModelProperty("禁用状态")
-    private Boolean disabledFlag;
+    private Integer disabledFlag;
 
     @ApiModelProperty("类目id")
     private Long categoryId;
+
+    @ApiModelProperty("级别")
+    private Integer categoryLevel;
+
+    @ApiModelProperty("末级标记")
+    private Integer endLevelFlag;
+
+    private Long ts01;
 
     private LocalDateTime updateTime;
 

@@ -9,11 +9,18 @@
         FROM t_path
         <where>
             <!--路线编码/名称-->
-            <if test="queryForm.path != null and queryForm.path != ''">
-                AND ( INSTR(t_path.code,#{queryForm.path})
-                OR INSTR(t_path.name,#{queryForm.path})
-            )
+            <if test="queryForm.code != null and queryForm.code != ''">
+                AND code like concat('%', #{queryForm.code}, '%')
             </if>
+
+            <if test="queryForm.name != null and queryForm.name != ''">
+                AND name like concat('%', #{queryForm.name}, '%')
+            </if>
+
+            <if test="queryForm.isDisabled != null">
+                AND is_disabled = #{queryForm.isDisabled}
+            </if>
+
         </where>
     </select>
 
@@ -29,7 +36,7 @@
         </if>
     </select>
 
-    <insert id="updatePath">
+    <insert id="insertPath">
         INSERT INTO t_path(code, name, is_disabled, ctime, cemp_name, description, ts01)
         VALUES ( #{code}, #{name}, #{isDisabled}, #{ctime}, #{cempName}, #{description}, #{ts01})
     </insert>

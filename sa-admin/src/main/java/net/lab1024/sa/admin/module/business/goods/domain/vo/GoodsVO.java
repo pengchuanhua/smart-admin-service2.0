@@ -25,6 +25,15 @@ public class GoodsVO  {
     @ApiModelProperty("商品分类")
     private Long categoryId;
 
+    @ApiModelProperty("商品品牌")
+    private Long brandId;
+
+    @ApiModelProperty("商品编码")
+    private String goodsCode;
+
+    @ApiModelProperty("商品条码")
+    private String barCode;
+
     @ApiModelProperty("商品名称")
     private String goodsName;
 
@@ -37,6 +46,9 @@ public class GoodsVO  {
 
     @ApiModelProperty("商品价格")
     private BigDecimal price;
+
+    @ApiModelProperty("商品供价")
+    private BigDecimal supplyPrice;
 
     @ApiModelProperty("上架状态")
     private Boolean shelvesFlag;
@@ -53,4 +65,11 @@ public class GoodsVO  {
     private LocalDateTime updateTime;
 
     private LocalDateTime createTime;
+
+    @ApiModelProperty("商品图片")
+    private String imageUrl;
+
+    @ApiModelProperty
+    private Integer isDisabled;
+
 }

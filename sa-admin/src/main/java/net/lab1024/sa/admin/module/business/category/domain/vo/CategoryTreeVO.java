@@ -23,8 +23,8 @@ public class CategoryTreeVO {
     @ApiModelProperty("类目名称")
     private String categoryName;
 
-    @ApiModelProperty("类目层级全称")
-    private String categoryFullName;
+    @ApiModelProperty("类目类型")
+    private Integer categoryType;
 
     @ApiModelProperty("父级id")
     private Long parentId;
@@ -34,6 +34,18 @@ public class CategoryTreeVO {
 
     @ApiModelProperty("类目名称")
     private String label;
+
+    @ApiModelProperty("级别")
+    private Integer categoryLevel;
+
+    @ApiModelProperty("末级标记")
+    private Integer endLevelFlag;
+
+    @ApiModelProperty("有效标记")
+    private Integer disabledFlag;
+
+    @ApiModelProperty("时间戳")
+    private Long ts01;
 
     @ApiModelProperty("子类")
     private List<CategoryTreeVO> children;

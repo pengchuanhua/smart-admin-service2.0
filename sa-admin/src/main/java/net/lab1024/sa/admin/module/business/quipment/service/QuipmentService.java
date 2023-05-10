@@ -70,6 +70,7 @@ public class QuipmentService {
         quipmentEntity.setCreateUser(authenticationInfo.getAuthentication().getName());
         quipmentEntity.setCreateTime(new Date());
         quipmentEntity.setTs01(System.currentTimeMillis());
+//        quipmentDao.insertQuipmentLog(quipmentEntity);
         quipmentDao.insertQuipment(quipmentEntity);
         return ResponseDTO.ok();
     }
@@ -86,25 +87,7 @@ public class QuipmentService {
         quipmentEntity.setUpdateTime(new Date());
         quipmentEntity.setNew_ts01(System.currentTimeMillis());
 
-        UpdateQuipmentEntity updateQuipmentEntity = quipmentDao.selectQuipmentById(quipmentEntity.getId());
-        updateQuipmentEntity.setQuipment_id(quipmentEntity.getId());
-        updateQuipmentEntity.setNew_quipmentSn(quipmentEntity.getQuipmentSn());
-        updateQuipmentEntity.setNew_quipmentName(quipmentEntity.getQuipmentName());
-        updateQuipmentEntity.setNew_quipmentModel(quipmentEntity.getQuipmentModel());
-        updateQuipmentEntity.setNew_address(quipmentEntity.getAddress());
-        updateQuipmentEntity.setNew_agentId(quipmentEntity.getAgentId());
-        updateQuipmentEntity.setNew_departmentId(quipmentEntity.getDepartmentId());
-        updateQuipmentEntity.setNew_depotId(quipmentEntity.getDepotId());
-        updateQuipmentEntity.setNew_locationId(quipmentEntity.getLocationId());
-        updateQuipmentEntity.setNew_pathId(quipmentEntity.getPathId());
-        updateQuipmentEntity.setNew_maxInventory(quipmentEntity.getMaxInventory());
-        updateQuipmentEntity.setNew_regionCode(quipmentEntity.getRegionCode());
-        updateQuipmentEntity.setNew_shareRatio(quipmentEntity.getShareRatio());
-        updateQuipmentEntity.setIsDisabled(quipmentEntity.getIsDisabled());
-        updateQuipmentEntity.setCreateUser(authenticationInfo.getAuthentication().getName());
-        updateQuipmentEntity.setCreateTime(new Date());
-        updateQuipmentEntity.setTs01(System.currentTimeMillis());
-        int count = quipmentDao.insertQuipmentLog(updateQuipmentEntity);
+        int count = quipmentDao.insertQuipmentLog(quipmentEntity);
         if (count==0){
             throw new RuntimeException("更新操作日志失败!");
         }

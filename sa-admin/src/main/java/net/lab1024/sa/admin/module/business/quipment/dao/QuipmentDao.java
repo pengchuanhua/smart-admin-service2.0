@@ -35,7 +35,7 @@ public interface QuipmentDao extends BaseMapper<QuipmentEntity> {
 
     int insertQuipment(QuipmentEntity quipmentEntity);
 
-    int insertQuipmentLog(UpdateQuipmentEntity updateQuipmentEntity);
+    int insertQuipmentLog(QuipmentEntity quipmentEntity);
 
     int updateQuipmentById(QuipmentEntity quipmentEntity);
 

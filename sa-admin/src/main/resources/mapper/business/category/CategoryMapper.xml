@@ -24,8 +24,10 @@
     <select id="queryByType"
             resultType="net.lab1024.sa.admin.module.business.category.domain.entity.CategoryEntity">
         SELECT * FROM t_category
-        WHERE 1=1
+        WHERE category_type = #{categoryType}
+        ORDER BY category_id ASC
     </select>
+
 
     <!-- 查看类目 -->
     <select id="selectOne" resultType="net.lab1024.sa.admin.module.business.category.domain.entity.CategoryEntity">
@@ -48,18 +50,18 @@
     </select>
 
     <insert id="insertCategory">
-        INSERT INTO t_category(category_name,  parent_id,  disabled_flag,
-                               remark,  create_time, cemp_name,  ts01, end_level_flag, Level)
-        VALUES ( #{categoryName},  #{parentId},  #{disabledFlag},
-                 #{remark},  #{createTime}, #{cempName},  #{ts01}, #{endLevelFlag}, #{Level})
+        INSERT INTO t_category(category_name, category_type,  parent_id,  disabled_flag,
+                               remark,  create_time, cemp_name,  ts01, end_level_flag, category_level)
+        VALUES ( #{categoryName},  #{categoryType}, #{parentId},  #{disabledFlag},
+                 #{remark},  #{createTime}, #{cempName},  #{ts01}, #{endLevelFlag}, #{categoryLevel})
     </insert>
 
     <update id="updateCategory">
         UPDATE t_category
-        SET
+        SET category_type = #{categoryType},
             parent_id = #{parentId},
             category_name        = #{categoryName},
-            Level       = #{Level},
+            category_level       = #{categoryLevel},
             end_level_flag = #{endLevelFlag},
             disabled_flag = #{disabledFlag},
             update_time       = #{updateTime},

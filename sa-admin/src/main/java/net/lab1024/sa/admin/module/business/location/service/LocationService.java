@@ -148,7 +148,7 @@ public class LocationService {
 
         LocationEntity locationEntity = locationDao.queryLocationByParenId(id);
         if (locationEntity!=null) {
-            return ResponseDTO.userErrorParam("请先删除子级类目");
+            return ResponseDTO.userErrorParam("请先删除子级");
         }
 
         locationDao.deleteById(id);

@@ -62,7 +62,7 @@ public class QuipmentAddForm {
     private BigDecimal maxInventory;
 
     @ApiModelProperty(value = "分成比率", required = true)
-    @NotNull(message = "分成比率 不能为空")
+//    @NotNull(message = "分成比率 不能为空")
     private BigDecimal shareRatio;
 
     @ApiModelProperty(value = "投放时间")

@@ -100,4 +100,6 @@ public class GoodsEntity {
 
     private Long ts01;
 
+    private String imageUrl;
+
 }

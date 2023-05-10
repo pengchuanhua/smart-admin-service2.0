@@ -40,9 +40,33 @@
 
     <insert id="insertGoods">
         INSERT INTO t_goods(goods_status, category_id, brand_id, goods_code, bar_code, goods_name, place, price, supply_Price,
-                            shelves_flag, is_disabled, deleted_flag, remark, image, create_time, cemp_name, ts01)
+                            shelves_flag, is_disabled, deleted_flag, remark, image_url, create_time, cemp_name, ts01)
         VALUES ( #{goodsStatus}, #{categoryId}, #{brandId}, #{goodsCode}, #{barCode}, #{goodsName}, #{place}, #{price}, #{supplyPrice},
-                #{shelvesFlag}, #{isDisabled}, #{deletedFlag}, #{remark}, #{image}, #{create_time}, #{cemp_name}, #{ts01})
+                #{shelvesFlag}, #{isDisabled}, #{deletedFlag}, #{remark}, #{imageUrl}, #{createTime}, #{cempName}, #{ts01})
     </insert>
+
+    <select id="queryGoods" resultType="net.lab1024.sa.admin.module.business.goods.domain.vo.GoodsVO">
+            SELECT * FROM t_goods
+            <where>
+                <if test="place != null">
+                    AND place = #{place}
+                </if>
+                <if test="goodsStatus != null">
+                    AND goods_status = #{goodsStatus}
+                </if>
+                <if test="categoryId != null">
+                    AND category_id = #{categoryId}
+                </if>
+                <if test="brandId != null">
+                    AND brand_id = #{brandId}
+                </if>
+                <if test="shelvesFlag != null">
+                    AND shelves_flag = #{shelvesFlag}
+                </if>
+                <if test="deletedFlag != null">
+                    AND deleted_flag = #{deletedFlag}
+                </if>
+            </where>
+    </select>
 
 </mapper>

@@ -51,7 +51,8 @@ public interface CategoryDao extends BaseMapper<CategoryEntity> {
      * @return
      */
     List<CategoryEntity> queryByType(@Param("categoryType") Integer categoryType,
-                                                @Param("deletedFlag") Boolean deletedFlag);
+                                     @Param("deletedFlag") Boolean deletedFlag);
+
 
     /**
      * 根据类型和id查询

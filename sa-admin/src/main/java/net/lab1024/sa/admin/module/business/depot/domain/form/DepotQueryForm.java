@@ -19,7 +19,10 @@ import net.lab1024.sa.common.common.validator.enumeration.CheckEnum;
 public class DepotQueryForm extends PageParam{
 
     @ApiModelProperty(value = "仓库编码/名称")
-    private String depot;
+    private String code;
+
+    @ApiModelProperty(value = "仓库编码/名称")
+    private String name;
 
     @ApiModelPropertyEnum(value = DepotStatusEnum.class, desc = "有效标记")
     @CheckEnum(value = DepotStatusEnum.class, message = "有效标记 错误")

@@ -114,6 +114,8 @@ public class BrandService {
             return ResponseDTO.ok();
         }
 
+
+
         brandDao.deleteById(id);
         return ResponseDTO.ok();
     }

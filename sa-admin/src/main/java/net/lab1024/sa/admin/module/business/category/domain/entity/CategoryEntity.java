@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import net.lab1024.sa.admin.module.business.category.constant.CategoryTypeEnum;
+import net.lab1024.sa.common.common.swagger.ApiModelPropertyEnum;
+import net.lab1024.sa.common.common.validator.enumeration.CheckEnum;
 
 import java.util.Date;
 
@@ -34,7 +36,10 @@ public class CategoryEntity {
      *
      * @see CategoryTypeEnum
      */
-//    private Integer categoryType;
+    @ApiModelPropertyEnum(desc = "分类类型", value = CategoryTypeEnum.class)
+    @CheckEnum(value = CategoryTypeEnum.class, required = true, message = "分类错误")
+    private Integer categoryType;
+
 
     /**
      * 父级类目id
@@ -44,17 +49,7 @@ public class CategoryEntity {
     /**
      * 是否禁用
      */
-    private Boolean disabledFlag;
-
-    /**
-     * 排序
-     */
-//    private Integer sort;
-
-    /**
-     * 删除状态
-     */
-//    private Boolean deletedFlag;
+    private Integer disabledFlag;
 
     /**
      * 备注
@@ -89,7 +84,7 @@ public class CategoryEntity {
     /**
      * 级别
      */
-    private int Level;
+    private Integer categoryLevel;
 
     private Long ts01;
 }

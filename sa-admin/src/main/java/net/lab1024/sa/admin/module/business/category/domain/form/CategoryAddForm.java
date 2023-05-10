@@ -31,18 +31,24 @@ public class CategoryAddForm {
     @CheckEnum(value = CategoryTypeEnum.class, required = true, message = "分类错误")
     private Integer categoryType;
 
-    @ApiModelProperty("父级类目id|可选")
+    @ApiModelProperty(value ="父级类目id|可选",required = true)
     private Long parentId;
 
-    @ApiModelProperty("排序|可选")
-    private Integer sort;
 
-    @ApiModelProperty("备注|可选")
+    @ApiModelProperty(value ="备注|可选", required = true)
     @Length(max = 200, message = "备注最多200字符")
     private String remark;
 
-    @ApiModelProperty("禁用状态")
-    @NotNull(message = "禁用状态不能为空")
-    private Boolean disabledFlag;
+    @ApiModelProperty(value ="有效标价", required = true)
+    @NotNull(message = "有效标记不能为空")
+    private Integer disabledFlag;
+
+    @ApiModelProperty(value = "级别", required = true)
+    @NotNull(message = "级别 不能为空")
+    private Integer categoryLevel;
+
+    @ApiModelProperty(value = "末级标记", required = true)
+    @NotNull(message = "末级标记 不能为空")
+    private Integer endLevelFlag;
 
 }

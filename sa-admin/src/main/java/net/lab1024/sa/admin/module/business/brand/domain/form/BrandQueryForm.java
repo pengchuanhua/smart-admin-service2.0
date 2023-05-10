@@ -16,6 +16,9 @@ import lombok.Data;
 public class BrandQueryForm extends PageParam{
 
     @ApiModelProperty(value = "品牌信息")
-    private String brand;
+    private String code;
+
+    @ApiModelProperty(value = "品牌信息")
+    private String name;
 
 }

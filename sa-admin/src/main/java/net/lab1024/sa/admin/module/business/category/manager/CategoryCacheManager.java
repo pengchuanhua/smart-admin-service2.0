@@ -75,14 +75,13 @@ public class CategoryCacheManager {
      */
     @Cacheable(AdminCacheConst.CATEGORY.CATEGORY_TREE)
     public List<CategoryTreeVO> queryCategoryTree(Long parentId, Integer categoryType) {
-        List<CategoryEntity> allCategoryEntityList = categoryDao.queryByType(categoryType, false);
+        List<CategoryEntity> allCategoryEntityList = categoryDao.queryByType(categoryType,false);
 
         List<CategoryEntity> categoryEntityList = allCategoryEntityList.stream().filter(e -> e.getParentId().equals(parentId)).collect(Collectors.toList());
         List<CategoryTreeVO> treeList = SmartBeanUtil.copyList(categoryEntityList, CategoryTreeVO.class);
         treeList.forEach(e -> {
             e.setLabel(e.getCategoryName());
             e.setValue(e.getCategoryId());
-            e.setCategoryFullName(e.getCategoryName());
         });
         // 递归设置子类
         this.queryAndSetSubCategory(treeList, allCategoryEntityList);
@@ -108,7 +107,6 @@ public class CategoryCacheManager {
             childrenVOList.forEach(item -> {
                 item.setLabel(item.getCategoryName());
                 item.setValue(item.getCategoryId());
-                item.setCategoryFullName(e.getCategoryFullName() + StringConst.SEPARATOR_SLASH + item.getCategoryName());
             });
             // 递归查询
             this.queryAndSetSubCategory(childrenVOList, allCategoryEntityList);

@@ -197,7 +197,7 @@ public class CategoryService {
             }
             queryForm.setParentId(NumberUtils.LONG_ZERO);
         }
-        List<CategoryTreeVO> treeList = categoryCacheManager.queryCategoryTree(queryForm.getParentId(), queryForm.getCategoryType());
+        List<CategoryTreeVO> treeList = categoryCacheManager.queryCategoryTree(queryForm.getParentId(),queryForm.getCategoryType());
         return ResponseDTO.ok(treeList);
     }
 

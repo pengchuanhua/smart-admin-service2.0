@@ -71,7 +71,7 @@ public class GoodsService {
         goodsEntity.setCreateTime(new Date());
         goodsEntity.setTs01(System.currentTimeMillis());
         goodsDao.insertGoods(goodsEntity);
-        dataTracerService.insert(goodsEntity.getGoodsId(), DataTracerTypeEnum.GOODS);
+//        dataTracerService.insert(goodsEntity.getGoodsId(), DataTracerTypeEnum.GOODS);
         return ResponseDTO.ok();
     }
 

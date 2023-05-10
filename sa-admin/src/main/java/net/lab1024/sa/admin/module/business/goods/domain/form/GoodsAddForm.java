@@ -29,6 +29,12 @@ public class GoodsAddForm {
     @NotNull(message = "商品分类不能为空")
     private Long categoryId;
 
+    @ApiModelProperty("商品品牌")
+    private Long brandId;
+
+    @ApiModelProperty("商品编码")
+    private String goodsCode;
+
     @ApiModelProperty("商品名称")
     @NotBlank(message = "商品名称不能为空")
     private String goodsName;
@@ -47,10 +53,26 @@ public class GoodsAddForm {
     @DecimalMin(value = "0", message = "商品价格最低0")
     private BigDecimal price;
 
+    @ApiModelProperty("商品供价")
+    @NotNull(message = "商品供价不能为空")
+    @DecimalMin(value = "0", message = "商品供价最低0")
+    private BigDecimal supplyPrice;
+
     @ApiModelProperty("上架状态")
     @NotNull(message = "上架状态不能为空")
     private Boolean shelvesFlag;
 
     @ApiModelProperty("备注|可选")
     private String remark;
+
+    @ApiModelProperty("图片")
+    private String imageUrl;
+
+    @ApiModelProperty("商品条码")
+    private String barCode;
+
+    @ApiModelProperty("有效标记")
+    @NotNull(message = "有效标记不能为空")
+    private Integer isDisabled;
+
 }
