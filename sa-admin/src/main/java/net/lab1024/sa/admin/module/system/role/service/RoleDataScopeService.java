@@ -1,7 +1,21 @@
 package net.lab1024.sa.admin.module.system.role.service;
 
 import com.google.common.collect.Lists;
+import net.lab1024.sa.admin.module.business.depot.domain.entity.DepotEntity;
+import net.lab1024.sa.admin.module.business.depot.domain.vo.DepotVO;
+import net.lab1024.sa.admin.module.business.quipment.domain.entity.QuipmentEntity;
+import net.lab1024.sa.admin.module.business.quipment.domain.form.QuipmentAddForm;
+import net.lab1024.sa.admin.module.business.quipment.domain.vo.QuipmentVO;
+import net.lab1024.sa.admin.module.system.department.domain.entity.DepartmentEntity;
+import net.lab1024.sa.admin.module.system.department.domain.vo.DepartmentVO;
+import net.lab1024.sa.admin.module.system.employee.domain.entity.EmployeeEntity;
+import net.lab1024.sa.admin.module.system.role.dao.RoleDao;
+import net.lab1024.sa.admin.module.system.role.domain.entity.RoleDepartmentEntity;
+import net.lab1024.sa.admin.module.system.role.domain.entity.RoleDepotEntity;
+import net.lab1024.sa.admin.module.system.role.domain.entity.RoleQuipmentEntity;
 import net.lab1024.sa.admin.module.system.role.domain.form.RoleDataScopeUpdateForm;
+import net.lab1024.sa.admin.module.system.role.domain.form.UserRolseAddForm;
+import net.lab1024.sa.admin.module.system.role.domain.form.UserRolseUpdateForm;
 import net.lab1024.sa.admin.module.system.role.domain.vo.RoleDataScopeVO;
 import net.lab1024.sa.common.common.code.UserErrorCode;
 import net.lab1024.sa.common.common.domain.ResponseDTO;
@@ -13,6 +27,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -29,6 +44,9 @@ public class RoleDataScopeService {
 
     @Autowired
     private RoleDataScopeManager roleDataScopeManager;
+
+    @Autowired
+    private RoleDao roleDao;
 
 
     /**
@@ -62,6 +80,112 @@ public class RoleDataScopeService {
         roleDataScopeEntityList.forEach(e -> e.setRoleId(roleDataScopeUpdateForm.getRoleId()));
         roleDataScopeManager.getBaseMapper().deleteByRoleId(roleDataScopeUpdateForm.getRoleId());
         roleDataScopeManager.saveBatch(roleDataScopeEntityList);
+        return ResponseDTO.ok();
+    }
+
+
+    public List<RoleDepotEntity> queryWareHouseItem(EmployeeEntity employeeEntity){
+        return  roleDao.queryWareHouseItem(employeeEntity);
+    }
+
+    public List<RoleQuipmentEntity> queryQuipmentItem(EmployeeEntity employeeEntity){
+        return  roleDao.queryQuipmentItem(employeeEntity);
+    }
+
+    public List<RoleDepartmentEntity> queryDepartmentItem(EmployeeEntity employeeEntity){
+        return  roleDao.queryDepartmentItem(employeeEntity);
+    }
+
+    public ResponseDTO<String> add(UserRolseAddForm addForm) {
+        List<RoleDepartmentEntity>departmentEntityList= addForm.getUserDepartmentEntities();
+        List<RoleQuipmentEntity>quipmentEntityList= addForm.getUserQuipmentEntities();
+        List<RoleDepotEntity>depotEntityList= addForm.getUserDepotEntities();
+        if(departmentEntityList.size()==0&&quipmentEntityList.size()==0
+        &&depotEntityList.size()==0){
+            throw new RuntimeException("请选择绑定权限后操作");
+        }
+
+//        部门权限
+        if(departmentEntityList.size()>0){
+            for(int i=0;i<departmentEntityList.size();i++){
+                departmentEntityList.get(i).setEmployeeId(addForm.getEmployeeId());
+                roleDao.insertDepartmentScope(departmentEntityList.get(i));
+            }
+        }
+
+//        设备权限
+        if(quipmentEntityList.size()>0){
+            for(int j=0;j<quipmentEntityList.size();j++){
+                quipmentEntityList.get(j).setEmployeeId(addForm.getEmployeeId());
+                roleDao.insertQuipmentScope(quipmentEntityList.get(j));
+            }
+        }
+
+//      仓库权限
+        if(depotEntityList.size()>0){
+            for(int k=0;k<depotEntityList.size();k++){
+                depotEntityList.get(k).setEmployeeId(addForm.getEmployeeId());
+                roleDao.insertDepotScope(depotEntityList.get(k));
+            }
+        }
+
+        return ResponseDTO.ok();
+    }
+
+    public ResponseDTO<String> update(UserRolseUpdateForm updateForm) {
+        List<RoleDepartmentEntity>departmentEntityList= updateForm.getUserDepartmentEntities();
+        List<RoleQuipmentEntity>quipmentEntityList= updateForm.getUserQuipmentEntities();
+        List<RoleDepotEntity>depotEntityList= updateForm.getUserDepotEntities();
+        if(departmentEntityList.size()==0&&quipmentEntityList.size()==0
+                &&depotEntityList.size()==0){
+            throw new RuntimeException("请选择绑定权限后操作");
+        }
+        //删除部门权限
+        roleDao.deleteDepartmentScope(updateForm.getEmployeeId());
+        //删除设备权限
+        roleDao.deleteQuipmentScope(updateForm.getEmployeeId());
+        //删除仓库权限
+        roleDao.deleteDepotScope(updateForm.getEmployeeId());
+
+        //        部门权限
+        if(departmentEntityList.size()>0){
+            for(int i=0;i<departmentEntityList.size();i++){
+                departmentEntityList.get(i).setEmployeeId(updateForm.getEmployeeId());
+                roleDao.insertDepartmentScope(departmentEntityList.get(i));
+            }
+        }
+
+//        设备权限
+        if(quipmentEntityList.size()>0){
+            for(int j=0;j<quipmentEntityList.size();j++){
+                quipmentEntityList.get(j).setEmployeeId(updateForm.getEmployeeId());
+                roleDao.insertQuipmentScope(quipmentEntityList.get(j));
+            }
+        }
+
+//      仓库权限
+        if(depotEntityList.size()>0){
+            for(int k=0;k<depotEntityList.size();k++){
+                depotEntityList.get(k).setEmployeeId(updateForm.getEmployeeId());
+                roleDao.insertDepotScope(depotEntityList.get(k));
+            }
+        }
+
+        return ResponseDTO.ok();
+    }
+
+    public ResponseDTO<String> delete(Long employeeId) {
+
+        if (null == employeeId){
+            return ResponseDTO.ok();
+        }
+
+        //删除部门权限
+        roleDao.deleteDepartmentScope(employeeId);
+        //删除设备权限
+        roleDao.deleteQuipmentScope(employeeId);
+        //删除仓库权限
+        roleDao.deleteDepotScope(employeeId);
         return ResponseDTO.ok();
     }
 }

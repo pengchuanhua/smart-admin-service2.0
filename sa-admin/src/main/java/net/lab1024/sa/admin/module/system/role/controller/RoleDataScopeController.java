@@ -4,7 +4,18 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import net.lab1024.sa.admin.common.AdminBaseController;
 import net.lab1024.sa.admin.constant.AdminSwaggerTagConst;
+import net.lab1024.sa.admin.module.business.depot.domain.vo.DepotVO;
+import net.lab1024.sa.admin.module.business.quipment.domain.vo.QuipmentVO;
+import net.lab1024.sa.admin.module.system.department.domain.vo.DepartmentVO;
+import net.lab1024.sa.admin.module.system.employee.domain.entity.EmployeeEntity;
+import net.lab1024.sa.admin.module.system.role.domain.entity.RoleDepartmentEntity;
+import net.lab1024.sa.admin.module.system.role.domain.entity.RoleDepotEntity;
+import net.lab1024.sa.admin.module.system.role.domain.entity.RoleQuipmentEntity;
+import net.lab1024.sa.admin.module.system.role.domain.form.QueryUserRolseForm;
 import net.lab1024.sa.admin.module.system.role.domain.form.RoleDataScopeUpdateForm;
+import net.lab1024.sa.admin.module.system.role.domain.form.UserRolseAddForm;
+import net.lab1024.sa.admin.module.system.role.domain.form.UserRolseUpdateForm;
+import net.lab1024.sa.admin.module.system.role.domain.vo.QueryUserRolseVO;
 import net.lab1024.sa.admin.module.system.role.domain.vo.RoleDataScopeVO;
 import net.lab1024.sa.admin.module.system.role.service.RoleDataScopeService;
 import net.lab1024.sa.common.common.domain.ResponseDTO;
@@ -33,6 +44,8 @@ public class RoleDataScopeController extends AdminBaseController {
     @Autowired
     private RoleDataScopeService roleDataScopeService;
 
+
+
     @ApiOperation(value = "获取某角色所设置的数据范围 @author 卓大")
     @GetMapping("/role/dataScope/getRoleDataScopeList/{roleId}")
     public ResponseDTO<List<RoleDataScopeVO>> dataScopeListByRole(@PathVariable Long roleId) {
@@ -44,6 +57,45 @@ public class RoleDataScopeController extends AdminBaseController {
     @PreAuthorize("@saAuth.checkPermission('system:role:dataScope:update')")
     public ResponseDTO<String> updateRoleDataScopeList(@RequestBody @Valid RoleDataScopeUpdateForm roleDataScopeUpdateForm) {
         return roleDataScopeService.updateRoleDataScopeList(roleDataScopeUpdateForm);
+    }
+
+
+    @ApiOperation(value = "查询人员数据权限")
+    @PostMapping("/role/dataScope/queryUserRole")
+    public ResponseDTO<QueryUserRolseVO> queryUserRole(@RequestBody @Valid QueryUserRolseForm queryUserRolseForm) {
+        EmployeeEntity employeeEntity=new EmployeeEntity();
+        QueryUserRolseVO queryUserRolseVO=new QueryUserRolseVO();
+        employeeEntity.setEmployeeId(queryUserRolseForm.getEmployeeId());
+        //定义人员-仓库权限-查询
+        List<RoleDepotEntity> userWareHouses = roleDataScopeService.queryWareHouseItem(employeeEntity);
+        queryUserRolseVO.setUserWareHouses(userWareHouses);
+        //定义人员-设备权限-查询
+        List<RoleQuipmentEntity> quipmentVOS = roleDataScopeService.queryQuipmentItem(employeeEntity);
+        queryUserRolseVO.setUserQuipmentVOS(quipmentVOS);
+        //定义人员-部门权限-查询
+        List<RoleDepartmentEntity> userDeparts = roleDataScopeService.queryDepartmentItem(employeeEntity);
+        queryUserRolseVO.setUserDeparts(userDeparts);
+        return ResponseDTO.ok(queryUserRolseVO);
+    }
+
+
+    @ApiOperation(value = "新增人员数据权限 @author pengch")
+    @PostMapping("/role/dataScope/add")
+    public ResponseDTO<String> add(@RequestBody @Valid UserRolseAddForm addForm) {
+        return roleDataScopeService.add(addForm);
+    }
+
+    @ApiOperation("更新人员数据权限 @author pengch")
+    @PostMapping("/role/dataScope/update")
+    public ResponseDTO<String> update(@RequestBody @Valid UserRolseUpdateForm updateForm) {
+        return roleDataScopeService.update(updateForm);
+    }
+
+
+    @ApiOperation("删除人员数据权限 @author pengch")
+    @GetMapping("/role/dataScope/delete/{employeeId}")
+    public ResponseDTO<String> delete(@PathVariable Long employeeId) {
+        return roleDataScopeService.delete(employeeId);
     }
 
 

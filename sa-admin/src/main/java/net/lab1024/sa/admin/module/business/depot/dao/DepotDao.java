@@ -4,6 +4,7 @@ import java.util.List;
 
 import net.lab1024.sa.admin.module.business.depot.domain.entity.DepotEntity;
 import net.lab1024.sa.admin.module.business.depot.domain.form.DepotQueryForm;
+import net.lab1024.sa.admin.module.business.depot.domain.form.SelectDepotQueryForm;
 import net.lab1024.sa.admin.module.business.depot.domain.vo.DepotVO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -36,7 +37,7 @@ public interface DepotDao extends BaseMapper<DepotEntity> {
 
     int updateDepot(DepotEntity depotEntity);
 
-    List<DepotVO> queryDepot(@Param("queryForm") DepotQueryForm queryForm);
+    List<DepotVO> queryDepot(@Param("queryForm") SelectDepotQueryForm queryForm);
 
 
 }

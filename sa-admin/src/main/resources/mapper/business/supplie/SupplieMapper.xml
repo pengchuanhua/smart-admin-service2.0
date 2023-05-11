@@ -29,14 +29,14 @@
         </where>
     </select>
 
-    <select id="querySupplie">
+    <select id="querySupplie" resultType="net.lab1024.sa.admin.module.business.supplie.domain.vo.SupplieVO">
         SELECT id supplieId, code, name FROM t_supplie
         WHERE 1=1 and is_disabled=0
-        <if test="code != null and code != ''">
+        <if test="queryForm.code != null and queryForm.code != ''">
             AND (code = #{code}
             OR name LIKE concat('%', #{code}, '%'))
         </if>
-        <if test="name != null and name != ''">
+        <if test="queryForm.name != null and queryForm.name != ''">
             AND name LIKE concat('%', #{name}, '%')
         </if>
     </select>

@@ -9,6 +9,7 @@ import net.lab1024.sa.admin.module.business.brand.domain.entity.BrandEntity;
 import net.lab1024.sa.admin.module.business.brand.domain.form.BrandAddForm;
 import net.lab1024.sa.admin.module.business.brand.domain.form.BrandQueryForm;
 import net.lab1024.sa.admin.module.business.brand.domain.form.BrandUpdateForm;
+import net.lab1024.sa.admin.module.business.brand.domain.form.SelectBrandQueryForm;
 import net.lab1024.sa.admin.module.business.brand.domain.vo.BrandVO;
 import net.lab1024.sa.common.common.code.UserErrorCode;
 import net.lab1024.sa.common.common.util.SmartBeanUtil;
@@ -52,7 +53,7 @@ public class BrandService {
         return pageResult;
     }
 
-    public ResponseDTO<List<BrandVO>> queryBrand(BrandQueryForm queryForm) {
+    public ResponseDTO<List<BrandVO>> queryBrand(SelectBrandQueryForm queryForm) {
         List<BrandVO> adminVO = brandDao.queryBrand(queryForm);
         if (adminVO==null) {
             return ResponseDTO.error(UserErrorCode.DATA_NOT_EXIST);

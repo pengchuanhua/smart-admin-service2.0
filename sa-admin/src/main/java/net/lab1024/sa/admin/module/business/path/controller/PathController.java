@@ -3,6 +3,7 @@ package net.lab1024.sa.admin.module.business.path.controller;
 import net.lab1024.sa.admin.module.business.path.domain.form.PathAddForm;
 import net.lab1024.sa.admin.module.business.path.domain.form.PathQueryForm;
 import net.lab1024.sa.admin.module.business.path.domain.form.PathUpdateForm;
+import net.lab1024.sa.admin.module.business.path.domain.form.SelectPathQueryForm;
 import net.lab1024.sa.admin.module.business.path.domain.vo.PathVO;
 import net.lab1024.sa.admin.module.business.path.service.PathService;
 import net.lab1024.sa.common.common.domain.ValidateList;
@@ -42,7 +43,7 @@ public class PathController {
 
     @ApiOperation("查询路线信息")
     @PostMapping("/path/queryPath")
-    public ResponseDTO<List<PathVO>>queryPath(@RequestBody @Valid PathQueryForm queryForm){
+    public ResponseDTO<List<PathVO>>queryPath(@RequestBody @Valid SelectPathQueryForm queryForm){
         return pathService.queryPath(queryForm);
     }
 

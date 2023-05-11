@@ -9,6 +9,7 @@ import net.lab1024.sa.admin.module.business.path.domain.entity.PathEntity;
 import net.lab1024.sa.admin.module.business.path.domain.form.PathAddForm;
 import net.lab1024.sa.admin.module.business.path.domain.form.PathQueryForm;
 import net.lab1024.sa.admin.module.business.path.domain.form.PathUpdateForm;
+import net.lab1024.sa.admin.module.business.path.domain.form.SelectPathQueryForm;
 import net.lab1024.sa.admin.module.business.path.domain.vo.PathVO;
 import net.lab1024.sa.common.common.code.UserErrorCode;
 import net.lab1024.sa.common.common.util.SmartBeanUtil;
@@ -53,7 +54,7 @@ public class PathService {
         return pageResult;
     }
 
-    public ResponseDTO<List<PathVO>> queryPath(PathQueryForm queryForm) {
+    public ResponseDTO<List<PathVO>> queryPath(SelectPathQueryForm queryForm) {
         List<PathVO> adminVO = pathDao.queryPath(queryForm);
         if (adminVO==null) {
             return ResponseDTO.error(UserErrorCode.DATA_NOT_EXIST);

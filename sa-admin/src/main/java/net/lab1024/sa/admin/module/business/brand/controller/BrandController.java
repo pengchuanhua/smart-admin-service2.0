@@ -3,6 +3,7 @@ package net.lab1024.sa.admin.module.business.brand.controller;
 import net.lab1024.sa.admin.module.business.brand.domain.form.BrandAddForm;
 import net.lab1024.sa.admin.module.business.brand.domain.form.BrandQueryForm;
 import net.lab1024.sa.admin.module.business.brand.domain.form.BrandUpdateForm;
+import net.lab1024.sa.admin.module.business.brand.domain.form.SelectBrandQueryForm;
 import net.lab1024.sa.admin.module.business.brand.domain.vo.BrandVO;
 import net.lab1024.sa.admin.module.business.brand.service.BrandService;
 import net.lab1024.sa.common.common.domain.ValidateList;
@@ -42,7 +43,7 @@ public class BrandController {
 
     @ApiOperation("查询品牌信息")
     @PostMapping("/brand/queryBrand")
-    public ResponseDTO<List<BrandVO>>queryBrand(@RequestBody @Valid BrandQueryForm queryForm){
+    public ResponseDTO<List<BrandVO>>queryBrand(@RequestBody @Valid SelectBrandQueryForm queryForm){
         return brandService.queryBrand(queryForm);
     }
 

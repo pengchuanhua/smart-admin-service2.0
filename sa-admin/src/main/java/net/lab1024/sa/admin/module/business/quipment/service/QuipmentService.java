@@ -87,10 +87,10 @@ public class QuipmentService {
         quipmentEntity.setUpdateTime(new Date());
         quipmentEntity.setNew_ts01(System.currentTimeMillis());
 
-        int count = quipmentDao.insertQuipmentLog(quipmentEntity);
-        if (count==0){
-            throw new RuntimeException("更新操作日志失败!");
-        }
+//        int count = quipmentDao.insertQuipmentLog(quipmentEntity);
+//        if (count==0){
+//            throw new RuntimeException("更新操作日志失败!");
+//        }
         int row = quipmentDao.updateQuipmentById(quipmentEntity);
         if (row==0){
             throw new RuntimeException("数据已改变,请查询后再操作!");

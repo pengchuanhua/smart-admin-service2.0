@@ -9,6 +9,7 @@ import net.lab1024.sa.admin.module.business.depot.domain.entity.DepotEntity;
 import net.lab1024.sa.admin.module.business.depot.domain.form.DepotAddForm;
 import net.lab1024.sa.admin.module.business.depot.domain.form.DepotQueryForm;
 import net.lab1024.sa.admin.module.business.depot.domain.form.DepotUpdateForm;
+import net.lab1024.sa.admin.module.business.depot.domain.form.SelectDepotQueryForm;
 import net.lab1024.sa.admin.module.business.depot.domain.vo.DepotVO;
 import net.lab1024.sa.common.common.code.UserErrorCode;
 import net.lab1024.sa.common.common.util.SmartBeanUtil;
@@ -52,7 +53,7 @@ public class DepotService {
         return pageResult;
     }
 
-    public ResponseDTO<List<DepotVO>> queryDepot(DepotQueryForm queryForm) {
+    public ResponseDTO<List<DepotVO>> queryDepot(SelectDepotQueryForm queryForm) {
         List<DepotVO> adminVO = depotDao.queryDepot(queryForm);
         if (adminVO==null) {
             return ResponseDTO.error(UserErrorCode.DATA_NOT_EXIST);

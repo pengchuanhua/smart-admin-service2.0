@@ -1,9 +1,9 @@
 package net.lab1024.sa.admin.module.business.depot.domain.form;
 
-import net.lab1024.sa.common.common.domain.PageParam;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import net.lab1024.sa.admin.module.business.depot.constant.DepotStatusEnum;
+import net.lab1024.sa.common.common.domain.PageParam;
 import net.lab1024.sa.common.common.swagger.ApiModelPropertyEnum;
 import net.lab1024.sa.common.common.validator.enumeration.CheckEnum;
 
@@ -16,7 +16,7 @@ import net.lab1024.sa.common.common.validator.enumeration.CheckEnum;
  */
 
 @Data
-public class DepotQueryForm extends PageParam{
+public class SelectDepotQueryForm{
 
     @ApiModelProperty(value = "仓库编码/名称")
     private String depot;
@@ -26,9 +26,5 @@ public class DepotQueryForm extends PageParam{
 
     @ApiModelProperty(value = "仓库编码/名称")
     private String name;
-
-    @ApiModelPropertyEnum(value = DepotStatusEnum.class, desc = "有效标记")
-    @CheckEnum(value = DepotStatusEnum.class, message = "有效标记 错误")
-    private Integer isDisabled;
 
 }

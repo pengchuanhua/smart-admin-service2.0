@@ -3,6 +3,7 @@ package net.lab1024.sa.admin.module.business.depot.controller;
 import net.lab1024.sa.admin.module.business.depot.domain.form.DepotAddForm;
 import net.lab1024.sa.admin.module.business.depot.domain.form.DepotQueryForm;
 import net.lab1024.sa.admin.module.business.depot.domain.form.DepotUpdateForm;
+import net.lab1024.sa.admin.module.business.depot.domain.form.SelectDepotQueryForm;
 import net.lab1024.sa.admin.module.business.depot.domain.vo.DepotVO;
 import net.lab1024.sa.admin.module.business.depot.service.DepotService;
 import net.lab1024.sa.common.common.domain.ValidateList;
@@ -42,7 +43,7 @@ public class DepotController {
 
     @ApiOperation("查询仓库信息")
     @PostMapping("/depot/queryDepot")
-    public ResponseDTO<List<DepotVO>>queryDepot(@RequestBody @Valid DepotQueryForm queryForm){
+    public ResponseDTO<List<DepotVO>>queryDepot(@RequestBody @Valid SelectDepotQueryForm queryForm){
         return depotService.queryDepot(queryForm);
     }
 

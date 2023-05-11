@@ -3,6 +3,7 @@ package net.lab1024.sa.admin.module.business.agent.dao;
 import java.util.List;
 import net.lab1024.sa.admin.module.business.agent.domain.entity.AgentEntity;
 import net.lab1024.sa.admin.module.business.agent.domain.form.AgentQueryForm;
+import net.lab1024.sa.admin.module.business.agent.domain.form.SelectAgentQueryForm;
 import net.lab1024.sa.admin.module.business.agent.domain.vo.AgentVO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -37,7 +38,7 @@ public interface AgentDao extends BaseMapper<AgentEntity> {
 
     int updateAgent(AgentEntity agentEntity);
 
-    List<AgentVO> queryAgent(@Param("queryForm") AgentQueryForm queryForm);
+    List<AgentVO> queryAgent(@Param("queryForm") SelectAgentQueryForm queryForm);
 
 
 }

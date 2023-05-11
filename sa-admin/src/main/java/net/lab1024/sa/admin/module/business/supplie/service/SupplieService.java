@@ -6,6 +6,7 @@ import java.util.List;
 import net.lab1024.sa.admin.config.AuthenticationInfo;
 import net.lab1024.sa.admin.module.business.supplie.dao.SupplieDao;
 import net.lab1024.sa.admin.module.business.supplie.domain.entity.SupplieEntity;
+import net.lab1024.sa.admin.module.business.supplie.domain.form.SelectSupplieQueryForm;
 import net.lab1024.sa.admin.module.business.supplie.domain.form.SupplieAddForm;
 import net.lab1024.sa.admin.module.business.supplie.domain.form.SupplieQueryForm;
 import net.lab1024.sa.admin.module.business.supplie.domain.form.SupplieUpdateForm;
@@ -52,7 +53,7 @@ public class SupplieService {
         return pageResult;
     }
 
-    public ResponseDTO<List<SupplieVO>> querySupplie(SupplieQueryForm queryForm) {
+    public ResponseDTO<List<SupplieVO>> querySupplie(SelectSupplieQueryForm queryForm) {
         List<SupplieVO> adminVO = supplieDao.querySupplie(queryForm);
         if (adminVO==null) {
             return ResponseDTO.error(UserErrorCode.DATA_NOT_EXIST);

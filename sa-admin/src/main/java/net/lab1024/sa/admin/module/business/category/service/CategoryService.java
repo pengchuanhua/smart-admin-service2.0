@@ -223,7 +223,7 @@ public class CategoryService {
         CategoryEntity categoryEntity = new CategoryEntity();
         categoryEntity.setCategoryId(categoryId);
 //        categoryEntity.setDeletedFlag(true);
-        categoryDao.updateById(categoryEntity);
+        categoryDao.deleteById(categoryEntity);
 
         // 更新缓存
         categoryCacheManager.removeCache();

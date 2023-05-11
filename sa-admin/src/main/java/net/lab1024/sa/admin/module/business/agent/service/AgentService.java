@@ -9,6 +9,7 @@ import net.lab1024.sa.admin.module.business.agent.domain.entity.AgentEntity;
 import net.lab1024.sa.admin.module.business.agent.domain.form.AgentAddForm;
 import net.lab1024.sa.admin.module.business.agent.domain.form.AgentQueryForm;
 import net.lab1024.sa.admin.module.business.agent.domain.form.AgentUpdateForm;
+import net.lab1024.sa.admin.module.business.agent.domain.form.SelectAgentQueryForm;
 import net.lab1024.sa.admin.module.business.agent.domain.vo.AgentVO;
 import net.lab1024.sa.common.common.code.UserErrorCode;
 import net.lab1024.sa.common.common.util.SmartBeanUtil;
@@ -52,7 +53,7 @@ public class AgentService {
         return pageResult;
     }
 
-    public ResponseDTO<List<AgentVO>> queryAgent(AgentQueryForm queryForm) {
+    public ResponseDTO<List<AgentVO>> queryAgent(SelectAgentQueryForm queryForm) {
         List<AgentVO> adminVO = agentDao.queryAgent(queryForm);
         if (adminVO==null) {
             return ResponseDTO.error(UserErrorCode.DATA_NOT_EXIST);

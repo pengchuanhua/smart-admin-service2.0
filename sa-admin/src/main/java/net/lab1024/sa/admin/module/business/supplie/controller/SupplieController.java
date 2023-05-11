@@ -1,5 +1,6 @@
 package net.lab1024.sa.admin.module.business.supplie.controller;
 
+import net.lab1024.sa.admin.module.business.supplie.domain.form.SelectSupplieQueryForm;
 import net.lab1024.sa.admin.module.business.supplie.domain.form.SupplieAddForm;
 import net.lab1024.sa.admin.module.business.supplie.domain.form.SupplieQueryForm;
 import net.lab1024.sa.admin.module.business.supplie.domain.form.SupplieUpdateForm;
@@ -42,7 +43,7 @@ public class SupplieController {
 
     @ApiOperation("查询供应商信息")
     @PostMapping("/supplie/querySupplie")
-    public ResponseDTO<List<SupplieVO>>querySupplie(@RequestBody @Valid SupplieQueryForm queryForm){
+    public ResponseDTO<List<SupplieVO>>querySupplie(@RequestBody @Valid SelectSupplieQueryForm queryForm){
         return supplieService.querySupplie(queryForm);
     }
 

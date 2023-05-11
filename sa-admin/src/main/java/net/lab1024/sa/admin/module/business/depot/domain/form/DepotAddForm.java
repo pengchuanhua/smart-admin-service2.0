@@ -28,4 +28,8 @@ public class DepotAddForm {
     @NotNull(message = "有效标记 不能为空")
     private Integer isDisabled;
 
+    @ApiModelProperty(value = "区域地址不能为空", required = true)
+    @NotNull(message = "区域地址不能为空")
+    private Long regionCode;
+
 }

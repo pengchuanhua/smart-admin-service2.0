@@ -2,6 +2,8 @@ package net.lab1024.sa.admin.module.business.quipment.domain.form;
 
 import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.Date;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
@@ -65,8 +67,10 @@ public class QuipmentUpdateForm {
     private BigDecimal maxInventory;
 
     @ApiModelProperty(value = "分成比率", required = true)
-    @NotNull(message = "分成比率 不能为空")
     private BigDecimal shareRatio;
+
+    @ApiModelProperty(value = "投放时间")
+    private Date placementtime;
 
     @ApiModelProperty(value = "经度", required = true)
     @NotBlank(message = "经度 不能为空")

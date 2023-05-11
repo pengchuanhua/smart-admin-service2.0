@@ -54,24 +54,24 @@
 
     <update id="updateQuipmentById">
         UPDATE t_quipment
-        SET quipment_sn    = #{code},
-            quipment_name  = #{name},
-            quipment_model = #{quipment_model},
+        SET quipment_sn    = #{quipmentSn},
+            quipment_name  = #{quipmentName},
+            quipment_model = #{quipmentModel},
             address        = #{address},
-            region_code    = #{region_code},
-            location_id    = #{location_id},
-            depot_id       = #{depot_id},
-            agent_id       = #{agent_id},
-            path_id        = #{path_id},
-            max_inventory  = #{max_inventory},
-            share_ratio    = #{share_ratio},
+            region_code    = #{regionCode},
+            location_id    = #{locationId},
+            department_id  = #{departmentId},
+            depot_id       = #{depotId},
+            agent_id       = #{agentId},
+            path_id        = #{pathId},
+            max_inventory  = #{maxInventory},
+            share_ratio    = #{shareRatio},
             placementtime  = #{placementtime},
             longitude      = #{longitude},
             latitude       = #{latitude},
             is_disabled    = #{isDisabled},
-            utime          = #{utime},
-            uemp_name      = #{uempName},
-            description    = #{description},
+            update_time          = #{updateTime},
+            update_user      = #{updateUser},
             ts01           = #{new_ts01}
         WHERE id = #{id} and ts01= #{ts01}
     </update>

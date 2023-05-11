@@ -121,6 +121,7 @@ public class QuipmentEntity {
      */
     private Date createTime;
 
+
     /**
      * 时间戳
      */

@@ -4,6 +4,7 @@ import java.util.List;
 
 import net.lab1024.sa.admin.module.business.path.domain.entity.PathEntity;
 import net.lab1024.sa.admin.module.business.path.domain.form.PathQueryForm;
+import net.lab1024.sa.admin.module.business.path.domain.form.SelectPathQueryForm;
 import net.lab1024.sa.admin.module.business.path.domain.vo.PathVO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -36,7 +37,7 @@ public interface PathDao extends BaseMapper<PathEntity> {
 
     int insertPath(PathEntity pathEntity);
 
-    List<PathVO> queryPath(@Param("queryForm") PathQueryForm queryForm);
+    List<PathVO> queryPath(@Param("queryForm") SelectPathQueryForm queryForm);
 
 
 }

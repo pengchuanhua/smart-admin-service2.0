@@ -3,6 +3,7 @@ package net.lab1024.sa.admin.module.business.agent.controller;
 import net.lab1024.sa.admin.module.business.agent.domain.form.AgentAddForm;
 import net.lab1024.sa.admin.module.business.agent.domain.form.AgentQueryForm;
 import net.lab1024.sa.admin.module.business.agent.domain.form.AgentUpdateForm;
+import net.lab1024.sa.admin.module.business.agent.domain.form.SelectAgentQueryForm;
 import net.lab1024.sa.admin.module.business.agent.domain.vo.AgentVO;
 import net.lab1024.sa.admin.module.business.agent.service.AgentService;
 import net.lab1024.sa.common.common.domain.ValidateList;
@@ -42,7 +43,7 @@ public class AgentController {
 
     @ApiOperation("查询代理商")
     @PostMapping("/agent/queryAgent")
-    public ResponseDTO<List<AgentVO>>queryAgent(@RequestBody @Valid AgentQueryForm queryForm){
+    public ResponseDTO<List<AgentVO>>queryAgent(@RequestBody @Valid SelectAgentQueryForm queryForm){
         return agentService.queryAgent(queryForm);
     }
 

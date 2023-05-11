@@ -1,8 +1,8 @@
 package net.lab1024.sa.admin.module.business.brand.domain.form;
 
-import net.lab1024.sa.common.common.domain.PageParam;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import net.lab1024.sa.common.common.domain.PageParam;
 
 /**
  * 品牌 分页查询表单
@@ -13,7 +13,7 @@ import lombok.Data;
  */
 
 @Data
-public class BrandQueryForm extends PageParam{
+public class SelectBrandQueryForm{
 
     @ApiModelProperty(value = "品牌编码/名称")
     private String brand;

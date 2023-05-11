@@ -12,4 +12,46 @@
         WHERE role_name = #{roleName}
     </select>
 
+    <select id="queryWareHouseItem">
+     SELECT * FROM t_employee_depot_scope
+              WHERE  employee_id= #{employeeId}
+    </select>
+
+    <select id="queryQuipmentItem">
+        SELECT * FROM t_employee_quipment_scope
+        WHERE  employee_id= #{employeeId}
+    </select>
+
+    <select id="queryDepartmentItem">
+        SELECT * FROM t_employee_department_scope
+        WHERE  employee_id= #{employeeId}
+    </select>
+
+    <insert id="insertDepartmentScope">
+     INSERT INTO t_employee_department_scope(employee_id, department_id, name, create_time, create_name)VALUES
+                                    ( #{employeeId}, #{departmentId}, #{name}, now(), #{createName})
+    </insert>
+
+    <insert id="insertQuipmentScope">
+        INSERT INTO t_employee_quipment_scope(employee_id, quipment_id, name, create_time, create_name)VALUES
+            ( #{employeeId}, #{quipmentId}, #{name}, now(), #{createName})
+    </insert>
+
+    <insert id="insertDepotScope">
+        INSERT INTO t_employee_depot_scope(employee_id, depot_id, name, create_time, create_name)VALUES
+            ( #{employeeId}, #{depotId}, #{name}, now(), #{createName})
+    </insert>
+
+    <delete id="deleteDepartmentScope">
+    DELETE FROM t_employee_department_scope  WHERE employee_id = #{employeeId}
+    </delete>
+
+    <delete id="deleteDepartmentScope">
+        DELETE FROM t_employee_quipment_scope  WHERE employee_id = #{employeeId}
+    </delete>
+
+    <delete id="deleteDepartmentScope">
+        DELETE FROM t_employee_depot_scope  WHERE employee_id = #{employeeId}
+    </delete>
+
 </mapper>

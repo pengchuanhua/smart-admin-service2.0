@@ -4,6 +4,7 @@ import java.util.List;
 
 import net.lab1024.sa.admin.module.business.brand.domain.entity.BrandEntity;
 import net.lab1024.sa.admin.module.business.brand.domain.form.BrandQueryForm;
+import net.lab1024.sa.admin.module.business.brand.domain.form.SelectBrandQueryForm;
 import net.lab1024.sa.admin.module.business.brand.domain.vo.BrandVO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -37,7 +38,7 @@ public interface BrandDao extends BaseMapper<BrandEntity> {
     int insertBrand(BrandEntity brandEntity);
 
 
-    List<BrandVO> queryBrand(@Param("queryForm") BrandQueryForm queryForm);
+    List<BrandVO> queryBrand(@Param("queryForm") SelectBrandQueryForm queryForm);
 
 
 }

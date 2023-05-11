@@ -3,6 +3,7 @@ package net.lab1024.sa.admin.module.business.supplie.dao;
 import java.util.List;
 
 import net.lab1024.sa.admin.module.business.supplie.domain.entity.SupplieEntity;
+import net.lab1024.sa.admin.module.business.supplie.domain.form.SelectSupplieQueryForm;
 import net.lab1024.sa.admin.module.business.supplie.domain.form.SupplieQueryForm;
 import net.lab1024.sa.admin.module.business.supplie.domain.vo.SupplieVO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
@@ -36,7 +37,7 @@ public interface SupplieDao extends BaseMapper<SupplieEntity> {
 
     int insertSupplie(SupplieEntity supplieEntity);
 
-    List<SupplieVO> querySupplie(@Param("queryForm") SupplieQueryForm queryForm);
+    List<SupplieVO> querySupplie(@Param("queryForm") SelectSupplieQueryForm queryForm);
 
 
 
