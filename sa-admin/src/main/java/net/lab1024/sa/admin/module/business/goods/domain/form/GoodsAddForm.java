@@ -54,8 +54,8 @@ public class GoodsAddForm {
     private BigDecimal price;
 
     @ApiModelProperty("商品供价")
-    @NotNull(message = "商品供价不能为空")
-    @DecimalMin(value = "0", message = "商品供价最低0")
+//    @NotNull(message = "商品供价不能为空")
+//    @DecimalMin(value = "0", message = "商品供价最低0")
     private BigDecimal supplyPrice;
 
     @ApiModelProperty("上架状态")

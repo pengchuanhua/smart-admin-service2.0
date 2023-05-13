@@ -1,7 +1,9 @@
 package net.lab1024.sa.admin.module.system.department.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import net.lab1024.sa.admin.module.business.location.domain.entity.LocationEntity;
 import net.lab1024.sa.admin.module.system.department.domain.entity.DepartmentEntity;
+import net.lab1024.sa.admin.module.system.department.domain.form.DepartmentTreeQueryForm;
 import net.lab1024.sa.admin.module.system.department.domain.vo.DepartmentVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -36,5 +38,7 @@ public interface DepartmentDao extends BaseMapper<DepartmentEntity> {
      * @return
      */
     List<DepartmentVO> listAll();
+
+    List<DepartmentEntity> queryDepartment(@Param("queryForm")DepartmentTreeQueryForm queryForm);
 
 }

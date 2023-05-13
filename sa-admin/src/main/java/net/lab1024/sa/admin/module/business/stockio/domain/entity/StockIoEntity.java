@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Date;
+
 import lombok.Data;
 
 /**
@@ -29,6 +31,12 @@ public class StockIoEntity {
     private String orgId;
 
     /**
+     * 出入库单号
+     */
+
+    private String stockNo;
+
+    /**
      * 商品id
      */
     private Long goodsId;
@@ -46,17 +54,17 @@ public class StockIoEntity {
     /**
      * 类型(0:入库,1:出库)
      */
-    private Integer type;
+    private int type;
 
     /**
      * 数量
      */
-    private BigDecimal operNum;
+    private int operNum;
 
     /**
      * 创建时间
      */
-    private LocalDateTime ctime;
+    private Date ctime;
 
     /**
      * 创建员工
@@ -66,7 +74,7 @@ public class StockIoEntity {
     /**
      * 更新时间
      */
-    private LocalDateTime utime;
+    private Date utime;
 
     /**
      * 更新员工

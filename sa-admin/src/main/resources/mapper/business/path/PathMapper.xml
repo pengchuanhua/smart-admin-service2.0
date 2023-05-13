@@ -22,17 +22,18 @@
             </if>
 
         </where>
+        JL{code|DEPOT}JL
     </select>
 
     <select id="queryPath" resultType="net.lab1024.sa.admin.module.business.path.domain.vo.PathVO">
-        SELECT id pathId, code, name FROM t_path
+        SELECT id, id pathId, code, name FROM t_path
         WHERE 1=1 and is_disabled=0
         <if test="queryForm.code != null and queryForm.code != ''">
-            AND (code = #{code}
-            OR name LIKE concat('%', #{code}, '%'))
+            AND (code = #{queryForm.code}
+            OR name LIKE concat('%', #{queryForm.code}, '%'))
         </if>
         <if test="queryForm.name != null and queryForm.name != ''">
-            AND name LIKE concat('%', #{name}, '%')
+            AND name LIKE concat('%', #{queryForm.name}, '%')
         </if>
     </select>
 

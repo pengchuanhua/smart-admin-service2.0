@@ -1,7 +1,10 @@
 package net.lab1024.sa.admin.module.business.stockio.service;
 
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
+import net.lab1024.sa.admin.config.AuthenticationInfo;
 import net.lab1024.sa.admin.module.business.stockinfo.dao.StockInfoDao;
 import net.lab1024.sa.admin.module.business.stockinfo.domain.entity.StockInfoEntity;
 import net.lab1024.sa.admin.module.business.stockio.dao.StockIoDao;
@@ -19,6 +22,8 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+
 /**
  * 商品出入库 Service
  *
@@ -35,6 +40,9 @@ public class StockIoService {
 
     @Autowired
     private StockInfoDao stockInfoDao;
+
+    @Resource
+    private AuthenticationInfo authenticationInfo;
 
     /**
      * 分页查询
@@ -54,7 +62,22 @@ public class StockIoService {
      */
     public ResponseDTO<String> add(StockIoAddForm addForm) {
         StockIoEntity stockIoEntity = SmartBeanUtil.copy(addForm, StockIoEntity.class);
+        stockIoEntity.setOrgId("1");
+        stockIoEntity.setStockNo(UUID.randomUUID().toString());
+        stockIoEntity.setCempName(authenticationInfo.getAuthentication().getName());
+        stockIoEntity.setCtime(new Date());
+        stockIoEntity.setUempName(authenticationInfo.getAuthentication().getName());
+        stockIoEntity.setUtime(new Date());
+        stockIoEntity.setTs01(System.currentTimeMillis());
+
         StockInfoEntity stockInfoEntity = SmartBeanUtil.copy(addForm, StockInfoEntity.class);
+        stockInfoEntity.setOrgId("1");
+        stockInfoEntity.setStockNum(stockIoEntity.getOperNum());
+        stockInfoEntity.setCempName(authenticationInfo.getAuthentication().getName());
+        stockInfoEntity.setCtime(new Date());
+        stockInfoEntity.setUempName(authenticationInfo.getAuthentication().getName());
+        stockInfoEntity.setUtime(new Date());
+        stockInfoEntity.setTs01(System.currentTimeMillis());
 
         int count = stockInfoDao.updateStock(stockInfoEntity);
         if(count==0){

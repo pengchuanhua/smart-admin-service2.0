@@ -4,8 +4,12 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import net.lab1024.sa.admin.common.AdminBaseController;
 import net.lab1024.sa.admin.constant.AdminSwaggerTagConst;
+import net.lab1024.sa.admin.module.business.location.domain.form.LocationTreeQueryForm;
+import net.lab1024.sa.admin.module.business.location.domain.vo.LocationTreeVO;
 import net.lab1024.sa.admin.module.system.department.domain.form.DepartmentAddForm;
+import net.lab1024.sa.admin.module.system.department.domain.form.DepartmentTreeQueryForm;
 import net.lab1024.sa.admin.module.system.department.domain.form.DepartmentUpdateForm;
+import net.lab1024.sa.admin.module.system.department.domain.vo.DepartmentTreeListVO;
 import net.lab1024.sa.admin.module.system.department.domain.vo.DepartmentTreeVO;
 import net.lab1024.sa.admin.module.system.department.domain.vo.DepartmentVO;
 import net.lab1024.sa.admin.module.system.department.service.DepartmentService;
@@ -67,5 +71,12 @@ public class DepartmentController extends AdminBaseController {
     public ResponseDTO<List<DepartmentVO>> listAll() {
         return ResponseDTO.ok(departmentService.listAll());
     }
+
+    @ApiOperation("查询层级树 @author pengch")
+    @PostMapping("/department/tree")
+    public ResponseDTO<List<DepartmentTreeListVO>> queryTree(@RequestBody @Valid DepartmentTreeQueryForm queryForm) {
+        return departmentService.queryTree(queryForm);
+    }
+
 
 }

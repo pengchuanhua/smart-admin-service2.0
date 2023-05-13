@@ -1,16 +1,22 @@
 package net.lab1024.sa.admin.module.system.department.service;
 
+import net.lab1024.sa.admin.module.business.location.domain.form.LocationTreeQueryForm;
+import net.lab1024.sa.admin.module.business.location.domain.vo.LocationTreeVO;
 import net.lab1024.sa.admin.module.system.department.dao.DepartmentDao;
 import net.lab1024.sa.admin.module.system.department.domain.entity.DepartmentEntity;
 import net.lab1024.sa.admin.module.system.department.domain.form.DepartmentAddForm;
+import net.lab1024.sa.admin.module.system.department.domain.form.DepartmentTreeQueryForm;
 import net.lab1024.sa.admin.module.system.department.domain.form.DepartmentUpdateForm;
+import net.lab1024.sa.admin.module.system.department.domain.vo.DepartmentTreeListVO;
 import net.lab1024.sa.admin.module.system.department.domain.vo.DepartmentTreeVO;
 import net.lab1024.sa.admin.module.system.department.domain.vo.DepartmentVO;
 import net.lab1024.sa.admin.module.system.department.manager.DepartmentCacheManager;
+import net.lab1024.sa.admin.module.system.department.manager.DepartmentManager;
 import net.lab1024.sa.admin.module.system.employee.dao.EmployeeDao;
 import net.lab1024.sa.common.common.code.UserErrorCode;
 import net.lab1024.sa.common.common.domain.ResponseDTO;
 import net.lab1024.sa.common.common.util.SmartBeanUtil;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,6 +45,9 @@ public class DepartmentService {
 
     @Autowired
     private DepartmentCacheManager departmentCacheManager;
+
+    @Autowired
+    private DepartmentManager departmentManager;
 
     // ---------------------------- 增加、修改、删除 ----------------------------
 
@@ -205,6 +214,14 @@ public class DepartmentService {
         }
         Collections.reverse(list);
         return list;
+    }
+
+    public ResponseDTO<List<DepartmentTreeListVO>> queryTree(DepartmentTreeQueryForm queryForm) {
+        if (null == queryForm.getParentId()) {
+            queryForm.setParentId(NumberUtils.LONG_ZERO);
+        }
+        List<DepartmentTreeListVO> treeList = departmentManager.queryDepartmentTree(queryForm,queryForm.getParentId());
+        return ResponseDTO.ok(treeList);
     }
 
 }

@@ -1,9 +1,12 @@
 package net.lab1024.sa.admin.module.business.stockinfo.domain.entity;
 
+import cn.hutool.db.DaoTemplate;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Date;
+
 import lombok.Data;
 
 /**
@@ -42,12 +45,12 @@ public class StockInfoEntity {
     /**
      * 数量
      */
-    private BigDecimal stockNum;
+    private int stockNum;
 
     /**
      * 创建时间
      */
-    private LocalDateTime ctime;
+    private Date ctime;
 
     /**
      * 创建员工
@@ -57,7 +60,7 @@ public class StockInfoEntity {
     /**
      * 更新时间
      */
-    private LocalDateTime utime;
+    private Date utime;
 
     /**
      * 更新员工

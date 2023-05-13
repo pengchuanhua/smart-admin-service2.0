@@ -16,7 +16,10 @@ public class RoleQuipmentEntity {
 
     @ApiModelProperty("设备名称")
     @NotNull(message = "设备名称不能为空")
-    private Long name;
+    private String name;
+
+    @ApiModelProperty("绑定人")
+    private String createName;
 
 
 }

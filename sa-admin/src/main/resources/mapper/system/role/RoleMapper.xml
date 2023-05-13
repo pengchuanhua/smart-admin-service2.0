@@ -23,7 +23,8 @@
     </select>
 
     <select id="queryDepartmentItem">
-        SELECT * FROM t_employee_department_scope
+        SELECT *,(select code from t_department where t_department.department_id=t_employee_department_scope.department_id)dept_code
+        FROM t_employee_department_scope
         WHERE  employee_id= #{employeeId}
     </select>
 
@@ -46,11 +47,11 @@
     DELETE FROM t_employee_department_scope  WHERE employee_id = #{employeeId}
     </delete>
 
-    <delete id="deleteDepartmentScope">
+    <delete id="deleteQuipmentScope">
         DELETE FROM t_employee_quipment_scope  WHERE employee_id = #{employeeId}
     </delete>
 
-    <delete id="deleteDepartmentScope">
+    <delete id="deleteDepotScope">
         DELETE FROM t_employee_depot_scope  WHERE employee_id = #{employeeId}
     </delete>
 

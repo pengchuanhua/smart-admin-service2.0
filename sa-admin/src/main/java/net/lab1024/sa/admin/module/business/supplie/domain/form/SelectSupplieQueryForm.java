@@ -18,6 +18,12 @@ import net.lab1024.sa.common.common.validator.enumeration.CheckEnum;
 @Data
 public class SelectSupplieQueryForm{
 
+    @ApiModelProperty(value = "供应商编码")
+    private String code;
+
+    @ApiModelProperty(value = "供应商名称名称")
+    private String name;
+
     @ApiModelProperty(value = "供应商信息")
     private String supplie;
 

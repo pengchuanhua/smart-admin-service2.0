@@ -46,27 +46,15 @@
     </insert>
 
     <select id="queryGoods" resultType="net.lab1024.sa.admin.module.business.goods.domain.vo.GoodsVO">
-            SELECT * FROM t_goods
-            <where>
-                <if test="place != null">
-                    AND place = #{place}
-                </if>
-                <if test="goodsStatus != null">
-                    AND goods_status = #{goodsStatus}
-                </if>
-                <if test="categoryId != null">
-                    AND category_id = #{categoryId}
-                </if>
-                <if test="brandId != null">
-                    AND brand_id = #{brandId}
-                </if>
-                <if test="shelvesFlag != null">
-                    AND shelves_flag = #{shelvesFlag}
-                </if>
-                <if test="deletedFlag != null">
-                    AND deleted_flag = #{deletedFlag}
-                </if>
-            </where>
+            SELECT goods_id,goods_code,goods_name FROM t_goods WHERE is_disabled=0
+        <if test="queryForm.code != null and queryForm.code != ''">
+            AND (code = #{queryForm.code}
+            OR name LIKE concat('%', #{queryForm.code}, '%'))
+        </if>
+        <if test="queryForm.name != null and queryForm.name != ''">
+            AND name LIKE concat('%', #{queryForm.name}, '%')
+        </if>
+        ORDER BY goods_id DESC
     </select>
 
 </mapper>

@@ -26,7 +26,7 @@
 
     <update id="updateStock">
     UPDATE t_stock_info SET
-        stock_num =stock_num+ #{stockNum},
+        stock_num =stock_num + #{stockNum},
         uemp_name = #{uempName},
         utime     = #{utime}
     WHERE org_id = #{orgId} AND goods_id = #{goodsId} AND depot_id = #{depotId}

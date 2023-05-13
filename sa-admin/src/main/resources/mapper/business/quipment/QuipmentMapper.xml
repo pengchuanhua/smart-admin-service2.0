@@ -5,7 +5,12 @@
     <!-- 分页查询 -->
     <select id="queryPage" resultType="net.lab1024.sa.admin.module.business.quipment.domain.vo.QuipmentVO">
         SELECT
-        *
+        *,(select name from t_agent where t_agent.id=t_quipment.agent_id)agentName,
+        (select concat(c.name,b.name,a.name) from t_location a,t_location b,t_location c where a.id=t_quipment.location_id and a.parent_code=b.id and b.parent_code=c.id)locationName,
+        (select concat(c.name,b.name,a.name) from t_region a,t_region b,t_region c where a.code=t_quipment.region_code and a.code=b.parent_code and b.parent_code=c.code)regionName,
+        (select name from t_depot where t_depot.id=t_quipment.depot_id)depotName,
+        (select name from t_path where t_path.id=t_quipment.path_id)pathName,
+        (select name from t_department where t_department.department_id=t_quipment.department_id)departmentName
         FROM t_quipment
         <where>
             <!--设备编码/名称-->
@@ -23,6 +28,18 @@
                 AND t_quipment.is_disabled = #{queryForm.isDisabled}
             </if>
         </where>
+    </select>
+
+    <select id="queryQuipment" resultType="net.lab1024.sa.admin.module.business.quipment.domain.vo.QuipmentVO">
+        SELECT id,id quipmentId, quipment_sn, quipment_name FROM t_quipment
+        WHERE 1=1
+        <if test="queryForm.code != null and queryForm.code != ''">
+            AND (quipment_sn = #{queryForm.code}
+            OR quipment_name LIKE concat('%', #{queryForm.code}, '%'))
+        </if>
+        <if test="queryForm.name != null and queryForm.name != ''">
+            AND quipment_name LIKE concat('%', #{queryForm.name}, '%')
+        </if>
     </select>
 
     <select id="selectQuipmentById">
@@ -44,11 +61,9 @@
     </insert>
 
     <insert id="insertQuipmentLog">
-        INSERT INTO t_quipment_log(quipment_id,new_quipment_sn, new_quipment_name, new_quipment_model, new_address, new_region_code, new_location_id, new_department_id, new_depot_id, new_agent_id,
-                               new_path_id, new_max_inventory, new_share_ratio, old_quipment_sn, old_quipment_name, old_quipment_model, old_address, old_region_code, old_location_id, old_department_id, old_depot_id, old_agent_id,
-                               old_path_id, old_max_inventory, old_share_ratio, create_user, create_time, state,ts01)
-        VALUES ( #{quipment_id}, #{new_quipmentSn}, #{new_quipmentName}, #{new_quipmentModel}, #{new_address}, #{new_regionCode}, #{new_locationId}, #{new_departmentId}, #{new_depotId}, #{new_agentId},
-                 #{new_pathId},  #{new_maxInventory}, #{new_shareRatio}, #{quipmentSn}, #{quipmentName}, #{quipmentModel}, #{address}, #{regionCode}, #{locationId}, #{departmentId}, #{depotId}, #{agentId},
+        INSERT INTO t_quipment_log(quipment_id,quipment_sn, quipment_name, quipment_model, address, region_code, location_id, department_id, depot_id, agent_id,
+                               path_id, max_inventory, share_ratio, create_user, create_time, state,ts01)
+        VALUES ( #{quipmentId}, #{quipmentSn}, #{quipmentName}, #{quipmentModel}, #{address}, #{regionCode}, #{locationId}, #{departmentId}, #{depotId}, #{agentId},
                  #{pathId},  #{maxInventory}, #{shareRatio}, #{createUser}, #{createTime}, #{isDisabled}, #{ts01})
     </insert>
 
@@ -72,7 +87,7 @@
             is_disabled    = #{isDisabled},
             update_time          = #{updateTime},
             update_user      = #{updateUser},
-            ts01           = #{new_ts01}
+            ts01           = #{ts01}
         WHERE id = #{id} and ts01= #{ts01}
     </update>
 

@@ -1,9 +1,13 @@
 package net.lab1024.sa.admin.module.business.quipment.dao;
 
 import java.util.List;
+
+import net.lab1024.sa.admin.module.business.brand.domain.form.SelectBrandQueryForm;
+import net.lab1024.sa.admin.module.business.brand.domain.vo.BrandVO;
 import net.lab1024.sa.admin.module.business.quipment.domain.entity.QuipmentEntity;
 import net.lab1024.sa.admin.module.business.quipment.domain.entity.UpdateQuipmentEntity;
 import net.lab1024.sa.admin.module.business.quipment.domain.form.QuipmentQueryForm;
+import net.lab1024.sa.admin.module.business.quipment.domain.form.SelectQuipmentQueryForm;
 import net.lab1024.sa.admin.module.business.quipment.domain.vo.QuipmentLogVO;
 import net.lab1024.sa.admin.module.business.quipment.domain.vo.QuipmentVO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
@@ -43,6 +47,7 @@ public interface QuipmentDao extends BaseMapper<QuipmentEntity> {
 
     List<QuipmentLogVO>queryQuipmentLog(@Param("quipment_id")Long quipment_id);
 
+    List<QuipmentVO> queryQuipment(@Param("queryForm") SelectQuipmentQueryForm queryForm);
 
 
 

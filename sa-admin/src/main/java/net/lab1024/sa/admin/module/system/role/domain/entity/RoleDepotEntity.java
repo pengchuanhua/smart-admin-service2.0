@@ -16,5 +16,8 @@ public class RoleDepotEntity {
 
     @ApiModelProperty("仓库名称")
     @NotNull(message = "仓库名称不能为空")
-    private Long name;
+    private String name;
+
+    @ApiModelProperty("绑定人")
+    private String createName;
 }

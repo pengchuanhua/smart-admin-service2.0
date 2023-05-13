@@ -20,6 +20,9 @@ public class QuipmentVO {
     @ApiModelProperty(value = "id")
     private Long id;
 
+    @ApiModelProperty(value = "quipmentId")
+    private Long quipmentId;
+
     @ApiModelProperty(value = "设备编码")
     private String quipmentSn;
 

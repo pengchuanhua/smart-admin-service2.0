@@ -4,12 +4,15 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import net.lab1024.sa.admin.config.AuthenticationInfo;
 import net.lab1024.sa.admin.module.business.category.domain.entity.CategoryEntity;
 import net.lab1024.sa.admin.module.business.category.service.CategoryQueryService;
+import net.lab1024.sa.admin.module.business.depot.domain.form.SelectDepotQueryForm;
+import net.lab1024.sa.admin.module.business.depot.domain.vo.DepotVO;
 import net.lab1024.sa.admin.module.business.goods.constant.GoodsStatusEnum;
 import net.lab1024.sa.admin.module.business.goods.dao.GoodsDao;
 import net.lab1024.sa.admin.module.business.goods.domain.entity.GoodsEntity;
 import net.lab1024.sa.admin.module.business.goods.domain.form.GoodsAddForm;
 import net.lab1024.sa.admin.module.business.goods.domain.form.GoodsQueryForm;
 import net.lab1024.sa.admin.module.business.goods.domain.form.GoodsUpdateForm;
+import net.lab1024.sa.admin.module.business.goods.domain.form.SelectGoodsQueryForm;
 import net.lab1024.sa.admin.module.business.goods.domain.vo.GoodsVO;
 import net.lab1024.sa.common.common.code.UserErrorCode;
 import net.lab1024.sa.common.common.domain.PageResult;
@@ -170,4 +173,13 @@ public class GoodsService {
         });
         return ResponseDTO.ok(pageResult);
     }
+
+    public ResponseDTO<List<GoodsVO>> queryGoods(SelectGoodsQueryForm queryForm) {
+        List<GoodsVO> adminVO = goodsDao.queryGoods(queryForm);
+        if (adminVO==null) {
+            return ResponseDTO.error(UserErrorCode.DATA_NOT_EXIST);
+        }
+        return ResponseDTO.ok(adminVO);
+    }
+
 }

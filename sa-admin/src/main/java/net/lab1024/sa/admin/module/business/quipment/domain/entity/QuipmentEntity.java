@@ -20,6 +20,8 @@ public class QuipmentEntity {
 
     private Long id;
 
+    private Long quipmentId;
+
     /**
      * 设备编码
      */

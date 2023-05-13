@@ -22,6 +22,9 @@ import java.time.LocalDateTime;
 @Data
 public class GoodsVO  {
 
+    @ApiModelProperty("商品id")
+    private Long goodsId;
+
     @ApiModelProperty("商品分类")
     private Long categoryId;
 
@@ -55,9 +58,6 @@ public class GoodsVO  {
 
     @ApiModelProperty("备注|可选")
     private String remark;
-
-    @ApiModelProperty("商品id")
-    private Long goodsId;
 
     @ApiModelProperty("商品分类")
     private String categoryName;

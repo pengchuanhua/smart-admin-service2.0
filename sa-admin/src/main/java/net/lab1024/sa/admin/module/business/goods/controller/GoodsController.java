@@ -4,9 +4,12 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import net.lab1024.sa.admin.common.AdminBaseController;
 import net.lab1024.sa.admin.constant.AdminSwaggerTagConst;
+import net.lab1024.sa.admin.module.business.depot.domain.form.SelectDepotQueryForm;
+import net.lab1024.sa.admin.module.business.depot.domain.vo.DepotVO;
 import net.lab1024.sa.admin.module.business.goods.domain.form.GoodsAddForm;
 import net.lab1024.sa.admin.module.business.goods.domain.form.GoodsQueryForm;
 import net.lab1024.sa.admin.module.business.goods.domain.form.GoodsUpdateForm;
+import net.lab1024.sa.admin.module.business.goods.domain.form.SelectGoodsQueryForm;
 import net.lab1024.sa.admin.module.business.goods.domain.vo.GoodsVO;
 import net.lab1024.sa.admin.module.business.goods.service.GoodsService;
 import net.lab1024.sa.common.common.domain.PageResult;
@@ -18,6 +21,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * 商品业务
@@ -41,6 +45,12 @@ public class GoodsController extends AdminBaseController {
     @PreAuthorize("@saAuth.checkPermission('goods:query')")
     public ResponseDTO<PageResult<GoodsVO>> query(@RequestBody @Valid GoodsQueryForm queryForm) {
         return goodsService.query(queryForm);
+    }
+
+    @ApiOperation("查询商品信息")
+    @PostMapping("/goods/queryGoods")
+    public ResponseDTO<List<GoodsVO>>queryGoods(@RequestBody @Valid SelectGoodsQueryForm queryForm){
+        return goodsService.queryGoods(queryForm);
     }
 
     @ApiOperation("添加商品 @author 胡克")

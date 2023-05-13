@@ -18,14 +18,14 @@
     </select>
 
     <select id="queryBrand" resultType="net.lab1024.sa.admin.module.business.brand.domain.vo.BrandVO">
-        SELECT id brandId,code, name FROM t_brand
+        SELECT id, id brandId,code, name FROM t_brand
         WHERE 1=1 and is_disabled=0
         <if test="queryForm.code != null and queryForm.code != ''">
-            AND (code = #{code}
-            OR name LIKE concat('%', #{code}, '%'))
+            AND (code = #{queryForm.code}
+            OR name LIKE concat('%', #{queryForm.code}, '%'))
         </if>
         <if test="queryForm.name != null and queryForm.name != ''">
-            AND name LIKE concat('%', #{name}, '%')
+            AND name LIKE concat('%', #{queryForm.name}, '%')
         </if>
     </select>
 

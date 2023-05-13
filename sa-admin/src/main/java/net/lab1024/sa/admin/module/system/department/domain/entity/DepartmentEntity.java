@@ -27,9 +27,20 @@ public class DepartmentEntity {
     private Long departmentId;
 
     /**
+     * 部门编码
+     */
+    private String code;
+
+    /**
      * 部门名称
      */
     private String name;
+
+    /**
+     * 部门类型
+     */
+    private Integer deptType;
+
 
     /**
      * 负责人员工 id
@@ -56,6 +67,16 @@ public class DepartmentEntity {
      * 创建时间
      */
     private LocalDateTime createTime;
+
+    /**
+     * 级别
+     */
+    private Integer deptLevel;
+
+    /**
+     * 末级标记
+     */
+    private Integer endLevelFlag;
 
 
 

@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
+import org.hibernate.validator.constraints.Length;
 
 /**
  * 商品出入库 新建表单
@@ -31,14 +32,13 @@ public class StockIoAddForm {
 
     @ApiModelProperty(value = "类型(0:入库,1:出库)", required = true)
     @NotNull(message = "类型(0:入库,1:出库) 不能为空")
-    private Integer type;
+    private int type;
 
     @ApiModelProperty(value = "数量", required = true)
     @NotNull(message = "数量 不能为空")
-    private BigDecimal operNum;
+    private int operNum;
 
     @ApiModelProperty(value = "描述", required = true)
-    @NotBlank(message = "描述 不能为空")
     private String description;
 
 }

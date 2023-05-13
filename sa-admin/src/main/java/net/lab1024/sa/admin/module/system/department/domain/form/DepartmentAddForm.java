@@ -18,10 +18,18 @@ import javax.validation.constraints.NotNull;
 @Data
 public class DepartmentAddForm {
 
+    @ApiModelProperty("部门编码")
+    @Length(min = 1, max = 10, message = "请输入正确的部门名称(1-10个字符)")
+    @NotNull(message = "请输入正确的部门名称(1-10个字符)")
+    private String code;
+
     @ApiModelProperty("部门名称")
     @Length(min = 1, max = 50, message = "请输入正确的部门名称(1-50个字符)")
     @NotNull(message = "请输入正确的部门名称(1-50个字符)")
     private String name;
+
+    @ApiModelProperty("部门属性")
+    private Integer deptType;
 
     @ApiModelProperty("排序")
     @NotNull(message = "排序值")
@@ -32,5 +40,18 @@ public class DepartmentAddForm {
 
     @ApiModelProperty("上级部门id (可选)")
     private Long parentId;
+
+    /**
+     * 位置级别
+     */
+    @ApiModelProperty("部门级别")
+    @NotNull(message = "部门级别 不能为空")
+    private Integer deptLevel;
+
+    /**
+     * 末级标记
+     */
+    @ApiModelProperty("末级标记")
+    private Integer endLevelFlag;
 
 }

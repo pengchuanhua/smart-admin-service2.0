@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import net.lab1024.sa.admin.module.business.goods.domain.entity.GoodsEntity;
 import net.lab1024.sa.admin.module.business.goods.domain.form.GoodsQueryForm;
+import net.lab1024.sa.admin.module.business.goods.domain.form.SelectGoodsQueryForm;
 import net.lab1024.sa.admin.module.business.goods.domain.vo.GoodsVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -41,5 +42,5 @@ public interface GoodsDao extends BaseMapper<GoodsEntity> {
 
     int insertGoods(GoodsEntity goodsEntity);
 
-    List<GoodsVO>queryGoods(GoodsQueryForm queryForm);
+    List<GoodsVO>queryGoods(@Param("queryForm")SelectGoodsQueryForm queryForm);
 }

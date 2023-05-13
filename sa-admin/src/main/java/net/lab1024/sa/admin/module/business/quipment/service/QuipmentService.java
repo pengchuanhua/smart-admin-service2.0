@@ -4,12 +4,15 @@ import java.util.Date;
 import java.util.List;
 
 import net.lab1024.sa.admin.config.AuthenticationInfo;
+import net.lab1024.sa.admin.module.business.brand.domain.form.SelectBrandQueryForm;
+import net.lab1024.sa.admin.module.business.brand.domain.vo.BrandVO;
 import net.lab1024.sa.admin.module.business.quipment.dao.QuipmentDao;
 import net.lab1024.sa.admin.module.business.quipment.domain.entity.QuipmentEntity;
 import net.lab1024.sa.admin.module.business.quipment.domain.entity.UpdateQuipmentEntity;
 import net.lab1024.sa.admin.module.business.quipment.domain.form.QuipmentAddForm;
 import net.lab1024.sa.admin.module.business.quipment.domain.form.QuipmentQueryForm;
 import net.lab1024.sa.admin.module.business.quipment.domain.form.QuipmentUpdateForm;
+import net.lab1024.sa.admin.module.business.quipment.domain.form.SelectQuipmentQueryForm;
 import net.lab1024.sa.admin.module.business.quipment.domain.vo.QuipmentLogVO;
 import net.lab1024.sa.admin.module.business.quipment.domain.vo.QuipmentVO;
 import net.lab1024.sa.common.common.code.UserErrorCode;
@@ -54,6 +57,14 @@ public class QuipmentService {
         return pageResult;
     }
 
+    public ResponseDTO<List<QuipmentVO>> queryQuipment(SelectQuipmentQueryForm queryForm) {
+        List<QuipmentVO> adminVO = quipmentDao.queryQuipment(queryForm);
+        if (adminVO==null) {
+            return ResponseDTO.error(UserErrorCode.DATA_NOT_EXIST);
+        }
+        return ResponseDTO.ok(adminVO);
+    }
+
     public ResponseDTO<List<QuipmentLogVO>> queryQuipmentLog(Long quipmentId) {
         List<QuipmentLogVO> adminVO = quipmentDao.queryQuipmentLog(quipmentId);
         if (adminVO==null) {
@@ -70,8 +81,16 @@ public class QuipmentService {
         quipmentEntity.setCreateUser(authenticationInfo.getAuthentication().getName());
         quipmentEntity.setCreateTime(new Date());
         quipmentEntity.setTs01(System.currentTimeMillis());
-//        quipmentDao.insertQuipmentLog(quipmentEntity);
         quipmentDao.insertQuipment(quipmentEntity);
+//     保存设备第一次修改记录
+        SelectQuipmentQueryForm queryForm=new SelectQuipmentQueryForm();
+        queryForm.setCode(quipmentEntity.getQuipmentSn());
+        List<QuipmentVO>quipmentVOList = quipmentDao.queryQuipment(queryForm);
+        quipmentEntity.setQuipmentId(quipmentVOList.get(0).getId());
+        int count=quipmentDao.insertQuipmentLog(quipmentEntity);
+        if (count==0){
+            throw new RuntimeException("更新操作日志失败!");
+        }
         return ResponseDTO.ok();
     }
 
@@ -87,13 +106,15 @@ public class QuipmentService {
         quipmentEntity.setUpdateTime(new Date());
         quipmentEntity.setNew_ts01(System.currentTimeMillis());
 
-//        int count = quipmentDao.insertQuipmentLog(quipmentEntity);
-//        if (count==0){
-//            throw new RuntimeException("更新操作日志失败!");
-//        }
         int row = quipmentDao.updateQuipmentById(quipmentEntity);
         if (row==0){
             throw new RuntimeException("数据已改变,请查询后再操作!");
+        }
+        //     保存设备修改记录
+        quipmentEntity.setQuipmentId(quipmentEntity.getId());
+        int count = quipmentDao.insertQuipmentLog(quipmentEntity);
+        if (count==0){
+            throw new RuntimeException("更新操作日志失败!");
         }
         return ResponseDTO.ok();
     }

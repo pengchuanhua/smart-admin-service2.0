@@ -19,5 +19,15 @@
         WHERE parent_id = #{departmentId}
     </select>
 
+    <select id="queryDepartment"
+            resultType="net.lab1024.sa.admin.module.system.department.domain.entity.DepartmentEntity">
+        SELECT * FROM t_department
+        WHERE 1=1
+        <if test="queryForm.code != null and queryForm.code != ''">
+            AND (code = #{queryForm.code}
+            OR name LIKE concat('%', #{queryForm.code}, '%'))
+        </if>
+    </select>
+
 
 </mapper>

@@ -1,8 +1,11 @@
 package net.lab1024.sa.admin.module.business.quipment.controller;
 
+import net.lab1024.sa.admin.module.business.brand.domain.form.SelectBrandQueryForm;
+import net.lab1024.sa.admin.module.business.brand.domain.vo.BrandVO;
 import net.lab1024.sa.admin.module.business.quipment.domain.form.QuipmentAddForm;
 import net.lab1024.sa.admin.module.business.quipment.domain.form.QuipmentQueryForm;
 import net.lab1024.sa.admin.module.business.quipment.domain.form.QuipmentUpdateForm;
+import net.lab1024.sa.admin.module.business.quipment.domain.form.SelectQuipmentQueryForm;
 import net.lab1024.sa.admin.module.business.quipment.domain.vo.QuipmentLogVO;
 import net.lab1024.sa.admin.module.business.quipment.domain.vo.QuipmentVO;
 import net.lab1024.sa.admin.module.business.quipment.service.QuipmentService;
@@ -39,6 +42,12 @@ public class QuipmentController {
     @PostMapping("/quipment/queryPage")
     public ResponseDTO<PageResult<QuipmentVO>> queryPage(@RequestBody @Valid QuipmentQueryForm queryForm) {
         return ResponseDTO.ok(quipmentService.queryPage(queryForm));
+    }
+
+    @ApiOperation("查询设备信息")
+    @PostMapping("/quipment/queryQuipment")
+    public ResponseDTO<List<QuipmentVO>>queryQuipment(@RequestBody @Valid SelectQuipmentQueryForm queryForm){
+        return quipmentService.queryQuipment(queryForm);
     }
 
     @ApiOperation("查询设备修改记录")

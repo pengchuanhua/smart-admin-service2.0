@@ -18,7 +18,7 @@ public class UpdateQuipmentEntity {
 
     private Long id;
 
-    private Long quipment_id;
+    private Long quipmentId;
 
     /**
      * 设备编码

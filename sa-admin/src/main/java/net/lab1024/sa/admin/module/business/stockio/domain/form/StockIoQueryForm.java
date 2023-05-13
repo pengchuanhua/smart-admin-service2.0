@@ -19,6 +19,13 @@ import net.lab1024.sa.common.common.validator.enumeration.CheckEnum;
 @Data
 public class StockIoQueryForm extends PageParam{
 
+
+    /**
+     * 出入库单号
+     */
+    @ApiModelProperty(value = "出入库单号")
+    private String stockNo;
+
     @ApiModelProperty(value = "商品信息")
     private String goods;
 
