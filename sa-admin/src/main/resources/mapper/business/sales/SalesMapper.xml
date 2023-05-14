@@ -3,33 +3,206 @@
 <mapper namespace="net.lab1024.sa.admin.module.business.sales.dao.SalesDao">
 
     <!-- 分页查询 -->
-    <select id="queryPage" resultType="net.lab1024.sa.admin.module.business.sales.domain.vo.SalesVO">
-        SELECT
-        *
-        FROM t_sales
+    <select id="queryPage1" resultType="net.lab1024.sa.admin.module.business.sales.domain.vo.SalesQueryVO">
+        select a.sales_no,a.quipment_latt,a.sales_num,a.price,a.amount,a.refund_flag,a.share_ratio,a.share_amount,
+        b.quipment_sn,b.quipment_name,c.code agent_code, c.name agent_name,d.code depot_code,d.name depot_name,s.goods_code,s.goods_name,
+        (select category_name from t_category where t_category.category_id=s.category_id)category_name,(select name from t_brand where t_brand.id=s.brand_id)brand_name,
+        a.settlement_flag,a.settlement_id,a.cname,a.ctime,a.rpemp_name,a.rptime,a.description,case a.payment_type when 0 then '支付宝' when 1 then '微信' end payment_type
+        from t_sales a,t_quipment b,t_agent c,t_depot d,t_goods s
         <where>
+            AND a.quipment_id=b.id and a.agent_id=c.id
+            and a.depot_id=d.id and a.goods_id=s.goods_id
+            AND a.salse_type=0
             <!--设备编码/名称-->
             <if test="queryForm.quipmentId != null">
-                AND t_sales.quipment_id = #{queryForm.quipmentId}
+                AND a.quipment_id = #{queryForm.quipmentId}
             </if>
             <!--商品编码/名称-->
             <if test="queryForm.goodId != null and queryForm.goodId != ''">
-                        AND INSTR(t_sales.goods_id,#{queryForm.goodId})
+                        AND INSTR(a.goods_id,#{queryForm.goodId})
             </if>
             <!--仓库编码/名称-->
             <if test="queryForm.depotId != null and queryForm.depotId != ''">
-                        AND INSTR(t_sales.depot_id,#{queryForm.depotId})
+                        AND INSTR(a.depot_id,#{queryForm.depotId})
             </if>
             <!--代理商编码/名称-->
             <if test="queryForm.agentId != null and queryForm.agentId != ''">
-                        AND INSTR(t_sales.agent_id,#{queryForm.agentId})
+                        AND INSTR(a.agent_id,#{queryForm.agentId})
             </if>
             <!--收款时间-->
             <if test="queryForm.rptimeBegin != null">
-                AND DATE_FORMAT(t_sales.rptime, '%Y-%m-%d') &gt;= #{queryForm.rptimeBegin}
+                AND DATE_FORMAT(a.rptime, '%Y-%m-%d') &gt;= #{queryForm.rptimeBegin}
             </if>
             <if test="queryForm.rptimeEnd != null">
-                AND DATE_FORMAT(t_sales.rptime, '%Y-%m-%d') &lt;= #{queryForm.rptimeEnd}
+                AND DATE_FORMAT(a.rptime, '%Y-%m-%d') &lt;= #{queryForm.rptimeEnd}
+            </if>
+        order by a.id desc
+        </where>
+    </select>
+
+    <select id="queryPage7" resultType="net.lab1024.sa.admin.module.business.sales.domain.vo.SalesRefQueryVO">
+        select a.sales_no,a.quipment_latt,a.sales_num,a.price,a.amount,a.old_sales_no,a.share_ratio,a.share_amount,
+        b.quipment_sn,b.quipment_name,c.code agent_code, c.name agent_name,d.code depot_code,d.name depot_name,s.goods_code,s.goods_name,
+        (select category_name from t_category where t_category.category_id=s.category_id)category_name,(select name from t_brand where t_brand.id=s.brand_id)brand_name,
+        a.cname,a.ctime,a.rpemp_name,a.rptime,a.description
+        from t_sales a,t_quipment b,t_agent c,t_depot d,t_goods s
+        <where>
+            AND a.quipment_id=b.id and a.agent_id=c.id and a.depot_id=d.id
+            and a.goods_id=s.goods_id
+            AND a.salse_type=1
+            <!--设备编码/名称-->
+            <if test="queryForm.quipmentId != null">
+                AND a.quipment_id = #{queryForm.quipmentId}
+            </if>
+            <!--商品编码/名称-->
+            <if test="queryForm.goodId != null and queryForm.goodId != ''">
+                AND INSTR(a.goods_id,#{queryForm.goodId})
+            </if>
+            <!--仓库编码/名称-->
+            <if test="queryForm.depotId != null and queryForm.depotId != ''">
+                AND INSTR(a.depot_id,#{queryForm.depotId})
+            </if>
+            <!--代理商编码/名称-->
+            <if test="queryForm.agentId != null and queryForm.agentId != ''">
+                AND INSTR(a.agent_id,#{queryForm.agentId})
+            </if>
+            <!--收款时间-->
+            <if test="queryForm.rptimeBegin != null">
+                AND DATE_FORMAT(a.rptime, '%Y-%m-%d') &gt;= #{queryForm.rptimeBegin}
+            </if>
+            <if test="queryForm.rptimeEnd != null">
+                AND DATE_FORMAT(a.rptime, '%Y-%m-%d') &lt;= #{queryForm.rptimeEnd}
+            </if>
+           order by a.id
+        </where>
+    </select>
+
+    <select id="queryPage2" resultType="net.lab1024.sa.admin.module.business.sales.domain.vo.SalesQueryAgentVO">
+        select sum(a.sales_num)sales_num,a.price,sum(a.amount)amount,c.id, c.name agent_name
+        from t_sales a,t_agent c
+        <where>
+            AND a.agent_id=c.id
+            <!--代理商编码/名称-->
+            <if test="queryForm.agentId != null and queryForm.agentId != ''">
+                AND INSTR(a.agent_id,#{queryForm.agentId}))
+            </if>
+            <!--收款时间-->
+            <if test="queryForm.rptimeBegin != null">
+                AND DATE_FORMAT(a.rptime, '%Y-%m-%d') &gt;= #{queryForm.rptimeBegin}
+            </if>
+            <if test="queryForm.rptimeEnd != null">
+                AND DATE_FORMAT(a.rptime, '%Y-%m-%d') &lt;= #{queryForm.rptimeEnd}
+            </if>
+            group by c.id,c.name,a.price
+        </where>
+    </select>
+
+    <select id="queryPage3" resultType="net.lab1024.sa.admin.module.business.sales.domain.vo.SalesQueryBrandAndCategoryVO">
+        select sum(a.sales_num)sales_num,a.price,sum(a.amount)amount, (select category_name from t_category where t_category.category_id=s.category_id)category_name,
+               (select name from t_brand where t_brand.id=s.brand_id)brand_name
+        from t_sales a,t_goods s
+        <where>
+            AND a.goods_id=s.goods_id
+            <!--商品分类-->
+            <if test="queryForm.categoryId != null and queryForm.categoryId != ''">
+                AND INSTR(s.category_id,#{queryForm.categoryId})
+            </if>
+            <!--商品品牌-->
+            <if test="queryForm.brandId != null and queryForm.brandId != ''">
+                AND INSTR(s.brand_id,#{queryForm.brandId})
+            </if>
+            <!--收款时间-->
+            <if test="queryForm.rptimeBegin != null">
+                AND DATE_FORMAT(A.rptime, '%Y-%m-%d') &gt;= #{queryForm.rptimeBegin}
+            </if>
+            <if test="queryForm.rptimeEnd != null">
+                AND DATE_FORMAT(A.rptime, '%Y-%m-%d') &lt;= #{queryForm.rptimeEnd}
+            </if>
+            group by s.category_id,s.brand_id,a.price
+        </where>
+    </select>
+
+    <select id="queryPage4" resultType="net.lab1024.sa.admin.module.business.sales.domain.vo.SalesQueryGoodsVO">
+        select sum(a.sales_num)sales_num,a.price,sum(a.amount)amount, s.goods_id, s.goods_code,s.goods_name
+        from t_sales a,t_goods s
+        <where>
+            AND a.goods_id=s.goods_id
+            <!--商品编码/名称-->
+            <if test="queryForm.goodId != null and queryForm.goodId != ''">
+                AND INSTR(a.goods_id,#{queryForm.goodId})
+            </if>
+            <!--收款时间-->
+            <if test="queryForm.rptimeBegin != null">
+                AND DATE_FORMAT(a.rptime, '%Y-%m-%d') &gt;= #{queryForm.rptimeBegin}
+            </if>
+            <if test="queryForm.rptimeEnd != null">
+                AND DATE_FORMAT(a.rptime, '%Y-%m-%d') &lt;= #{queryForm.rptimeEnd}
+            </if>
+            group by s.goods_id,s.goods_code,s.goods_name,a.price
+        </where>
+    </select>
+
+    <select id="queryPage5" resultType="net.lab1024.sa.admin.module.business.sales.domain.vo.SalesQueryLocationVO">
+        select sum(a.sales_num)sales_num,a.price,sum(a.amount)amount,  (select name from t_location where t_location.code= SUBSTR(c.code,1,2))location_name
+        from t_sales a,t_quipment b,t_location c
+        <where>
+            AND a.quipment_id=b.id and b.location_id=c.id
+            <!--编码/名称-->
+            <if test="queryForm.locationId != null and queryForm.locationId != ''">
+                AND INSTR(b.location_id,#{queryForm.locationId})
+            </if>
+            <!--收款时间-->
+            <if test="queryForm.rptimeBegin != null">
+                AND DATE_FORMAT(a.rptime, '%Y-%m-%d') &gt;= #{queryForm.rptimeBegin}
+            </if>
+            <if test="queryForm.rptimeEnd != null">
+                AND DATE_FORMAT(a.rptime, '%Y-%m-%d') &lt;= #{queryForm.rptimeEnd}
+            </if>
+            group by b.location_id,a.price
+        </where>
+    </select>
+
+    <select id="queryPage6" resultType="net.lab1024.sa.admin.module.business.sales.domain.vo.SalesQueryQuipmentVO">
+        select sum(a.sales_num)sales_num,a.price,sum(a.amount)amount,  b.id,b.quipment_sn,b.quipment_name
+        from t_sales a,t_quipment b where  a.quipment_id=b.id
+            <!--编码/名称-->
+            <if test="queryForm.quipmentId != null and queryForm.quipmentId != ''">
+                AND INSTR(a.quipment_id,#{queryForm.quipmentId})
+            </if>
+            <!--收款时间-->
+            <if test="queryForm.rptimeBegin != null">
+                AND DATE_FORMAT(a.rptime, '%Y-%m-%d') &gt;= #{queryForm.rptimeBegin}
+            </if>
+            <if test="queryForm.rptimeEnd != null">
+                AND DATE_FORMAT(a.rptime, '%Y-%m-%d') &lt;= #{queryForm.rptimeEnd}
+            </if>
+            group by b.id,b.quipment_sn,b.quipment_name,a.price
+    </select>
+    
+    <select id="querySales" resultType="net.lab1024.sa.admin.module.business.sales.domain.vo.SalesQueryVO">
+        Select * from t_sales
+        <where>
+            <if test="queryForm.quipmentId != null">
+                AND a.quipment_id = #{queryForm.quipmentId}
+            </if>
+            <!--商品编码/名称-->
+            <if test="queryForm.goodId != null and queryForm.goodId != ''">
+                AND INSTR(a.goods_id,#{queryForm.goodId})
+            </if>
+            <!--仓库编码/名称-->
+            <if test="queryForm.depotId != null and queryForm.depotId != ''">
+                AND INSTR(a.depot_id,#{queryForm.depotId})
+            </if>
+            <!--代理商编码/名称-->
+            <if test="queryForm.agentId != null and queryForm.agentId != ''">
+                AND INSTR(a.agent_id,#{queryForm.agentId})
+            </if>
+            <!--收款时间-->
+            <if test="queryForm.rptimeBegin != null">
+                AND DATE_FORMAT(a.rptime, '%Y-%m-%d') &gt;= #{queryForm.rptimeBegin}
+            </if>
+            <if test="queryForm.rptimeEnd != null">
+                AND DATE_FORMAT(a.rptime, '%Y-%m-%d') &lt;= #{queryForm.rptimeEnd}
             </if>
         </where>
     </select>

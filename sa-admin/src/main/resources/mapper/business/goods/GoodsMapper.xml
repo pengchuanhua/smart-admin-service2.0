@@ -12,7 +12,7 @@
 
     <!-- 分页 查询商品 -->
     <select id="query" resultType="net.lab1024.sa.admin.module.business.goods.domain.vo.GoodsVO">
-        SELECT * FROM t_goods
+        SELECT *,(select name from t_brand where t_brand.id=t_goods.brand_id)brand_name FROM t_goods
         <where>
             <if test="query.searchWord != null and query.searchWord !=''">
                 INSTR(goods_name,#{query.searchWord})

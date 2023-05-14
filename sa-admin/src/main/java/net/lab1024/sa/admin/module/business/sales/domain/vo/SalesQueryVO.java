@@ -14,11 +14,13 @@ import lombok.Data;
  */
 
 @Data
-public class SalesVO {
-
+public class SalesQueryVO {
 
     @ApiModelProperty(value = "主键ID")
     private Long id;
+
+    @ApiModelProperty(value = "销售单号")
+    private String salesNo;
 
     @ApiModelProperty(value = "组织id")
     private String orgId;
@@ -26,17 +28,38 @@ public class SalesVO {
     @ApiModelProperty(value = "设备ID")
     private Long quipmentId;
 
+    @ApiModelProperty(value = "设备编码")
+    private String quipmentSn;
+
+    @ApiModelProperty(value = "设备名称")
+    private String quipmentName;
+
     @ApiModelProperty(value = "设备格子编号")
     private Integer quipmentLatt;
 
     @ApiModelProperty(value = "商品id")
     private Long goodsId;
 
-    @ApiModelProperty(value = "仓库id")
-    private Long depotId;
+    @ApiModelProperty(value = "商品编码")
+    private Long goodsCode;
+
+    @ApiModelProperty(value = "商品名称")
+    private String goodsName;
+
+    @ApiModelProperty(value = "分类名称")
+    private String categoryName;
+
+    @ApiModelProperty(value = "品牌名称")
+    private String brandName;
+
+    @ApiModelProperty(value = "仓库编码")
+    private Long depotCode;
+
+    @ApiModelProperty(value = "仓库名称")
+    private String depotName;
 
     @ApiModelProperty(value = "数量")
-    private BigDecimal salesNum;
+    private int salesNum;
 
     @ApiModelProperty(value = "销售单价")
     private BigDecimal price;
@@ -47,11 +70,14 @@ public class SalesVO {
     @ApiModelProperty(value = "退款标记")
     private Integer refundFlag;
 
-    @ApiModelProperty(value = "原销售ID")
-    private Long oldSalesId;
-
     @ApiModelProperty(value = "代理商id")
     private Long agentId;
+
+    @ApiModelProperty(value = "代理商编码")
+    private Long agentCode;
+
+    @ApiModelProperty(value = "代理商名称")
+    private String agentName;
 
     @ApiModelProperty(value = "分成比率")
     private BigDecimal shareRatio;
@@ -67,6 +93,9 @@ public class SalesVO {
 
     @ApiModelProperty(value = "创建时间")
     private LocalDateTime ctime;
+
+    @ApiModelProperty(value = "创建人")
+    private String cName;
 
     @ApiModelProperty(value = "收款时间")
     private LocalDateTime rptime;

@@ -1,5 +1,6 @@
 package net.lab1024.sa.admin.module.business.stockio.service;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -44,6 +45,8 @@ public class StockIoService {
     @Resource
     private AuthenticationInfo authenticationInfo;
 
+    private static final SimpleDateFormat format4y = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+
     /**
      * 分页查询
      *
@@ -61,9 +64,14 @@ public class StockIoService {
      * 添加
      */
     public ResponseDTO<String> add(StockIoAddForm addForm) {
+        long now = System.currentTimeMillis();
         StockIoEntity stockIoEntity = SmartBeanUtil.copy(addForm, StockIoEntity.class);
+        if (stockIoEntity.getType()==0){//入库
+            stockIoEntity.setStockNo("RK"+format4y.format(new Date(now)));
+        }else {
+            stockIoEntity.setStockNo("CK"+format4y.format(new Date(now)));
+        }
         stockIoEntity.setOrgId("1");
-        stockIoEntity.setStockNo(UUID.randomUUID().toString());
         stockIoEntity.setCempName(authenticationInfo.getAuthentication().getName());
         stockIoEntity.setCtime(new Date());
         stockIoEntity.setUempName(authenticationInfo.getAuthentication().getName());

@@ -4,32 +4,36 @@
 
     <!-- 分页查询 -->
     <select id="queryPage" resultType="net.lab1024.sa.admin.module.business.stockio.domain.vo.StockIoVO">
-        SELECT
-        *
-        FROM t_stock_io
+        SELECT a.id,a.org_id,a.stock_no,a.goods_id,s.goods_code,s.goods_name,b.code depot_code,b.name depot_name,
+        d.code supplie_code,d.name supplie_name,a.oper_num,a.ctime,a.cemp_name,a.description,case a.type when 0
+            then '入库' else '出库' end type
+        FROM t_stock_io a, t_depot b,t_goods s,t_supplie d
         <where>
-            <!--商品信息-->
-            <if test="queryForm.goods != null and queryForm.goods != ''">
-                        AND INSTR(t_stock_io.goods_id,#{queryForm.goods})
-            </if>
+            and a.depot_id=b.id and a.goods_id=s.goods_id and a.supplie_id=d.id
             <!--供应商-->
-            <if test="queryForm.supplie != null and queryForm.supplie != ''">
-                        AND INSTR(t_stock_io.supplie_id,#{queryForm.supplie})
+            <if test="queryForm.supplieId != null and queryForm.supplieId != ''">
+                        AND INSTR(a.supplie_id,#{queryForm.supplie})
             </if>
-            <!--仓库信息-->
-            <if test="queryForm.depot != null and queryForm.depot != ''">
-                        AND INSTR(t_stock_io.depot_id,#{queryForm.depot})
+            <!--商品编码/名称-->
+            <if test="queryForm.goodsId != null and queryForm.goodsId != ''">
+                AND (s.goods_id = #{queryForm.goodsId}
+                OR s.goods_name LIKE concat('%', #{queryForm.goodsId}, '%'))
+            </if>
+            <!--仓库编码/名称-->
+            <if test="queryForm.depotId != null and queryForm.depotId != ''">
+                AND (b.id = #{queryForm.depotId}
+                OR b.name LIKE concat('%', #{queryForm.depotId}, '%'))
             </if>
             <!--类型-->
             <if test="queryForm.type != null">
-                AND t_stock_io.type = #{queryForm.type}
+                AND a.type = #{queryForm.type}
             </if>
             <!--创建时间-->
             <if test="queryForm.ctimeBegin != null">
-                AND DATE_FORMAT(t_stock_io.ctime, '%Y-%m-%d') &gt;= #{queryForm.ctimeBegin}
+                AND DATE_FORMAT(a.ctime, '%Y-%m-%d') &gt;= #{queryForm.ctimeBegin}
             </if>
             <if test="queryForm.ctimeEnd != null">
-                AND DATE_FORMAT(t_stock_io.ctime, '%Y-%m-%d') &lt;= #{queryForm.ctimeEnd}
+                AND DATE_FORMAT(a.ctime, '%Y-%m-%d') &lt;= #{queryForm.ctimeEnd}
             </if>
         </where>
     </select>

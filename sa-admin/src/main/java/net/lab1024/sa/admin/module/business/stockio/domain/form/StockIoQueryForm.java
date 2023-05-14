@@ -27,13 +27,13 @@ public class StockIoQueryForm extends PageParam{
     private String stockNo;
 
     @ApiModelProperty(value = "商品信息")
-    private String goods;
+    private Long goodsId;
 
     @ApiModelProperty(value = "供应商")
-    private String supplie;
+    private Long supplieId;
 
     @ApiModelProperty(value = "仓库信息")
-    private String depot;
+    private Long depotId;
 
     @ApiModelPropertyEnum(value = StockTypeEnum.class, desc = "类型(0:入库,1:出库)")
     @CheckEnum(value = StockTypeEnum.class, message = "类型(0:入库,1:出库) 错误")

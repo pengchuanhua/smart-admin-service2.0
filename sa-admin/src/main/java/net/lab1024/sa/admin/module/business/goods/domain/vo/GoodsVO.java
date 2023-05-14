@@ -31,6 +31,9 @@ public class GoodsVO  {
     @ApiModelProperty("商品品牌")
     private Long brandId;
 
+    @ApiModelProperty("商品品牌")
+    private String brandName;
+
     @ApiModelProperty("商品编码")
     private String goodsCode;
 

@@ -56,7 +56,8 @@ public class QuipmentEntity {
      * 部门id
      */
 
-    private String departmentId;
+    private Long departmentId;
+
 
     /**
      * 仓库id

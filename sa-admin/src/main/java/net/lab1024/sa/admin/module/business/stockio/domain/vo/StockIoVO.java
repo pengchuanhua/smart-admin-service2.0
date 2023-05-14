@@ -30,14 +30,26 @@ public class StockIoVO {
     @ApiModelProperty(value = "商品id")
     private Long goodsId;
 
+    @ApiModelProperty(value = "商品id")
+    private Long goodsCode;
+
+    @ApiModelProperty(value = "商品id")
+    private String goodsName;
+
     @ApiModelProperty(value = "供应商id")
     private Long supplieId;
 
+    @ApiModelProperty(value = "供应商id")
+    private String supplieName;
+
     @ApiModelProperty(value = "仓库id")
-    private Long depotId;
+    private Long depotCode;
+
+    @ApiModelProperty(value = "仓库id")
+    private String depotName;
 
     @ApiModelProperty(value = "类型(0:入库,1:出库)")
-    private int type;
+    private String type;
 
     @ApiModelProperty(value = "数量")
     private int operNum;

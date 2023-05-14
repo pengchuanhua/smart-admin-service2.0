@@ -38,20 +38,38 @@ public class QuipmentVO {
     @ApiModelProperty(value = "设备区域code")
     private String regionCode;
 
+    @ApiModelProperty(value = "区域名称")
+    private String regionName;
+
     @ApiModelProperty(value = "设备存放位置id")
     private Long locationId;
 
+    @ApiModelProperty(value = "设备存放位置名称")
+    private String locationName;
+
     @ApiModelProperty(value = "部门id")
-    private String departmentId;
+    private Long departmentId;
+
+    @ApiModelProperty(value = "部门名称")
+    private String departmentName;
 
     @ApiModelProperty(value = "仓库id")
     private Long depotId;
 
+    @ApiModelProperty(value = "仓库名称")
+    private String depotName;
+
     @ApiModelProperty(value = "代理商id")
     private Long agentId;
 
+    @ApiModelProperty(value = "代理商名称")
+    private String agentName;
+
     @ApiModelProperty(value = "路线id")
     private Long pathId;
+
+    @ApiModelProperty(value = "路线名称")
+    private String pathName;
 
     @ApiModelProperty(value = "设备状态（0：停用，1：正常）")
     private Integer isDisabled;

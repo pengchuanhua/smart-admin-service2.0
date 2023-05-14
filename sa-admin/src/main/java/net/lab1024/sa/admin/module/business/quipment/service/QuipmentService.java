@@ -15,6 +15,9 @@ import net.lab1024.sa.admin.module.business.quipment.domain.form.QuipmentUpdateF
 import net.lab1024.sa.admin.module.business.quipment.domain.form.SelectQuipmentQueryForm;
 import net.lab1024.sa.admin.module.business.quipment.domain.vo.QuipmentLogVO;
 import net.lab1024.sa.admin.module.business.quipment.domain.vo.QuipmentVO;
+import net.lab1024.sa.admin.module.business.sales.dao.SalesDao;
+import net.lab1024.sa.admin.module.business.sales.domain.form.SalesQueryForm;
+import net.lab1024.sa.admin.module.business.sales.domain.vo.SalesQueryVO;
 import net.lab1024.sa.common.common.code.UserErrorCode;
 import net.lab1024.sa.common.common.util.SmartBeanUtil;
 import net.lab1024.sa.common.common.util.SmartPageUtil;
@@ -44,12 +47,16 @@ public class QuipmentService {
     @Resource
     private AuthenticationInfo authenticationInfo;
 
+    @Autowired
+    private SalesDao salesDao;
+
     /**
      * 分页查询
      *
      * @param queryForm
      * @return
      */
+
     public PageResult<QuipmentVO> queryPage(QuipmentQueryForm queryForm) {
         Page<?> page = SmartPageUtil.convert2PageQuery(queryForm);
         List<QuipmentVO> list = quipmentDao.queryPage(page, queryForm);
@@ -87,6 +94,7 @@ public class QuipmentService {
         queryForm.setCode(quipmentEntity.getQuipmentSn());
         List<QuipmentVO>quipmentVOList = quipmentDao.queryQuipment(queryForm);
         quipmentEntity.setQuipmentId(quipmentVOList.get(0).getId());
+
         int count=quipmentDao.insertQuipmentLog(quipmentEntity);
         if (count==0){
             throw new RuntimeException("更新操作日志失败!");
@@ -112,6 +120,8 @@ public class QuipmentService {
         }
         //     保存设备修改记录
         quipmentEntity.setQuipmentId(quipmentEntity.getId());
+        quipmentEntity.setCreateUser(authenticationInfo.getAuthentication().getName());
+        quipmentEntity.setCreateTime(new Date());
         int count = quipmentDao.insertQuipmentLog(quipmentEntity);
         if (count==0){
             throw new RuntimeException("更新操作日志失败!");
@@ -129,7 +139,14 @@ public class QuipmentService {
         if (CollectionUtils.isEmpty(idList)){
             return ResponseDTO.ok();
         }
-
+        SalesQueryForm salesQueryForm=new SalesQueryForm();
+       for(int i=0;i<idList.size();i++){
+           salesQueryForm.setQuipmentId(idList.get(i));
+           List<SalesQueryVO>salesQueryVOList=salesDao.querySales(salesQueryForm);
+           if(salesQueryVOList.size()>1){
+               throw new RuntimeException(salesQueryVOList.get(0).getQuipmentName()+">>设备已存在销售记录,请联系管理员删除!");
+           }
+       }
         quipmentDao.deleteBatchIds(idList);
         return ResponseDTO.ok();
     }
@@ -141,7 +158,11 @@ public class QuipmentService {
         if (null == id){
             return ResponseDTO.ok();
         }
-
+        SalesQueryForm salesQueryForm=new SalesQueryForm();
+        salesQueryForm.setQuipmentId(id);
+        if(salesDao.querySales(salesQueryForm).size()>1){
+            throw new RuntimeException("此设备已存在销售记录,请联系管理员删除!");
+        }
         quipmentDao.deleteById(id);
         return ResponseDTO.ok();
     }

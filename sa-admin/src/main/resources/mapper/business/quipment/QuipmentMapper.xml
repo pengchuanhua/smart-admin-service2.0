@@ -6,8 +6,8 @@
     <select id="queryPage" resultType="net.lab1024.sa.admin.module.business.quipment.domain.vo.QuipmentVO">
         SELECT
         *,(select name from t_agent where t_agent.id=t_quipment.agent_id)agentName,
-        (select concat(c.name,b.name,a.name) from t_location a,t_location b,t_location c where a.id=t_quipment.location_id and a.parent_code=b.id and b.parent_code=c.id)locationName,
-        (select concat(c.name,b.name,a.name) from t_region a,t_region b,t_region c where a.code=t_quipment.region_code and a.code=b.parent_code and b.parent_code=c.code)regionName,
+        (select concat(b.name ,' ',a.name) from t_location a,t_location b where a.id=t_quipment.location_id and a.parent_code=b.id)locationName,
+        (select concat(c.name,b.name,a.name) from t_region a,t_region b,t_region c where a.code=t_quipment.region_code and b.code=a.parent_code and b.parent_code=c.code)regionName,
         (select name from t_depot where t_depot.id=t_quipment.depot_id)depotName,
         (select name from t_path where t_path.id=t_quipment.path_id)pathName,
         (select name from t_department where t_department.department_id=t_quipment.department_id)departmentName
@@ -48,9 +48,15 @@
     </select>
 
     <select id="queryQuipmentLog" resultType="net.lab1024.sa.admin.module.business.quipment.domain.vo.QuipmentLogVO">
-    SELECT * FROM t_quipment_log WHERE
-        quipment_id= #{quipment_id}
-
+    SELECT *,
+           (select name from t_agent where t_agent.id=t_quipment.agent_id)agentName,
+           (select concat(c.name,b.name,a.name) from t_location a,t_location b,t_location c where a.id=t_quipment.location_id and a.parent_code=b.id and b.parent_code=c.id)locationName,
+           (select concat(c.name,b.name,a.name) from t_region a,t_region b,t_region c where a.code=t_quipment.region_code and a.code=b.parent_code and b.parent_code=c.code)regionName,
+           (select name from t_depot where t_depot.id=t_quipment.depot_id)depotName,
+           (select name from t_path where t_path.id=t_quipment.path_id)pathName,
+           (select name from t_department where t_department.department_id=t_quipment.department_id)departmentName
+           FROM t_quipment_log
+           WHERE quipment_id= #{id}
     </select>
 
     <insert id="insertQuipment">
@@ -61,9 +67,9 @@
     </insert>
 
     <insert id="insertQuipmentLog">
-        INSERT INTO t_quipment_log(quipment_id,quipment_sn, quipment_name, quipment_model, address, region_code, location_id, department_id, depot_id, agent_id,
+        INSERT INTO t_quipment_log(quipment_id,quipment_sn, quipment_name, region_code, location_id, department_id, depot_id, agent_id,
                                path_id, max_inventory, share_ratio, create_user, create_time, state,ts01)
-        VALUES ( #{quipmentId}, #{quipmentSn}, #{quipmentName}, #{quipmentModel}, #{address}, #{regionCode}, #{locationId}, #{departmentId}, #{depotId}, #{agentId},
+        VALUES ( #{quipmentId}, #{quipmentSn}, #{quipmentName}, #{regionCode}, #{locationId}, #{departmentId}, #{depotId}, #{agentId},
                  #{pathId},  #{maxInventory}, #{shareRatio}, #{createUser}, #{createTime}, #{isDisabled}, #{ts01})
     </insert>
 

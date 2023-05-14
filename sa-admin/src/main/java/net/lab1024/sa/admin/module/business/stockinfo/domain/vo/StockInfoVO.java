@@ -25,11 +25,20 @@ public class StockInfoVO {
     @ApiModelProperty(value = "商品id")
     private Long goodsId;
 
+    @ApiModelProperty(value = "商品id")
+    private Long goodsCode;
+
+    @ApiModelProperty(value = "商品id")
+    private String goodsName;
+
     @ApiModelProperty(value = "仓库id")
-    private Long depotId;
+    private Long depotCode;
+
+    @ApiModelProperty(value = "仓库id")
+    private String depotName;
 
     @ApiModelProperty(value = "数量")
-    private BigDecimal stockNum;
+    private int stockNum;
 
     @ApiModelProperty(value = "创建时间")
     private LocalDateTime ctime;

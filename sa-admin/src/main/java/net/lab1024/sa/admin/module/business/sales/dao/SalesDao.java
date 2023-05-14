@@ -2,8 +2,8 @@ package net.lab1024.sa.admin.module.business.sales.dao;
 
 import java.util.List;
 import net.lab1024.sa.admin.module.business.sales.domain.entity.SalesEntity;
-import net.lab1024.sa.admin.module.business.sales.domain.form.SalesQueryForm;
-import net.lab1024.sa.admin.module.business.sales.domain.vo.SalesVO;
+import net.lab1024.sa.admin.module.business.sales.domain.form.*;
+import net.lab1024.sa.admin.module.business.sales.domain.vo.*;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Mapper;
@@ -29,9 +29,23 @@ public interface SalesDao extends BaseMapper<SalesEntity> {
      * @param queryForm
      * @return
      */
-    List<SalesVO> queryPage(Page page, @Param("queryForm") SalesQueryForm queryForm);
+    List<SalesQueryVO> queryPage1(Page page, @Param("queryForm") SalesQueryForm queryForm);
+
+    List<SalesQueryAgentVO> queryPage2(Page page, @Param("queryForm") SalesQueryAgentForm queryForm);
+
+    List<SalesQueryBrandAndCategoryVO> queryPage3(Page page, @Param("queryForm") SalesQueryBrandAndCategoryForm queryForm);
+
+    List<SalesQueryGoodsVO> queryPage4(Page page, @Param("queryForm") SalesQueryGoodsForm queryForm);
+
+    List<SalesQueryLocationVO> queryPage5(Page page, @Param("queryForm") SalesQueryLocationForm queryForm);
+
+    List<SalesQueryQuipmentVO> queryPage6(Page page, @Param("queryForm") SalesQueryQuipmentForm queryForm);
+
+    List<SalesRefQueryVO> queryPage7(Page page, @Param("queryForm") SalesRefQueryForm queryForm);
 
     SalesEntity querySalesById(@Param ("id") long id);
+
+    List<SalesQueryVO>querySales(@Param("queryForm")SalesQueryForm queryForm);
 
 
 }

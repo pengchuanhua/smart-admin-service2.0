@@ -1,9 +1,10 @@
 package net.lab1024.sa.admin.module.business.sales.domain.form;
 
-import net.lab1024.sa.common.common.domain.PageParam;
 import io.swagger.annotations.ApiModelProperty;
-import java.time.LocalDate;
 import lombok.Data;
+import net.lab1024.sa.common.common.domain.PageParam;
+
+import java.time.LocalDate;
 
 /**
  * 设备销售表 分页查询表单
@@ -14,17 +15,7 @@ import lombok.Data;
  */
 
 @Data
-public class SalesQueryForm extends PageParam{
-
-    @ApiModelProperty(value = "设备编码/名称")
-    private Long quipmentId;
-
-    @ApiModelProperty(value = "商品编码/名称")
-    private Long goodId;
-
-    @ApiModelProperty(value = "仓库编码/名称")
-    private Long depotId;
-
+public class SalesQueryAgentForm extends PageParam{
     @ApiModelProperty(value = "代理商编码/名称")
     private Long agentId;
 
