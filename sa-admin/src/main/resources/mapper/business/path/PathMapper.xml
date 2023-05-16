@@ -20,9 +20,7 @@
             <if test="queryForm.isDisabled != null">
                 AND is_disabled = #{queryForm.isDisabled}
             </if>
-
         </where>
-        JL{code|DEPOT}JL
     </select>
 
     <select id="queryPath" resultType="net.lab1024.sa.admin.module.business.path.domain.vo.PathVO">
@@ -38,8 +36,8 @@
     </select>
 
     <insert id="insertPath">
-        INSERT INTO t_path(code, name, is_disabled, ctime, cemp_name, description, ts01)
-        VALUES ( #{code}, #{name}, #{isDisabled}, #{ctime}, #{cempName}, #{description}, #{ts01})
+        INSERT INTO t_path(code, name, is_disabled, chargeperson, ctime, cemp_name, description, ts01)
+        VALUES ( #{code}, #{name}, #{isDisabled}, #{chargePerson}, #{ctime}, #{cempName}, #{description}, #{ts01})
     </insert>
 
 
@@ -48,6 +46,7 @@
         SET code        = #{code},
             name        = #{name},
             is_disabled = #{isDisabled},
+            chargeperson= #{chargePerson},
             utime       = #{utime},
             uemp_name   = #{uempName},
             description = #{description},

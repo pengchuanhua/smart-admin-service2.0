@@ -5,12 +5,12 @@
     <!-- 分页查询 -->
     <select id="queryPage" resultType="net.lab1024.sa.admin.module.business.quipment.domain.vo.QuipmentVO">
         SELECT
-        *,(select name from t_agent where t_agent.id=t_quipment.agent_id)agentName,
-        (select concat(b.name ,' ',a.name) from t_location a,t_location b where a.id=t_quipment.location_id and a.parent_code=b.id)locationName,
-        (select concat(c.name,b.name,a.name) from t_region a,t_region b,t_region c where a.code=t_quipment.region_code and b.code=a.parent_code and b.parent_code=c.code)regionName,
-        (select name from t_depot where t_depot.id=t_quipment.depot_id)depotName,
-        (select name from t_path where t_path.id=t_quipment.path_id)pathName,
-        (select name from t_department where t_department.department_id=t_quipment.department_id)departmentName
+        *,(select name from t_agent where t_agent.id=t_quipment.agent_id)agent_name,
+        (select concat(b.name ,' ',a.name) from t_location a,t_location b where a.id=t_quipment.location_id and a.parent_code=b.id)location_name,
+        (select concat(c.name,b.name,a.name) from t_region a,t_region b,t_region c where a.code=t_quipment.region_code and b.code=a.parent_code and b.parent_code=c.code)region_name,
+        (select name from t_depot where t_depot.id=t_quipment.depot_id)depot_name,
+        (select name from t_path where t_path.id=t_quipment.path_id)path_name,
+        (select name from t_department where t_department.department_id=t_quipment.department_id)department_name
         FROM t_quipment
         <where>
             <!--设备编码/名称-->
@@ -91,8 +91,8 @@
             longitude      = #{longitude},
             latitude       = #{latitude},
             is_disabled    = #{isDisabled},
-            update_time          = #{updateTime},
-            update_user      = #{updateUser},
+            update_time    = #{updateTime},
+            update_user    = #{updateUser},
             ts01           = #{ts01}
         WHERE id = #{id} and ts01= #{ts01}
     </update>

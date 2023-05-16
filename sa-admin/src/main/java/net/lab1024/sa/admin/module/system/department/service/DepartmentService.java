@@ -60,6 +60,10 @@ public class DepartmentService {
 
     public ResponseDTO<String> addDepartment(DepartmentAddForm departmentAddForm) {
         DepartmentEntity departmentEntity = SmartBeanUtil.copy(departmentAddForm, DepartmentEntity.class);
+        if(departmentEntity.getDeptLevel()!=0){
+            String departmentCode=departmentDao.selectById(departmentEntity.getParentId()).getCode();
+            departmentEntity.setCode(departmentCode+departmentEntity.getCode());
+        }
         departmentDao.insert(departmentEntity);
         this.clearCache();
         return ResponseDTO.ok();
@@ -79,6 +83,12 @@ public class DepartmentService {
         DepartmentEntity entity = departmentDao.selectById(updateDTO.getDepartmentId());
         if (entity == null) {
             return ResponseDTO.error(UserErrorCode.DATA_NOT_EXIST);
+        }
+        if(!entity.getCode().equals(updateDTO.getCode())){
+            int subDepartmentNum = departmentDao.countSubDepartment(updateDTO.getDepartmentId());
+            if (subDepartmentNum > 0) {
+                return ResponseDTO.userErrorParam("存在子级部门,请删除子级部门后修改部门编码");
+            }
         }
         DepartmentEntity departmentEntity = SmartBeanUtil.copy(updateDTO, DepartmentEntity.class);
         departmentEntity.setSort(updateDTO.getSort());

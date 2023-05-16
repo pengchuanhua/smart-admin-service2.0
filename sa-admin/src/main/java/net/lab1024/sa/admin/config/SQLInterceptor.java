@@ -36,6 +36,8 @@ import org.apache.ibatis.reflection.wrapper.ObjectWrapperFactory;
 import org.apache.ibatis.session.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
@@ -56,9 +58,6 @@ public class SQLInterceptor implements Interceptor {
     private static final ObjectWrapperFactory DEFAULT_OBJECT_WRAPPER_FACTORY = new DefaultObjectWrapperFactory();
     private  static final ReflectorFactory DEFAULT_REFLECTOR_FACTORY = new DefaultReflectorFactory();
 
-    @Resource
-    private  AuthenticationInfo authenticationInfo;
-
     @Lazy
     @Autowired
     private EmployeeService employeeService;
@@ -66,9 +65,6 @@ public class SQLInterceptor implements Interceptor {
     @Lazy
     @Autowired
     private RoleDataScopeService roleDataScopeService;
-
-    @Autowired
-    JweAspectConfig jweConfig;
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
@@ -106,10 +102,9 @@ public class SQLInterceptor implements Interceptor {
             sql = sql.trim();
         }
         if (true) {
-
-            if(authenticationInfo != null&&authenticationInfo.getAuthentication()!=null){
-                String name = authenticationInfo.getAuthentication().getName();
-//                String name=jweConfig.jweConfig().toString();
+            Authentication authenticationInfo=SecurityContextHolder.getContext().getAuthentication();
+            if(authenticationInfo != null&&authenticationInfo.getName()!=null){
+                String name = authenticationInfo.getName();
                 sql = extendPlaceHolders(sql, name);
             }
         }

@@ -25,6 +25,9 @@ public class PathQueryForm extends PageParam{
     @ApiModelProperty(value = "路线编码/名称")
     private String name;
 
+    @ApiModelProperty(value = "负责人")
+    private String chargePerson;
+
     @ApiModelPropertyEnum(value = PathStatusEnum.class, desc = "有效标记（0：有效，1：无效）")
     @CheckEnum(value = PathStatusEnum.class, message = "有效标记（0：有效，1：无效） 错误")
     private Integer isDisabled;

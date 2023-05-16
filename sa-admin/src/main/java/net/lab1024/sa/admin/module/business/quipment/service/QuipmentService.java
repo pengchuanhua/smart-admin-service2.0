@@ -58,6 +58,7 @@ public class QuipmentService {
      */
 
     public PageResult<QuipmentVO> queryPage(QuipmentQueryForm queryForm) {
+        authenticationInfo.getAuthentication().getName();
         Page<?> page = SmartPageUtil.convert2PageQuery(queryForm);
         List<QuipmentVO> list = quipmentDao.queryPage(page, queryForm);
         PageResult<QuipmentVO> pageResult = SmartPageUtil.convert2PageResult(page, list);

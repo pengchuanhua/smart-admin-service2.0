@@ -24,6 +24,10 @@ public class PathAddForm {
     @NotBlank(message = "路线名称 不能为空")
     private String name;
 
+    @ApiModelProperty(value = "负责人", required = true)
+    @NotBlank(message = "负责人 不能为空")
+    private String chargePerson;
+
     @ApiModelProperty(value = "状态", required = true)
     @NotNull(message = "状态 不能为空")
     private Integer isDisabled;

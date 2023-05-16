@@ -34,6 +34,9 @@ public class PathVO {
     @ApiModelProperty(value = "创建员工")
     private String cempName;
 
+    @ApiModelProperty(value = "负责人")
+    private String chargePerson;
+
     @ApiModelProperty(value = "更新时间")
     private Date utime;
 

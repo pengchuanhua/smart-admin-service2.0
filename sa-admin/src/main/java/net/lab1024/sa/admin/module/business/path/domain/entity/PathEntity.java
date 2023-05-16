@@ -48,6 +48,11 @@ public class PathEntity {
     private String cempName;
 
     /**
+     * 负责人
+     */
+    private String chargePerson;
+
+    /**
      * 更新时间
      */
     private Date utime;

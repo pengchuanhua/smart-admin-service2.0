@@ -47,7 +47,7 @@ public class QuipmentUpdateForm {
     private Long locationId;
 
     @ApiModelProperty(value = "部门id")
-    private String departmentId;
+    private Long departmentId;
 
     @ApiModelProperty(value = "仓库id")
     private Long depotId;

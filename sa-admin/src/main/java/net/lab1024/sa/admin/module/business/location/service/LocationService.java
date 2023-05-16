@@ -78,6 +78,12 @@ public class LocationService {
         if (!res.getOk()) {
             return res;
         }
+        //非一级场所,编码包含上级编码
+        if(addForm.getLocationLevel()!=0){
+            String locationCode=locationDao.selectById(locationEntity.getParentCode()).getCode();
+            locationEntity.setCode(locationCode+locationEntity.getCode());
+        }
+
         long parentCode = null == addForm.getParentCode() ? NumberUtils.LONG_ZERO : addForm.getParentCode();
         locationEntity.setParentCode(parentCode);
         locationEntity.setCempName(authenticationInfo.getAuthentication().getName());
@@ -94,20 +100,25 @@ public class LocationService {
      * @return
      */
     public ResponseDTO<String> update(LocationUpdateForm updateForm) {
-
-        Long id = updateForm.getId();
-        Optional<LocationEntity> optional = this.queryLocationById(id);
-        if (!optional.isPresent()) {
+        if (updateForm.getParentCode() == null) {
+            return ResponseDTO.userErrorParam("父级id不能为空");
+        }
+        LocationEntity entity = locationDao.selectById(updateForm.getId());
+        if (entity==null) {
             return ResponseDTO.error(UserErrorCode.DATA_NOT_EXIST);
         }
-        LocationEntity locationEntity = SmartBeanUtil.copy(updateForm, LocationEntity.class);
-        locationEntity.setParentCode (optional.get().getParentCode());
+        if(!entity.getCode().equals(updateForm.getCode())){
+            LocationEntity locationEntity = locationDao.queryLocationByParenId(updateForm.getId());
+            if (locationEntity!=null) {
+                return ResponseDTO.userErrorParam("存在子级,请删除子级后修改位置编码");
+            }
+        }
 
+        LocationEntity locationEntity = SmartBeanUtil.copy(updateForm, LocationEntity.class);
         ResponseDTO<String> responseDTO = this.checkLocation(locationEntity, true);
         if (!responseDTO.getOk()) {
             return responseDTO;
         }
-
         locationEntity.setUempName(authenticationInfo.getAuthentication().getName());
         locationEntity.setUtime(new Date());
         locationEntity.setNew_ts01(System.currentTimeMillis());
