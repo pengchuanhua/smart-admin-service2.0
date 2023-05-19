@@ -42,6 +42,20 @@
         </if>
     </select>
 
+    <select id="queryQuipmentState" resultType="net.lab1024.sa.admin.module.business.quipment.domain.vo.QuipmentSoaVO">
+        SELECT a.id, a.quipment_sn, b.quipment_name,a.sum_electricity,a.type,a.create_time FROM t_quipment_soa a,t_quipment b
+        WHERE 1=1 and a.quipment_sn=b.quipment_sn
+        <if test="queryForm.quipmentSn != null and queryForm.quipmentSn != ''">
+            AND a.quipment_sn = #{queryForm.quipmentSn}
+        </if>
+        <if test="queryForm.name != null and queryForm.name != ''">
+            AND b.quipment_name LIKE concat('%', #{queryForm.name}, '%')
+        </if>
+        <if test="queryForm.type != null and queryForm.type != ''">
+            AND a.type = #{type}
+        </if>
+    </select>
+
     <select id="selectQuipmentById">
         SELECT * FROM t_quipment WHERE
          id = #{id}

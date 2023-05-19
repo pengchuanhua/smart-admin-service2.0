@@ -15,17 +15,17 @@ import lombok.Data;
 @Data
 public class SettlementitemVO {
 
+    @ApiModelProperty(value = "id")
     private Long id;
-
 
     @ApiModelProperty(value = "组织ID")
     private String orgId;
 
-    @ApiModelProperty(value = "结算单id")
-    private Long settlementId;
+    @ApiModelProperty(value = "结算单号")
+    private String settlementNo;
 
-    @ApiModelProperty(value = "销售单id")
-    private Long salesId;
+    @ApiModelProperty(value = "销售单号")
+    private String salesNo;
 
     @ApiModelProperty(value = "商品id")
     private Long goodsId;

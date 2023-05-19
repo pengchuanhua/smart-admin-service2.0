@@ -6,10 +6,12 @@ import net.lab1024.sa.admin.module.business.settlement.domain.entity.Settlementi
 import net.lab1024.sa.admin.module.business.settlement.domain.form.SalesQueryForm;
 import net.lab1024.sa.admin.module.business.settlement.domain.form.SettlementQueryForm;
 import net.lab1024.sa.admin.module.business.settlement.domain.form.SettlementitemQueryForm;
+import net.lab1024.sa.admin.module.business.settlement.domain.vo.PaymentVO;
 import net.lab1024.sa.admin.module.business.settlement.domain.vo.QuerySalesVO;
 import net.lab1024.sa.admin.module.business.settlement.domain.vo.SettlementVO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import net.lab1024.sa.admin.module.business.settlement.domain.vo.SettlementitemVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
@@ -35,9 +37,17 @@ public interface SettlementDao extends BaseMapper<SettlementEntity> {
      */
     List<SettlementVO> queryPage(Page page, @Param("queryForm") SettlementQueryForm queryForm);
 
-    List<SettlementitemEntity> querySettlementitem(@Param("queryForm") SettlementitemQueryForm queryForm);
+    List<SettlementitemVO> querySettlementitem(@Param("queryForm") SettlementitemQueryForm queryForm);
 
 
-    List<QuerySalesVO> querySales(@Param("queryForm") SalesQueryForm queryForm);
+    List<QuerySalesVO> querySales(Page page,@Param("queryForm") SalesQueryForm queryForm);
+
+    List<PaymentVO>queryPayment();
+
+    int updateSales(SettlementitemVO settlementitemVO);
+
+    int delete(String settlementNo);
+
+    int update(SettlementEntity settlementEntity);
 
 }

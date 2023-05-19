@@ -23,11 +23,17 @@ public class SettlementVO {
     @ApiModelProperty(value = "主键ID")
     private Long id;
 
+    @ApiModelProperty(value = "结算单号")
+    private String settlementNo;
+
     @ApiModelProperty(value = "组织id")
     private String orgId;
 
     @ApiModelProperty(value = "代理商id")
     private Long agentId;
+
+    @ApiModelProperty(value = "代理商名称")
+    private String agentName;
 
     @ApiModelProperty(value = "开始日期")
     private Date startDate;
@@ -55,8 +61,5 @@ public class SettlementVO {
 
     @ApiModelProperty(value = "时间戳")
     private Long ts01;
-
-    @ApiModelProperty(value = "结算明细", required = true)
-    private List<SettlementitemVO> settlementitemVO;
 
 }

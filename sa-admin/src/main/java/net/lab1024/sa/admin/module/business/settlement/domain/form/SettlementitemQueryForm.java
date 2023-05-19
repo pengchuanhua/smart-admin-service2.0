@@ -14,10 +14,12 @@ import net.lab1024.sa.common.common.domain.PageParam;
  */
 
 @Data
-public class SettlementitemQueryForm extends PageParam{
+public class SettlementitemQueryForm{
+
+    @ApiModelProperty(value = "结算单号")
+    private String settlementNo;
 
     @ApiModelProperty(value = "销售单号")
-    private Long salesId;
-
+    private String salesNo;
 
 }

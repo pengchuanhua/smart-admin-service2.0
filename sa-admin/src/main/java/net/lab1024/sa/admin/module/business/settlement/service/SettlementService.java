@@ -5,14 +5,15 @@ import java.util.Date;
 import java.util.List;
 
 import net.lab1024.sa.admin.config.AuthenticationInfo;
-import net.lab1024.sa.admin.module.business.sales.service.SalesService;
 import net.lab1024.sa.admin.module.business.settlement.dao.SettlementDao;
 import net.lab1024.sa.admin.module.business.settlement.dao.SettlementitemDao;
 import net.lab1024.sa.admin.module.business.settlement.domain.entity.SettlementEntity;
 import net.lab1024.sa.admin.module.business.settlement.domain.entity.SettlementitemEntity;
 import net.lab1024.sa.admin.module.business.settlement.domain.form.*;
+import net.lab1024.sa.admin.module.business.settlement.domain.vo.PaymentVO;
 import net.lab1024.sa.admin.module.business.settlement.domain.vo.QuerySalesVO;
 import net.lab1024.sa.admin.module.business.settlement.domain.vo.SettlementVO;
+import net.lab1024.sa.admin.module.business.settlement.domain.vo.SettlementitemVO;
 import net.lab1024.sa.common.common.code.UserErrorCode;
 import net.lab1024.sa.common.common.util.SmartBeanUtil;
 import net.lab1024.sa.common.common.util.SmartPageUtil;
@@ -45,8 +46,7 @@ public class SettlementService {
     @Resource
     private AuthenticationInfo authenticationInfo;
 
-    @Autowired
-    private SalesService salesService;
+
 
     /**
      * 分页查询
@@ -61,27 +61,54 @@ public class SettlementService {
         return pageResult;
     }
 
-    public ResponseDTO<List<QuerySalesVO>> querySales(SalesQueryForm queryForm) {
-        List<QuerySalesVO> adminVO = settlementDao.querySales(queryForm);
+    /**
+     * 分页查询-待结算明细
+     *
+     * @param queryForm
+     * @return
+     */
+
+    public PageResult<QuerySalesVO> querySales(SalesQueryForm queryForm) {
+        Page<?> page = SmartPageUtil.convert2PageQuery(queryForm);
+        List<QuerySalesVO> list = settlementDao.querySales(page, queryForm);
+        PageResult<QuerySalesVO> pageResult = SmartPageUtil.convert2PageResult(page, list);
+        return pageResult;
+    }
+
+    /**
+     * 查询-结算明细
+     *
+     * @param queryForm
+     * @return
+     */
+
+    public ResponseDTO<List<SettlementitemVO>> querySettlementitem(SettlementitemQueryForm queryForm) {
+        List<SettlementitemVO> adminVO = settlementDao.querySettlementitem(queryForm);
         if (adminVO==null) {
             return ResponseDTO.error(UserErrorCode.DATA_NOT_EXIST);
         }
         return ResponseDTO.ok(adminVO);
     }
 
+
     /**
      * 添加
      */
     public ResponseDTO<String> add(SettlementAddForm addForm) {
-        SettlementEntity settlementEntity = SmartBeanUtil.copy(addForm, SettlementEntity.class);
        //检查数据完整性
-        ResponseDTO<String> res = this.checkData(settlementEntity);
+        ResponseDTO<String> res = this.checkData(addForm);
         if (!res.getOk()) {
             return res;
         }
-        List<SettlementitemEntity>settlementitemEntities=settlementEntity.getSettlementitemEntities();
-        for(int i=0;i<settlementitemEntities.size();i++){
-            settlementitemDao.insert(settlementitemEntities.get(i));
+
+        SettlementEntity settlementEntity = SmartBeanUtil.copy(addForm, SettlementEntity.class);
+
+        List<SettlementitemAddForm>settlementitemAddForms =addForm.getSettlementitemAddForms();
+        for(int i=0;i<settlementitemAddForms.size();i++){
+            SettlementitemEntity entity=SmartBeanUtil.copy(settlementitemAddForms.get(i),SettlementitemEntity.class);
+            entity.setSettlementNo(addForm.getSettlementNo());
+            entity.setTs01(System.currentTimeMillis());
+            settlementitemDao.insert(entity);
         }
 
         settlementEntity.setCempName(authenticationInfo.getAuthentication().getName());
@@ -92,14 +119,28 @@ public class SettlementService {
     }
 
     /**
-     * 更新
+     * 审核
      *
      * @param updateForm
      * @return
      */
     public ResponseDTO<String> update(SettlementUpdateForm updateForm) {
         SettlementEntity settlementEntity = SmartBeanUtil.copy(updateForm, SettlementEntity.class);
-        settlementDao.updateById(settlementEntity);
+        SettlementitemQueryForm queryForm=new SettlementitemQueryForm();
+        queryForm.setSettlementNo(updateForm.getSettlementNo());
+        List<SettlementitemVO>settlementitemVOList= settlementDao.querySettlementitem(queryForm);
+        if(settlementitemVOList==null||settlementitemVOList.size()==0){
+            throw new RuntimeException("审核失败;未查到结算明细数据");
+        }
+        //审核更新销售单结算标记以及结算单号
+        for(int i=0;i<settlementitemVOList.size();i++){
+            settlementDao.updateSales(settlementitemVOList.get(i));
+        }
+
+        settlementEntity.setCkName(authenticationInfo.getAuthentication().getName());
+        settlementEntity.setCktime(new Date());
+        settlementEntity.setTs01(System.currentTimeMillis());
+        settlementDao.update(settlementEntity);
         return ResponseDTO.ok();
     }
 
@@ -121,35 +162,44 @@ public class SettlementService {
     /**
      * 单个删除
      */
-    public ResponseDTO<String> delete(Long id) {
-        if (null == id){
+    public ResponseDTO<String> delete(String settlementNo) {
+        if (null == settlementNo){
             return ResponseDTO.ok();
         }
-
-        settlementDao.deleteById(id);
+        int count=settlementitemDao.delete(settlementNo);
+        int row=settlementDao.delete(settlementNo);
+        if(count==0||row==0){
+            throw new RuntimeException("删除失败,请重新查询后操作");
+        }
         return ResponseDTO.ok();
     }
 
-    private ResponseDTO<String> checkData(SettlementEntity settlementEntity) {
-    List<SettlementitemEntity> settlementitemEntity=settlementEntity.getSettlementitemEntities();
-    if(settlementitemEntity==null){
+    private ResponseDTO<String> checkData(SettlementAddForm addForm) {
+    List<SettlementitemAddForm> settlementitemAddForms=addForm.getSettlementitemAddForms();
+    if(settlementitemAddForms==null){
         return ResponseDTO.error(UserErrorCode.PARAM_ERROR,"结算明细不能为空");
     }
     BigDecimal toltel_amount =BigDecimal.ZERO;
-    settlementitemEntity.forEach(e -> {
-
+        settlementitemAddForms.forEach(e -> {
         SettlementitemQueryForm settlementitemQueryForm =new SettlementitemQueryForm();
-        settlementitemQueryForm.setSalesId(e.getSalesId());
-        List<SettlementitemEntity> entityList=settlementDao.querySettlementitem(settlementitemQueryForm);
+        settlementitemQueryForm.setSalesNo(e.getSalesNo());
+        List<SettlementitemVO> entityList=settlementDao.querySettlementitem(settlementitemQueryForm);
         if(null!=entityList&&entityList.size()>0){
-          throw new RuntimeException("销售单号["+e.getSalesId()+"]已存在结算记录");
+          throw new RuntimeException("销售单号["+e.getSalesNo()+"]已存在结算记录");
         }
         toltel_amount.add(e.getShareAmount());
     });
-    if(settlementEntity.getShareAmount().compareTo(toltel_amount)!=0){
-        throw new RuntimeException("结算总金额："+settlementEntity.getShareAmount()+",与明细合计金额："+toltel_amount+"不一致");
+    if(addForm.getShareAmount().compareTo(toltel_amount)!=0){
+        throw new RuntimeException("结算总金额："+addForm.getShareAmount()+",与明细合计结算金额："+toltel_amount+"不一致");
+    }
+        return ResponseDTO.ok();
     }
 
-        return ResponseDTO.ok();
+    public ResponseDTO<List<PaymentVO>> queryPayment() {
+        List<PaymentVO> adminVO = settlementDao.queryPayment();
+        if (adminVO==null) {
+            return ResponseDTO.error(UserErrorCode.DATA_NOT_EXIST);
+        }
+        return ResponseDTO.ok(adminVO);
     }
 }

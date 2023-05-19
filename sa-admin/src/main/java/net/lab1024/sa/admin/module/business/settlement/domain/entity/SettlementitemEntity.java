@@ -17,11 +17,6 @@ import lombok.Data;
 public class SettlementitemEntity {
 
     /**
-     * 主键ID
-     */
-    private Long id;
-
-    /**
      * 组织ID
      */
     private String orgId;
@@ -29,12 +24,12 @@ public class SettlementitemEntity {
     /**
      * 结算单id
      */
-    private Long settlementId;
+    private String settlementNo;
 
     /**
      * 销售单id
      */
-    private Long salesId;
+    private String salesNo;
 
     /**
      * 商品id
@@ -44,7 +39,7 @@ public class SettlementitemEntity {
     /**
      * 销售数量
      */
-    private BigDecimal salesNum;
+    private int salesNum;
 
     /**
      * 销售单价

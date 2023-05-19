@@ -9,11 +9,9 @@ import net.lab1024.sa.admin.module.business.brand.domain.vo.BrandVO;
 import net.lab1024.sa.admin.module.business.quipment.dao.QuipmentDao;
 import net.lab1024.sa.admin.module.business.quipment.domain.entity.QuipmentEntity;
 import net.lab1024.sa.admin.module.business.quipment.domain.entity.UpdateQuipmentEntity;
-import net.lab1024.sa.admin.module.business.quipment.domain.form.QuipmentAddForm;
-import net.lab1024.sa.admin.module.business.quipment.domain.form.QuipmentQueryForm;
-import net.lab1024.sa.admin.module.business.quipment.domain.form.QuipmentUpdateForm;
-import net.lab1024.sa.admin.module.business.quipment.domain.form.SelectQuipmentQueryForm;
+import net.lab1024.sa.admin.module.business.quipment.domain.form.*;
 import net.lab1024.sa.admin.module.business.quipment.domain.vo.QuipmentLogVO;
+import net.lab1024.sa.admin.module.business.quipment.domain.vo.QuipmentSoaVO;
 import net.lab1024.sa.admin.module.business.quipment.domain.vo.QuipmentVO;
 import net.lab1024.sa.admin.module.business.sales.dao.SalesDao;
 import net.lab1024.sa.admin.module.business.sales.domain.form.SalesQueryForm;
@@ -72,6 +70,15 @@ public class QuipmentService {
         }
         return ResponseDTO.ok(adminVO);
     }
+
+    public ResponseDTO<List<QuipmentSoaVO>> queryQuipmentState(QuipmentSoaQueryForm queryForm) {
+        List<QuipmentSoaVO> adminVO = quipmentDao.queryQuipmentState(queryForm);
+        if (adminVO==null) {
+            return ResponseDTO.error(UserErrorCode.DATA_NOT_EXIST);
+        }
+        return ResponseDTO.ok(adminVO);
+    }
+
 
     public ResponseDTO<List<QuipmentLogVO>> queryQuipmentLog(Long quipmentId) {
         List<QuipmentLogVO> adminVO = quipmentDao.queryQuipmentLog(quipmentId);

@@ -7,6 +7,7 @@ import net.lab1024.sa.common.common.domain.PageParam;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.Date;
 
 
 /**
@@ -26,11 +27,11 @@ public class SalesQueryForm extends PageParam{
 
     @ApiModelProperty(value = "开始日期")
     @NotBlank(message = "请选择开始日期")
-    private LocalDate startDate;
+    private String startDate;
 
     @ApiModelProperty(value = "结束日期")
     @NotBlank(message = "请选择结束日期")
-    private LocalDate endDate;
+    private String endDate;
 
     @ApiModelProperty(value = "商品id")
     private Long goodsId;

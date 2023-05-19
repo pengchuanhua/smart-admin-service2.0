@@ -5,7 +5,7 @@
     <!-- 分页查询 -->
     <select id="queryPage" resultType="net.lab1024.sa.admin.module.business.settlement.domain.vo.SettlementVO">
         SELECT
-        *,(SELECT * FROM t_agent where )
+        *,(SELECT name FROM t_agent where t_agent.id=t_settlement.agent_id)agent_name
         FROM t_settlement
         <where>
             <!--代理商-->
@@ -68,5 +68,39 @@
         </where>
     </select>
 
+    <select id="queryPayment" resultType="net.lab1024.sa.admin.module.business.settlement.domain.vo.PaymentVO">
+        select id payment_id,code payment_code,name payment_name from t_payment
+    </select>
 
+   <select id="querySettlementitem" resultType="net.lab1024.sa.admin.module.business.settlement.domain.vo.SettlementitemVO">
+       SELECT * FROM t_settlementitem a WHERE 1=1
+       <if test="queryForm.settlementNo != null and queryForm.settlementNo != ''">
+           AND INSTR(a.settlement_so,#{queryForm.settlementNo})
+       </if>
+       <if test="queryForm.salesNo != null and queryForm.salesNo != ''">
+           AND INSTR(a.sales_no,#{queryForm.salesNo})
+       </if>
+
+   </select>
+
+    <update id="updateSales">
+        update t_sales set
+            settlement_no= #{settlementNo},
+            settlement_flag=1
+        where sales_no= #{salesNo}
+    </update>
+
+    <delete id="delete">
+        delete from t_settlement
+        where settlement_no= #{settlementNo}
+        and cktime is null
+    </delete>
+
+    <update id="update">
+        update t_settlement set
+            ck_name= #{ckName}
+            cktime= now()
+        where settlement_no= #{settlementNo}
+        and cktime is null
+    </update>
 </mapper>

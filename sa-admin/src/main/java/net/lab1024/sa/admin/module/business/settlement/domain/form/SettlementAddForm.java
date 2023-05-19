@@ -1,6 +1,8 @@
 package net.lab1024.sa.admin.module.business.settlement.domain.form;
 
 import io.swagger.annotations.ApiModelProperty;
+
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import javax.validation.constraints.NotBlank;
@@ -17,13 +19,12 @@ import lombok.Data;
 @Data
 public class SettlementAddForm {
 
-    @ApiModelProperty(value = "主键ID", required = true)
-    @NotNull(message = "主键ID 不能为空")
-    private Long id;
+    @ApiModelProperty(value = "结算单号", required = true)
+    private String settlementNo;
 
-    @ApiModelProperty(value = "组织id", required = true)
-    @NotBlank(message = "组织id 不能为空")
-    private String orgId;
+    @ApiModelProperty(value = "代理商", required = true)
+    @NotNull(message = "代理商不能为空")
+    private String agentId;
 
     @ApiModelProperty(value = "开始日期", required = true)
     @NotNull(message = "开始日期 不能为空")
@@ -33,25 +34,16 @@ public class SettlementAddForm {
     @NotNull(message = "结束日期 不能为空")
     private Date endDate;
 
-    @ApiModelProperty(value = "创建时间", required = true)
-    @NotNull(message = "创建时间 不能为空")
-    private Date ctime;
+    @ApiModelProperty(value = "结算金额", required = true)
+    @NotNull(message = "结算金额 不能为空")
+    private BigDecimal shareAmount;
 
-    @ApiModelProperty(value = "创建员", required = true)
-    @NotBlank(message = "创建员 不能为空")
-    private String cempName;
+    @ApiModelProperty(value = "备注", required = true)
+    private String description;
 
-    @ApiModelProperty(value = "审核时间", required = true)
-    @NotNull(message = "审核时间 不能为空")
-    private Date cktime;
-
-    @ApiModelProperty(value = "审核员", required = true)
-    @NotBlank(message = "审核员 不能为空")
-    private String ckName;
-
-    @ApiModelProperty(value = "时间戳", required = true)
-    @NotNull(message = "时间戳 不能为空")
-    private Long ts01;
+    @ApiModelProperty(value = "付款方式", required = true)
+    @NotNull(message = "付款方式 不能为空")
+    private int paymentId;
 
     @ApiModelProperty(value = "结算明细", required = true)
     @NotNull(message = "结算明细 不能为空")

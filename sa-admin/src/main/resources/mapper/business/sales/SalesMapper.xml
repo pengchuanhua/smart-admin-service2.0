@@ -7,7 +7,7 @@
         select a.sales_no,a.quipment_latt,a.sales_num,a.price,a.amount,a.refund_flag,a.share_ratio,a.share_amount,
         b.quipment_sn,b.quipment_name,c.code agent_code, c.name agent_name,d.code depot_code,d.name depot_name,s.goods_code,s.goods_name,
         (select category_name from t_category where t_category.category_id=s.category_id)category_name,(select name from t_brand where t_brand.id=s.brand_id)brand_name,
-        a.settlement_flag,a.settlement_id,a.cname,a.ctime,a.rpemp_name,a.rptime,a.description,case a.payment_type when 0 then '支付宝' when 1 then '微信' end payment_type
+        a.settlement_flag,a.settlement_no,a.cname,a.ctime,a.rpemp_name,a.rptime,a.description,case a.payment_type when 0 then '支付宝' when 1 then '微信' end payment_type
         from t_sales a,t_quipment b,t_agent c,t_depot d,t_goods s
         <where>
             AND a.quipment_id=b.id and a.agent_id=c.id
@@ -213,7 +213,7 @@
         select a.sales_no,a.quipment_latt,a.sales_num,a.price,a.amount,a.refund_flag,a.share_ratio,a.share_amount,
         b.quipment_sn,b.quipment_name,c.code agent_code, c.name agent_name,d.code depot_code,d.name depot_name,s.goods_code,s.goods_name,
         (select category_name from t_category where t_category.category_id=s.category_id)category_name,(select name from t_brand where t_brand.id=s.brand_id)brand_name,
-        a.settlement_flag,a.settlement_id,a.cname,a.ctime,a.rpemp_name,a.rptime,a.description,case a.payment_type when 0 then '支付宝' when 1 then '微信' end payment_type
+        a.settlement_flag,a.settlement_no,a.cname,a.ctime,a.rpemp_name,a.rptime,a.description,case a.payment_type when 0 then '支付宝' when 1 then '微信' end payment_type
         from t_sales a,t_quipment b,t_agent c,t_depot d,t_goods s
         <where>
             AND a.quipment_id=b.id and a.agent_id=c.id

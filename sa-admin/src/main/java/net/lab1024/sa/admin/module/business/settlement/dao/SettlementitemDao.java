@@ -25,5 +25,6 @@ import java.util.List;
 @Component
 public interface SettlementitemDao extends BaseMapper<SettlementitemEntity> {
 
+    int delete(String settlementNo);
 
 }

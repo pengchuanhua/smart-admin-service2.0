@@ -15,8 +15,12 @@ import lombok.Data;
 @Data
 public class SettlementUpdateForm {
 
-    @ApiModelProperty(value = "主键ID", required = true)
-    @NotNull(message = "主键ID 不能为空")
-    private Long id;
+    @ApiModelProperty(value = "结算单号", required = true)
+    @NotNull(message = "结算单号 不能为空")
+    private String settlementNo;
+
+    @ApiModelProperty(value = "时间戳", required = true)
+    @NotNull(message = "时间戳 不能为空")
+    private Long ts01;
 
 }

@@ -21,6 +21,8 @@ public enum SerialNumberIdEnum implements BaseEnum {
 
     CONTRACT(2, "合同id"),
 
+    SETTLEMENT(3,"结算单号");
+
     ;
 
     private final Integer serialNumberId;

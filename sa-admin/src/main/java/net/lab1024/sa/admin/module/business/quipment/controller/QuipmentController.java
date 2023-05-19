@@ -1,12 +1,8 @@
 package net.lab1024.sa.admin.module.business.quipment.controller;
 
-import net.lab1024.sa.admin.module.business.brand.domain.form.SelectBrandQueryForm;
-import net.lab1024.sa.admin.module.business.brand.domain.vo.BrandVO;
-import net.lab1024.sa.admin.module.business.quipment.domain.form.QuipmentAddForm;
-import net.lab1024.sa.admin.module.business.quipment.domain.form.QuipmentQueryForm;
-import net.lab1024.sa.admin.module.business.quipment.domain.form.QuipmentUpdateForm;
-import net.lab1024.sa.admin.module.business.quipment.domain.form.SelectQuipmentQueryForm;
+import net.lab1024.sa.admin.module.business.quipment.domain.form.*;
 import net.lab1024.sa.admin.module.business.quipment.domain.vo.QuipmentLogVO;
+import net.lab1024.sa.admin.module.business.quipment.domain.vo.QuipmentSoaVO;
 import net.lab1024.sa.admin.module.business.quipment.domain.vo.QuipmentVO;
 import net.lab1024.sa.admin.module.business.quipment.service.QuipmentService;
 import net.lab1024.sa.common.common.domain.ValidateList;
@@ -54,6 +50,12 @@ public class QuipmentController {
     @GetMapping("/quipment/queryQuipmentLog/{quipmentId}")
     public ResponseDTO<List<QuipmentLogVO>>queryQuipmentLog(@PathVariable Long quipmentId){
         return quipmentService.queryQuipmentLog(quipmentId);
+    }
+
+    @ApiOperation("查询设备状态")
+    @PostMapping("/quipment/queryQuipmentState")
+    public ResponseDTO<List<QuipmentSoaVO>>queryQuipmentState(@RequestBody @Valid QuipmentSoaQueryForm queryForm){
+        return quipmentService.queryQuipmentState(queryForm);
     }
 
     @ApiOperation("添加 @author pengch")

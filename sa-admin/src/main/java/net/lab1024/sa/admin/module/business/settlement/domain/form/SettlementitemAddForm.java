@@ -17,21 +17,25 @@ import lombok.Data;
 @Data
 public class SettlementitemAddForm {
 
-    @ApiModelProperty(value = "组织ID", required = true)
-    @NotBlank(message = "组织ID 不能为空")
-    private String orgId;
-
-    @ApiModelProperty(value = "结算单id", required = true)
-    @NotNull(message = "结算单id 不能为空")
-    private Long settlementId;
-
     @ApiModelProperty(value = "销售单id", required = true)
-    @NotNull(message = "销售单id 不能为空")
-    private Long salesId;
+    @NotNull(message = "销售单号 不能为空")
+    private String salesNo;
 
     @ApiModelProperty(value = "商品id", required = true)
     @NotNull(message = "商品id 不能为空")
     private Long goodsId;
+
+    @ApiModelProperty(value = "销售数量", required = true)
+    @NotNull(message = "销售数量 不能为空")
+    private int salesNum;
+
+    @ApiModelProperty(value = "销售单价", required = true)
+    @NotNull(message = "销售数量 不能为空")
+    private BigDecimal price;
+
+    @ApiModelProperty(value = "销售数量", required = true)
+    @NotNull(message = "销售金额 不能为空")
+    private BigDecimal amount;
 
     @ApiModelProperty(value = "结算金额(分成)", required = true)
     @NotNull(message = "结算金额(分成) 不能为空")

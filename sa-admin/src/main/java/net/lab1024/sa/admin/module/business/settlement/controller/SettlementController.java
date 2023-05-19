@@ -1,13 +1,14 @@
 package net.lab1024.sa.admin.module.business.settlement.controller;
 
-import net.lab1024.sa.admin.module.business.settlement.domain.form.SalesQueryForm;
-import net.lab1024.sa.admin.module.business.settlement.domain.form.SettlementAddForm;
-import net.lab1024.sa.admin.module.business.settlement.domain.form.SettlementQueryForm;
-import net.lab1024.sa.admin.module.business.settlement.domain.form.SettlementUpdateForm;
+import net.lab1024.sa.admin.module.business.settlement.domain.form.*;
+import net.lab1024.sa.admin.module.business.settlement.domain.vo.PaymentVO;
 import net.lab1024.sa.admin.module.business.settlement.domain.vo.QuerySalesVO;
 import net.lab1024.sa.admin.module.business.settlement.domain.vo.SettlementVO;
+import net.lab1024.sa.admin.module.business.settlement.domain.vo.SettlementitemVO;
 import net.lab1024.sa.admin.module.business.settlement.service.SettlementService;
 import net.lab1024.sa.common.common.domain.ValidateList;
+import net.lab1024.sa.common.module.support.serialnumber.constant.SerialNumberIdEnum;
+import net.lab1024.sa.common.module.support.serialnumber.service.SerialNumberService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import net.lab1024.sa.common.common.domain.ResponseDTO;
@@ -36,39 +37,50 @@ public class SettlementController {
     @Autowired
     private SettlementService settlementService;
 
+    @Autowired
+    private SerialNumberService serialNumberService;
+
     @ApiOperation("分页查询 @author pengch")
     @PostMapping("/settlement/queryPage")
     public ResponseDTO<PageResult<SettlementVO>> queryPage(@RequestBody @Valid SettlementQueryForm queryForm) {
         return ResponseDTO.ok(settlementService.queryPage(queryForm));
     }
 
-    @ApiOperation("查询待结算明细")
+    @ApiOperation("查询待结算明细 @author pengch")
     @PostMapping("/settlement/querySales")
-    public ResponseDTO<List<QuerySalesVO>>querySales(@RequestBody @Valid SalesQueryForm queryForm){
-        return settlementService.querySales(queryForm);
+    public ResponseDTO<PageResult<QuerySalesVO>>querySales(@RequestBody @Valid SalesQueryForm queryForm){
+        return ResponseDTO.ok(settlementService.querySales(queryForm));
+    }
+
+    @ApiOperation("查结算明细详情 @author pengch")
+    @PostMapping("/settlement/querySettlementitem")
+    public ResponseDTO<List<SettlementitemVO>>querySettlementitem(@RequestBody @Valid SettlementitemQueryForm queryForm){
+        return settlementService.querySettlementitem(queryForm);
+    }
+
+    @ApiOperation("查询付款方式")
+    @PostMapping("/settlement/queryPayment")
+    public ResponseDTO<List<PaymentVO>>queryPayment(){
+        return settlementService.queryPayment();
     }
 
     @ApiOperation("添加 @author pengch")
     @PostMapping("/settlement/add")
     public ResponseDTO<String> add(@RequestBody @Valid SettlementAddForm addForm) {
+        String settlementNo=serialNumberService.generate(SerialNumberIdEnum.SETTLEMENT);
+        addForm.setSettlementNo(settlementNo);
         return settlementService.add(addForm);
     }
 
-    @ApiOperation("更新 @author pengch")
-    @PostMapping("/settlement/update")
+    @ApiOperation("审核 @author pengch")
+    @PostMapping("/settlement/check")
     public ResponseDTO<String> update(@RequestBody @Valid SettlementUpdateForm updateForm) {
         return settlementService.update(updateForm);
     }
 
-    @ApiOperation("批量删除 @author pengch")
-    @PostMapping("/settlement/batchDelete")
-    public ResponseDTO<String> batchDelete(@RequestBody ValidateList<Long> idList) {
-        return settlementService.batchDelete(idList);
-    }
-
     @ApiOperation("单个删除 @author pengch")
-    @GetMapping("/settlement/delete/{settlementId}")
-    public ResponseDTO<String> batchDelete(@PathVariable Long settlementId) {
-        return settlementService.delete(settlementId);
+    @GetMapping("/settlement/delete/{settlementNo}")
+    public ResponseDTO<String> batchDelete(@PathVariable String settlementNo) {
+        return settlementService.delete(settlementNo);
     }
 }
