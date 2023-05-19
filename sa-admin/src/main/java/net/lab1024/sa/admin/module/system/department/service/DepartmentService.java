@@ -84,12 +84,12 @@ public class DepartmentService {
         if (entity == null) {
             return ResponseDTO.error(UserErrorCode.DATA_NOT_EXIST);
         }
-        if(!entity.getCode().equals(updateDTO.getCode())){
-            int subDepartmentNum = departmentDao.countSubDepartment(updateDTO.getDepartmentId());
-            if (subDepartmentNum > 0) {
-                return ResponseDTO.userErrorParam("存在子级部门,请删除子级部门后修改部门编码");
-            }
-        }
+//        if(!entity.getCode().equals(updateDTO.getCode())){
+//            int subDepartmentNum = departmentDao.countSubDepartment(updateDTO.getDepartmentId());
+//            if (subDepartmentNum > 0) {
+//                return ResponseDTO.userErrorParam("存在子级部门,请删除子级部门后修改部门编码");
+//            }
+//        }
         DepartmentEntity departmentEntity = SmartBeanUtil.copy(updateDTO, DepartmentEntity.class);
         departmentEntity.setSort(updateDTO.getSort());
         departmentDao.updateById(departmentEntity);

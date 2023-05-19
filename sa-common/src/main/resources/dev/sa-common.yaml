@@ -89,9 +89,9 @@ file:
     local:
       path: ${localPath:/home}/smart_admin_v2/upload/
     cloud:
-      region: oss-cn-hangzhou
-      endpoint: oss-cn-hangzhou.aliyuncs.com
-      bucket-name: 1024lab-smart-admin
+      region: pengchuanhua
+      endpoint: ecymiao.com
+      bucket-name: pengchuanhua
       access-key:
       secret-key:
       url:

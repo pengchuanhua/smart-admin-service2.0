@@ -80,12 +80,16 @@ public class StockIoService {
 
         StockInfoEntity stockInfoEntity = SmartBeanUtil.copy(addForm, StockInfoEntity.class);
         stockInfoEntity.setOrgId("1");
-        stockInfoEntity.setStockNum(stockIoEntity.getOperNum());
         stockInfoEntity.setCempName(authenticationInfo.getAuthentication().getName());
         stockInfoEntity.setCtime(new Date());
         stockInfoEntity.setUempName(authenticationInfo.getAuthentication().getName());
         stockInfoEntity.setUtime(new Date());
         stockInfoEntity.setTs01(System.currentTimeMillis());
+        if (stockIoEntity.getType()==1) {//出库
+            stockInfoEntity.setStockNum(stockIoEntity.getOperNum()*-1);
+        }else {
+            stockInfoEntity.setStockNum(stockIoEntity.getOperNum());
+        }
 
         int count = stockInfoDao.updateStock(stockInfoEntity);
         if(count==0){

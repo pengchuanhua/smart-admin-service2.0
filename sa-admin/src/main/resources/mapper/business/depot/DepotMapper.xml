@@ -8,6 +8,7 @@
         *
         FROM t_depot
         <where>
+        JL{DEPOT|t_depot.code}JL
             <!--仓库编码/名称-->
             <if test="queryForm.depot != null and queryForm.depot != ''">
                 AND ( INSTR(t_depot.code,#{queryForm.depot})

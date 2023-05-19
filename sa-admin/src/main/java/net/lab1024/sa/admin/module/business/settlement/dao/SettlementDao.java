@@ -3,6 +3,7 @@ package net.lab1024.sa.admin.module.business.settlement.dao;
 import java.util.List;
 import net.lab1024.sa.admin.module.business.settlement.domain.entity.SettlementEntity;
 import net.lab1024.sa.admin.module.business.settlement.domain.entity.SettlementitemEntity;
+import net.lab1024.sa.admin.module.business.settlement.domain.form.SalesQueryForm;
 import net.lab1024.sa.admin.module.business.settlement.domain.form.SettlementQueryForm;
 import net.lab1024.sa.admin.module.business.settlement.domain.form.SettlementitemQueryForm;
 import net.lab1024.sa.admin.module.business.settlement.domain.vo.QuerySalesVO;
@@ -34,9 +35,9 @@ public interface SettlementDao extends BaseMapper<SettlementEntity> {
      */
     List<SettlementVO> queryPage(Page page, @Param("queryForm") SettlementQueryForm queryForm);
 
-    SettlementitemEntity querySettlementitem(@Param("queryForm") SettlementitemQueryForm queryForm);
+    List<SettlementitemEntity> querySettlementitem(@Param("queryForm") SettlementitemQueryForm queryForm);
 
 
-    List<QuerySalesVO> querySales(@Param("queryForm") SettlementQueryForm queryForm);
+    List<QuerySalesVO> querySales(@Param("queryForm") SalesQueryForm queryForm);
 
 }

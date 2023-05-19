@@ -65,8 +65,15 @@ public class SalesController {
 
     @ApiOperation("分页查询-销售退货明细 @author pengch")
     @PostMapping("/querySalesRef/queryPage")
-    public ResponseDTO<PageResult<SalesRefQueryVO>> queryPage(@RequestBody @Valid SalesRefQueryForm queryForm) {
+    public ResponseDTO<PageResult<SalesRefQueryVO>> querySalesRef(@RequestBody @Valid SalesRefQueryForm queryForm) {
         return ResponseDTO.ok(salesService.queryPage(queryForm));
+    }
+
+
+    @ApiOperation("分页查询-销售明细分析 @author pengch")
+    @PostMapping("/sales/queryPage")
+    public ResponseDTO<PageResult<SalesQueryVO>> querySettmentitem(@RequestBody @Valid SalesQueryForm queryForm) {
+        return ResponseDTO.ok(salesService.querySettmentitem(queryForm));
     }
 
 }

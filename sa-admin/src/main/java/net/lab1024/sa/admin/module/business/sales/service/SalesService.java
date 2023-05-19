@@ -92,4 +92,11 @@ public class SalesService {
         }
         return Optional.of(entity);
     }
+
+    public PageResult<SalesQueryVO> querySettmentitem(SalesQueryForm queryForm) {
+        Page<?> page = SmartPageUtil.convert2PageQuery(queryForm);
+        List<SalesQueryVO> list = salesDao.querySettmentitem(page, queryForm);
+        PageResult<SalesQueryVO> pageResult = SmartPageUtil.convert2PageResult(page, list);
+        return pageResult;
+    }
 }

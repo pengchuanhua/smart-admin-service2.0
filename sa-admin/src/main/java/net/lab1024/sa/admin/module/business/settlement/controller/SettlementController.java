@@ -1,5 +1,6 @@
 package net.lab1024.sa.admin.module.business.settlement.controller;
 
+import net.lab1024.sa.admin.module.business.settlement.domain.form.SalesQueryForm;
 import net.lab1024.sa.admin.module.business.settlement.domain.form.SettlementAddForm;
 import net.lab1024.sa.admin.module.business.settlement.domain.form.SettlementQueryForm;
 import net.lab1024.sa.admin.module.business.settlement.domain.form.SettlementUpdateForm;
@@ -43,7 +44,7 @@ public class SettlementController {
 
     @ApiOperation("查询待结算明细")
     @PostMapping("/settlement/querySales")
-    public ResponseDTO<List<QuerySalesVO>>querySales(@RequestBody @Valid SettlementQueryForm queryForm){
+    public ResponseDTO<List<QuerySalesVO>>querySales(@RequestBody @Valid SalesQueryForm queryForm){
         return settlementService.querySales(queryForm);
     }
 

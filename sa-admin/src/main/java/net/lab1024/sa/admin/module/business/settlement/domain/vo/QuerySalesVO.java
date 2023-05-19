@@ -17,15 +17,17 @@ import java.time.LocalDateTime;
 @Data
 public class QuerySalesVO {
 
+    @ApiModelProperty(value = "销售单号")
+    private String salesNo;
 
-    @ApiModelProperty(value = "主键ID")
-    private Long id;
-
-    @ApiModelProperty(value = "组织id")
-    private String orgId;
+    @ApiModelProperty(value = "销售类型")
+    private String salseType;
 
     @ApiModelProperty(value = "设备ID")
     private Long quipmentId;
+
+    @ApiModelProperty(value = "设备名称")
+    private String quipmentName;
 
     @ApiModelProperty(value = "设备格子编号")
     private Integer quipmentLatt;
@@ -33,11 +35,17 @@ public class QuerySalesVO {
     @ApiModelProperty(value = "商品id")
     private Long goodsId;
 
+    @ApiModelProperty(value = "商品名称")
+    private String goodsName;
+
     @ApiModelProperty(value = "仓库id")
     private Long depotId;
 
+    @ApiModelProperty(value = "仓库名称")
+    private String depotName;
+
     @ApiModelProperty(value = "数量")
-    private BigDecimal salesNum;
+    private Integer salesNum;
 
     @ApiModelProperty(value = "销售单价")
     private BigDecimal price;
@@ -45,14 +53,14 @@ public class QuerySalesVO {
     @ApiModelProperty(value = "销售金额")
     private BigDecimal amount;
 
-    @ApiModelProperty(value = "退款标记")
-    private Integer refundFlag;
-
     @ApiModelProperty(value = "原销售ID")
-    private Long oldSalesId;
+    private String oldSalesId;
 
     @ApiModelProperty(value = "代理商id")
     private Long agentId;
+
+    @ApiModelProperty(value = "代理商id")
+    private String agentName;
 
     @ApiModelProperty(value = "分成比率")
     private BigDecimal shareRatio;
@@ -60,11 +68,8 @@ public class QuerySalesVO {
     @ApiModelProperty(value = "分成金额")
     private BigDecimal shareAmount;
 
-    @ApiModelProperty(value = "结算单id")
-    private Long settlementId;
-
-    @ApiModelProperty(value = "结算标记")
-    private Integer settlementFlag;
+    @ApiModelProperty(value = "创建人")
+    private String cName;
 
     @ApiModelProperty(value = "创建时间")
     private LocalDateTime ctime;
@@ -75,16 +80,10 @@ public class QuerySalesVO {
     @ApiModelProperty(value = "收款员工")
     private String rpempName;
 
-    @ApiModelProperty(value = "描述")
-    private String description;
-
     @ApiModelProperty(value = "支付类型(0:支付宝,1:微信)")
     private String paymentType;
 
     @ApiModelProperty(value = "支付网官号")
     private String paymentNo;
-
-    @ApiModelProperty(value = "时间戳")
-    private Long ts01;
 
 }

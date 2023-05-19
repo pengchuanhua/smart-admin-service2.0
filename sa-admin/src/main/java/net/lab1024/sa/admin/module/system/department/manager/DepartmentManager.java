@@ -37,30 +37,30 @@ public class DepartmentManager extends ServiceImpl<DepartmentDao, DepartmentEnti
         List<DepartmentEntity> departmentEntityList = departmentEntities.stream().filter(e -> e.getParentId().equals(parentId)).collect(Collectors.toList());
         List<DepartmentTreeListVO> treeList = SmartBeanUtil.copyList(departmentEntityList, DepartmentTreeListVO.class);
         treeList.forEach(e -> {
-            e.setLabel(e.getName());
+            e.setLabel(e.getCode()+"-"+e.getName());
             e.setValue(e.getDepartmentId());
         });
         // 递归设置子类
-        this.queryAndSetSubLocation(treeList, departmentEntityList);
+        this.queryAndSetSubDepartment(treeList, departmentEntities);
         return treeList;
     }
 
-    private void queryAndSetSubLocation(List<DepartmentTreeListVO> treeList, List<DepartmentEntity> departmentEntityList) {
+    private void queryAndSetSubDepartment(List<DepartmentTreeListVO> treeList, List<DepartmentEntity> departmentEntityList) {
         if (CollectionUtils.isEmpty(treeList)) {
             return;
         }
         List<Long> parentIdList = treeList.stream().map(DepartmentTreeListVO::getValue).collect(Collectors.toList());
         List<DepartmentEntity> departmentEntities = departmentEntityList.stream().filter(e -> parentIdList.contains(e.getParentId())).collect(Collectors.toList());
-        Map<Long, List<DepartmentEntity>> LocationSubMap = departmentEntities.stream().collect(Collectors.groupingBy(DepartmentEntity::getParentId));
+        Map<Long, List<DepartmentEntity>> SubMap = departmentEntities.stream().collect(Collectors.groupingBy(DepartmentEntity::getParentId));
         treeList.forEach(e -> {
-            List<DepartmentEntity> childrenEntityList = LocationSubMap.getOrDefault(e.getValue(), Lists.newArrayList());
+            List<DepartmentEntity> childrenEntityList = SubMap.getOrDefault(e.getValue(), Lists.newArrayList());
             List<DepartmentTreeListVO> childrenVOList = SmartBeanUtil.copyList(childrenEntityList, DepartmentTreeListVO.class);
             childrenVOList.forEach(item -> {
-                item.setLabel(item.getName());
+                item.setLabel(item.getCode()+"-"+item.getName());
                 item.setValue(item.getDepartmentId());
             });
             // 递归查询
-            this.queryAndSetSubLocation(childrenVOList, departmentEntityList);
+            this.queryAndSetSubDepartment(childrenVOList, departmentEntityList);
             e.setChildren(childrenVOList);
         });
     }

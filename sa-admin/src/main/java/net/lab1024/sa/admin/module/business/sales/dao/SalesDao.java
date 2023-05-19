@@ -47,5 +47,7 @@ public interface SalesDao extends BaseMapper<SalesEntity> {
 
     List<SalesQueryVO>querySales(@Param("queryForm")SalesQueryForm queryForm);
 
+    List<SalesQueryVO> querySettmentitem(Page page, @Param("queryForm") SalesQueryForm queryForm);
+
 
 }

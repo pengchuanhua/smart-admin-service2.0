@@ -80,7 +80,7 @@ public class LocationService {
         }
         //非一级场所,编码包含上级编码
         if(addForm.getLocationLevel()!=0){
-            String locationCode=locationDao.selectById(locationEntity.getParentCode()).getCode();
+            String locationCode=locationDao.queryLocationById(locationEntity.getParentCode()).getCode();
             locationEntity.setCode(locationCode+locationEntity.getCode());
         }
 
@@ -103,16 +103,16 @@ public class LocationService {
         if (updateForm.getParentCode() == null) {
             return ResponseDTO.userErrorParam("父级id不能为空");
         }
-        LocationEntity entity = locationDao.selectById(updateForm.getId());
+        LocationEntity entity = locationDao.queryLocationById(updateForm.getId());
         if (entity==null) {
             return ResponseDTO.error(UserErrorCode.DATA_NOT_EXIST);
         }
-        if(!entity.getCode().equals(updateForm.getCode())){
-            LocationEntity locationEntity = locationDao.queryLocationByParenId(updateForm.getId());
-            if (locationEntity!=null) {
-                return ResponseDTO.userErrorParam("存在子级,请删除子级后修改位置编码");
-            }
-        }
+//        if(!entity.getCode().equals(updateForm.getCode())){
+//            LocationEntity locationEntity = locationDao.queryLocationByParenId(updateForm.getId());
+//            if (locationEntity!=null) {
+//                return ResponseDTO.userErrorParam("存在子级,请删除子级后修改位置编码");
+//            }
+//        }
 
         LocationEntity locationEntity = SmartBeanUtil.copy(updateForm, LocationEntity.class);
         ResponseDTO<String> responseDTO = this.checkLocation(locationEntity, true);

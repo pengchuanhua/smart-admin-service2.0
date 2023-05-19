@@ -5,7 +5,7 @@
     <!-- 分页查询 -->
     <select id="queryPage" resultType="net.lab1024.sa.admin.module.business.settlement.domain.vo.SettlementVO">
         SELECT
-        *
+        *,(SELECT * FROM t_agent where )
         FROM t_settlement
         <where>
             <!--代理商-->
@@ -36,20 +36,34 @@
     </select>
 
     <select id="querySales" resultType="net.lab1024.sa.admin.module.business.settlement.domain.vo.QuerySalesVO">
-        SELECT
-        *
-        FROM t_sales
+        select a.agent_id,a.sales_no,a.quipment_id,a.quipment_latt,a.goods_id,a.depot_id,a.sales_num,a.price,a.amount,a.share_ratio,
+               a.share_amount,b.name agent_name,c.name depot_name,s.goods_name,d.quipment_name,a.cname,a.ctime,a.rptime,a.rpemp_name,a.old_sales_no,
+               case a.salse_type when 0 then '销售' when 1 then '退货' end salse_type,a.payment_no,
+               case a.payment_type when 0 then '支付宝' when 1 then '微信' end payment_type
+        from t_sales a,t_goods s,t_depot c,t_agent b,t_quipment d
         <where>
+            and a.agent_id=b.id and a.depot_id=c.id
+            and a.goods_id=s.goods_id and a.quipment_id=d.id
+            and a.settlement_flag=0
             <!--代理商编码/名称-->
             <if test="queryForm.agentId != null and queryForm.agentId != ''">
-                AND INSTR(t_sales.agent_id,#{queryForm.agentId})
+                AND INSTR(a.agent_id,#{queryForm.agentId})
+            </if>
+            <if test="queryForm.depotId != null and queryForm.depotId != ''">
+                AND INSTR(a.depot_id,#{queryForm.depotId})
+            </if>
+            <if test="queryForm.goodsId != null and queryForm.goodsId != ''">
+                AND INSTR(a.goods_id,#{queryForm.goodsId})
+            </if>
+            <if test="queryForm.quipmentId != null and queryForm.quipmentId != ''">
+                AND INSTR(a.quipment_id,#{queryForm.quipmentId})
             </if>
             <!--收款时间-->
-            <if test="queryForm.rptimeBegin != null">
-                AND DATE_FORMAT(t_sales.rptime, '%Y-%m-%d') &gt;= #{queryForm.rptimeBegin}
+            <if test="queryForm.startDate != null">
+                AND DATE_FORMAT(a.rptime, '%Y-%m-%d') &gt;= #{queryForm.startDate}
             </if>
-            <if test="queryForm.rptimeEnd != null">
-                AND DATE_FORMAT(t_sales.rptime, '%Y-%m-%d') &lt;= #{queryForm.rptimeEnd}
+            <if test="queryForm.endDate != null">
+                AND DATE_FORMAT(a.rptime, '%Y-%m-%d') &lt;= #{queryForm.endDate}
             </if>
         </where>
     </select>

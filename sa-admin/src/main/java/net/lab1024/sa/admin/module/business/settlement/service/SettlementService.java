@@ -10,10 +10,7 @@ import net.lab1024.sa.admin.module.business.settlement.dao.SettlementDao;
 import net.lab1024.sa.admin.module.business.settlement.dao.SettlementitemDao;
 import net.lab1024.sa.admin.module.business.settlement.domain.entity.SettlementEntity;
 import net.lab1024.sa.admin.module.business.settlement.domain.entity.SettlementitemEntity;
-import net.lab1024.sa.admin.module.business.settlement.domain.form.SettlementAddForm;
-import net.lab1024.sa.admin.module.business.settlement.domain.form.SettlementQueryForm;
-import net.lab1024.sa.admin.module.business.settlement.domain.form.SettlementUpdateForm;
-import net.lab1024.sa.admin.module.business.settlement.domain.form.SettlementitemQueryForm;
+import net.lab1024.sa.admin.module.business.settlement.domain.form.*;
 import net.lab1024.sa.admin.module.business.settlement.domain.vo.QuerySalesVO;
 import net.lab1024.sa.admin.module.business.settlement.domain.vo.SettlementVO;
 import net.lab1024.sa.common.common.code.UserErrorCode;
@@ -64,7 +61,7 @@ public class SettlementService {
         return pageResult;
     }
 
-    public ResponseDTO<List<QuerySalesVO>> querySales(SettlementQueryForm queryForm) {
+    public ResponseDTO<List<QuerySalesVO>> querySales(SalesQueryForm queryForm) {
         List<QuerySalesVO> adminVO = settlementDao.querySales(queryForm);
         if (adminVO==null) {
             return ResponseDTO.error(UserErrorCode.DATA_NOT_EXIST);
@@ -143,8 +140,8 @@ public class SettlementService {
 
         SettlementitemQueryForm settlementitemQueryForm =new SettlementitemQueryForm();
         settlementitemQueryForm.setSalesId(e.getSalesId());
-        SettlementitemEntity settlementitemEntity1=settlementDao.querySettlementitem(settlementitemQueryForm);
-        if(null!=settlementitemEntity1){
+        List<SettlementitemEntity> entityList=settlementDao.querySettlementitem(settlementitemQueryForm);
+        if(null!=entityList&&entityList.size()>0){
           throw new RuntimeException("销售单号["+e.getSalesId()+"]已存在结算记录");
         }
         toltel_amount.add(e.getShareAmount());

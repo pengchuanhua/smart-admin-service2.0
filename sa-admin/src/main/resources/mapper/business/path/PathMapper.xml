@@ -5,7 +5,7 @@
     <!-- 分页查询 -->
     <select id="queryPage" resultType="net.lab1024.sa.admin.module.business.path.domain.vo.PathVO">
         SELECT
-        *
+        *,(select actual_name from t_employee where t_employee.employee_id=t_path.chargeperson)chargeperson_name
         FROM t_path
         <where>
             <!--路线编码/名称-->
